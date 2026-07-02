@@ -498,7 +498,7 @@ h3 {
   color: var(--cream);
   background:
     linear-gradient(90deg, rgba(35, 59, 45, 0.94), rgba(35, 59, 45, 0.82)),
-    url("./assets/hero-cafe-interior.svg") center / cover;
+    url("./assets/hero-cafe-interior.jpg") center / cover;
 }
 
 .final-cta__inner {
