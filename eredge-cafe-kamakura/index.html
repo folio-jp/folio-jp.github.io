@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>eredge★Cafe｜サンプルHP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:title" content="eredge★Cafe｜サンプルHP" />
+  <meta property="og:description" content="パスタやピザ、こだわりのドリンクを、落ち着いた空間で。鎌倉・常盤のカフェレストラン。" />
+  <meta name="twitter:title" content="eredge★Cafe｜サンプルHP" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&amp;family=Zen+Kaku+Gothic+New:wght@400;500;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&amp;display=swap" rel="stylesheet" />
+  <style>
+    html, body { margin: 0; padding: 0; background: #f3eee3; overflow-x: hidden; scroll-behavior: smooth; }
+    body { font-family: 'Zen Kaku Gothic New', sans-serif; color: #372c20; -webkit-font-smoothing: antialiased; }
+    a { color: #66755b; }
+    a:hover { color: #4f5c46; }
+    img { max-width: 100%; }
+    @keyframes scrollcue { 0% { transform: scaleY(0); transform-origin: top } 45% { transform: scaleY(1); transform-origin: top } 55% { transform: scaleY(1); transform-origin: bottom } 100% { transform: scaleY(0); transform-origin: bottom } }
+  </style>
+</helmet>
+
+<div style="width: 100%; background: #f3eee3; color: #372c20; line-height: 2; overflow-x: clip">
+
+  <!-- 固定ヘッダー -->
+  <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: background 0.4s ease, box-shadow 0.4s ease; background: {{ headerBg }}; box-shadow: {{ headerShadow }}; backdrop-filter: blur(8px)">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 0 20px; height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+      <a href="#" onClick="{{ goTop }}" style="text-decoration: none; display: flex; flex-direction: column; line-height: 1.2; color: {{ headerFg }}">
+        <span style="font-family: 'Shippori Mincho', serif; font-size: 18px; font-weight: 600; letter-spacing: 0.08em">eredge★Cafe</span>
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.32em; opacity: 0.75">KAMAKURA — TOKIWA</span>
+      </a>
+      <div style="display: flex; align-items: center; gap: 10px">
+        <a href="tel:0467-55-5270" style="display: flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 16px; border: 1px solid {{ headerLine }}; border-radius: 999px; text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; color: {{ headerFg }}" style-hover="opacity: 0.7">0467-55-5270</a>
+        <button onClick="{{ toggleMenu }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; width: 44px; height: 44px; background: transparent; border: none; cursor: pointer; padding: 0">
+          <span style="display: block; width: 22px; height: 1.5px; background: {{ headerFg }}; transition: transform 0.3s ease; transform: {{ bar1 }}"></span>
+          <span style="display: block; width: 22px; height: 1.5px; background: {{ headerFg }}; transition: transform 0.3s ease, opacity 0.3s ease; opacity: {{ bar2op }}"></span>
+          <span style="display: block; width: 22px; height: 1.5px; background: {{ headerFg }}; transition: transform 0.3s ease; transform: {{ bar3 }}"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 全画面メニュー -->
+  <nav style="position: fixed; inset: 0; z-index: 40; background: rgba(28,22,15,0.97); display: flex; flex-direction: column; justify-content: center; padding: 32px 24px; transition: opacity 0.4s ease, visibility 0.4s ease; opacity: {{ menuOpacity }}; visibility: {{ menuVisibility }}">
+    <div style="max-width: 640px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 6px">
+      <a href="#concept" data-target="concept" onClick="{{ nav }}" style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; text-decoration: none; color: #f0e9da; border-bottom: 1px solid rgba(240,233,218,0.15)" style-hover="color: #c9d3bd"><span style="font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: 0.2em; opacity: 0.6">01</span><span style="font-family: 'Shippori Mincho', serif; font-size: 24px; letter-spacing: 0.06em">このお店について</span></a>
+      <a href="#menu" data-target="menu" onClick="{{ nav }}" style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; text-decoration: none; color: #f0e9da; border-bottom: 1px solid rgba(240,233,218,0.15)" style-hover="color: #c9d3bd"><span style="font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: 0.2em; opacity: 0.6">02</span><span style="font-family: 'Shippori Mincho', serif; font-size: 24px; letter-spacing: 0.06em">お食事とドリンク</span></a>
+      <a href="#space" data-target="space" onClick="{{ nav }}" style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; text-decoration: none; color: #f0e9da; border-bottom: 1px solid rgba(240,233,218,0.15)" style-hover="color: #c9d3bd"><span style="font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: 0.2em; opacity: 0.6">03</span><span style="font-family: 'Shippori Mincho', serif; font-size: 24px; letter-spacing: 0.06em">店内とテラス</span></a>
+      <a href="#first" data-target="first" onClick="{{ nav }}" style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; text-decoration: none; color: #f0e9da; border-bottom: 1px solid rgba(240,233,218,0.15)" style-hover="color: #c9d3bd"><span style="font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: 0.2em; opacity: 0.6">04</span><span style="font-family: 'Shippori Mincho', serif; font-size: 24px; letter-spacing: 0.06em">初めての方へ</span></a>
+      <a href="#info" data-target="info" onClick="{{ nav }}" style="display: flex; align-items: baseline; gap: 16px; padding: 14px 0; text-decoration: none; color: #f0e9da; border-bottom: 1px solid rgba(240,233,218,0.15)" style-hover="color: #c9d3bd"><span style="font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: 0.2em; opacity: 0.6">05</span><span style="font-family: 'Shippori Mincho', serif; font-size: 24px; letter-spacing: 0.06em">店舗情報・アクセス</span></a>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px">
+        <a href="https://www.instagram.com/eredge_cafe?igsh=OWNrZnV2NGs3MHE1&amp;utm_source=qr" target="_blank" rel="noopener" style="display: flex; justify-content: center; align-items: center; min-height: 50px; padding: 0 28px; background: #66755b; color: #f6f2e7; text-decoration: none; border-radius: 999px; font-weight: 700; font-size: 14px; letter-spacing: 0.06em" style-hover="background: #57644d; color: #f6f2e7">Instagram</a>
+        <a href="tel:0467-55-5270" style="display: flex; justify-content: center; align-items: center; min-height: 50px; padding: 0 28px; border: 1px solid rgba(240,233,218,0.5); color: #f0e9da; text-decoration: none; border-radius: 999px; font-weight: 700; font-size: 14px; letter-spacing: 0.06em" style-hover="background: rgba(240,233,218,0.12); color: #f0e9da">電話をかける</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ファーストビュー -->
+  <section data-screen-label="ファーストビュー" style="position: relative; width: 100%; min-height: 100svh; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end">
+    <img src="images/hero.jpg" alt="店内のテーブルに置かれた料理とコーヒー" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transform: scale({{ heroScale }}); transition: transform 0.2s linear" />
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,22,15,0.78) 0%, rgba(28,22,15,0.28) 50%, rgba(28,22,15,0.22) 100%)"></div>
+    <div style="position: absolute; top: 84px; right: 22px; writing-mode: vertical-rl; color: rgba(246,242,231,0.75); font-family: 'Shippori Mincho', serif; font-size: 13px; letter-spacing: 0.42em">鎌倉・常盤 — カフェレストラン</div>
+    <div style="position: relative; width: 100%; box-sizing: border-box; max-width: 1120px; margin: 0 auto; padding: 140px 24px 96px; color: #f6f2e7; display: flex; flex-direction: column; gap: 20px">
+      <p style="margin: 0; font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.4em; opacity: 0.8">CAFE &amp; RESTAURANT — SINCE KAMAKURA TOKIWA</p>
+      <h1 style="margin: 0; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: clamp(32px, 7vw, 64px); line-height: 1.5; letter-spacing: 0.05em; text-wrap: balance">鎌倉・常盤で、<br />ゆっくり味わう<br />カフェごはん</h1>
+      <p style="margin: 0; font-size: clamp(14px, 3.6vw, 16px); line-height: 2.2; opacity: 0.92; max-width: 480px">パスタやピザ、こだわりのドリンクを、落ち着いた空間で。<br />観光や散策の途中にも立ち寄りやすい<br />カフェレストランです。</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px">
+        <a href="https://www.instagram.com/eredge_cafe?igsh=OWNrZnV2NGs3MHE1&amp;utm_source=qr" target="_blank" rel="noopener" style="display: flex; justify-content: center; align-items: center; min-height: 54px; padding: 0 30px; background: #f6f2e7; color: #33402c; text-decoration: none; border-radius: 999px; font-weight: 700; font-size: 15px; letter-spacing: 0.05em; flex: 1 1 auto; max-width: 340px" style-hover="background: #e5ddc9; color: #33402c">Instagramで営業日を確認する</a>
+        <a href="tel:0467-55-5270" style="display: flex; justify-content: center; align-items: center; min-height: 54px; padding: 0 30px; border: 1px solid rgba(246,242,231,0.65); color: #f6f2e7; text-decoration: none; border-radius: 999px; font-weight: 700; font-size: 15px; letter-spacing: 0.05em; flex: 1 1 auto; max-width: 340px" style-hover="background: rgba(246,242,231,0.15); color: #f6f2e7">電話で問い合わせる</a>
+      </div>
+    </div>
+    <div style="position: absolute; bottom: 0; left: 50%; width: 1px; height: 64px; background: rgba(246,242,231,0.6); animation: scrollcue 2.4s ease-in-out infinite"></div>
+  </section>
+
+  <!-- 01 コンセプト -->
+  <section id="concept" data-screen-label="コンセプト" style="padding: clamp(80px, 12vw, 140px) 24px 0">
+    <div style="max-width: 1120px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(32px, 6vw, 80px); align-items: flex-start">
+      <div data-reveal="1" style="flex: 1 1 380px; min-width: 300px; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+        <p style="margin: 0 0 14px; display: flex; align-items: center; gap: 12px; color: #66755b; font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.34em"><span style="display: block; width: 36px; height: 1px; background: #66755b"></span>01 — CONCEPT</p>
+        <h2 style="margin: 0 0 24px; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: clamp(26px, 5vw, 42px); line-height: 1.7; letter-spacing: 0.04em">観光地のにぎわいから、<br />少し離れて。</h2>
+        <p style="margin: 0 0 16px; font-size: 15px; line-height: 2.3; color: #574a3b">鎌倉駅周辺の人混みから少し離れた、山側の常盤エリア。ここでは、会話を楽しみながら、ゆっくりと食事やお茶の時間を過ごせます。</p>
+        <p style="margin: 0; font-size: 15px; line-height: 2.3; color: #574a3b">料理の味わいはもちろん、盛り付けや器、インテリア、ドリンクの一杯まで。食事の時間そのものを大切にしたい方のためのカフェレストランです。</p>
+      </div>
+      <div data-reveal="1" style="flex: 1 1 420px; min-width: 300px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; align-items: end; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease 0.15s, transform 0.9s ease 0.15s">
+        <img src="images/interior.jpg" alt="ウッド調の落ち着いた店内" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; border-radius: 4px" />
+        <img src="images/tea.jpg" alt="器にもこだわった紅茶" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; border-radius: 4px; margin-bottom: clamp(24px, 5vw, 64px)" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 選ばれる理由 -->
+  <section data-screen-label="選ばれる理由" style="padding: clamp(80px, 12vw, 140px) 24px">
+    <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column">
+      <div data-reveal="1" style="display: flex; gap: clamp(20px, 4vw, 48px); padding: clamp(28px, 5vw, 48px) 0; border-top: 1px solid #d9cfba; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+        <div style="flex: none; font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 5vw, 44px); color: #b9ac93; line-height: 1">1</div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <h3 style="margin: 0; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: clamp(18px, 4vw, 24px); line-height: 1.7; letter-spacing: 0.04em">カフェでありながら、<br />食事もしっかり楽しめる</h3>
+          <p style="margin: 0; font-size: 14px; line-height: 2.2; color: #574a3b">パスタやピザ、前菜、デザートまで、食事目的でも訪れやすいカフェレストランです。ランチやディナー、カフェ利用まで、気分に合わせて過ごせます。</p>
+        </div>
+      </div>
+      <div data-reveal="1" style="display: flex; gap: clamp(20px, 4vw, 48px); padding: clamp(28px, 5vw, 48px) 0; border-top: 1px solid #d9cfba; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+        <div style="flex: none; font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 5vw, 44px); color: #b9ac93; line-height: 1">2</div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <h3 style="margin: 0; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: clamp(18px, 4vw, 24px); line-height: 1.7; letter-spacing: 0.04em">鎌倉の山側で過ごす、<br />落ち着いた時間</h3>
+          <p style="margin: 0; font-size: 14px; line-height: 2.2; color: #574a3b">観光地のにぎわいから少し離れた常盤エリアで、会話を楽しみながらゆっくり過ごせます。散策や観光の途中に立ち寄りやすい一軒です。</p>
+        </div>
+      </div>
+      <div data-reveal="1" style="display: flex; gap: clamp(20px, 4vw, 48px); padding: clamp(28px, 5vw, 48px) 0; border-top: 1px solid #d9cfba; border-bottom: 1px solid #d9cfba; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+        <div style="flex: none; font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 5vw, 44px); color: #b9ac93; line-height: 1">3</div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <h3 style="margin: 0; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: clamp(18px, 4vw, 24px); line-height: 1.7; letter-spacing: 0.04em">料理・ドリンク・空間まで、<br />こだわりを感じる店内</h3>
+          <p style="margin: 0; font-size: 14px; line-height: 2.2; color: #574a3b">盛り付けや食器、インテリア、ドリンクの種類まで楽しめる空間です。初めての方や観光で訪れる方にも、自然にくつろげる雰囲気があります。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 メニュー -->
+  <section id="menu" data-screen-label="メニュー" style="background: #ebe4d2; padding: clamp(80px, 12vw, 140px) 24px">
+    <div style="max-width: 1120px; margin: 0 auto">
+      <div data-reveal="1" style="max-width: 640px; margin-bottom: clamp(40px, 7vw, 72px); opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+        <p style="margin: 0 0 14px; display: flex; align-items: center; gap: 12px; color: #66755b; font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.34em"><span style="display: block; width: 36px; height: 1px; background: #66755b"></span>02 — FOOD &amp; DRINK</p>
+        <h2 style="margin: 0 0 20px; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: clamp(26px, 5vw, 42px); line-height: 1.7; letter-spacing: 0.04em">パスタ、ピザ、<br />ドリンクまで気分に合わせて</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 2.3; color: #574a3b">食事にもカフェ時間にも合わせやすいメニューが揃っています。テイクアウトに対応している情報もあります。</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: clamp(24px, 4vw, 48px)">
+        <figure data-reveal="1" style="margin: 0; display: flex; flex-direction: column; gap: 14px; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+          <div style="overflow: hidden; border-radius: 4px"><img src="images/pasta.jpg" alt="パスタ" style="width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; transition: transform 0.7s ease" style-hover="transform: scale(1.04)" /></div>
+          <figcaption style="display: flex; flex-direction: column; gap: 4px">
+            <div style="display: flex; align-items: baseline; gap: 12px"><span style="font-family: 'Shippori Mincho', serif; font-size: 20px; font-weight: 600; letter-spacing: 0.06em">パスタ</span><span style="font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: 0.24em; color: #8a7c65">PASTA</span></div>
+            <p style="margin: 0; font-size: 13px; line-height: 2; color: #574a3b">食事目的でも満足できる、しっかりとした一皿。ランチにもディナーにも。</p>
+          </figcaption>
+        </figure>
+        <figure data-reveal="1" style="margin: 0; display: flex; flex-direction: column; gap: 14px; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease 0.1s, transform 0.9s ease 0.1s">
+          <div style="overflow: hidden; border-radius: 4px"><img src="images/pizza.jpg" alt="ピザ" style="width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; transition: transform 0.7s ease" style-hover="transform: scale(1.04)" /></div>
+          <figcaption style="display: flex; flex-direction: column; gap: 4px">
+            <div style="display: flex; align-items: baseline; gap: 12px"><span style="font-family: 'Shippori Mincho', serif; font-size: 20px; font-weight: 600; letter-spacing: 0.06em">ピザ</span><span style="font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: 0.24em; color: #8a7c65">PIZZA</span></div>
+            <p style="margin: 0; font-size: 13px; line-height: 2; color: #574a3b">パスタと並ぶ食事の柱。シェアしながらの利用にも合います。</p>
+          </figcaption>
+        </figure>
+        <figure data-reveal="1" style="margin: 0; display: flex; flex-direction: column; gap: 14px; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+          <div style="overflow: hidden; border-radius: 4px"><img src="images/cheesecake.jpg" alt="デザート" style="width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; transition: transform 0.7s ease" style-hover="transform: scale(1.04)" /></div>
+          <figcaption style="display: flex; flex-direction: column; gap: 4px">
+            <div style="display: flex; align-items: baseline; gap: 12px"><span style="font-family: 'Shippori Mincho', serif; font-size: 20px; font-weight: 600; letter-spacing: 0.06em">前菜・デザート</span><span style="font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: 0.24em; color: #8a7c65">DESSERT</span></div>
+            <p style="margin: 0; font-size: 13px; line-height: 2; color: #574a3b">盛り付けまで楽しめる一皿。食後のカフェ時間とあわせて。</p>
+          </figcaption>
+        </figure>
+        <figure data-reveal="1" style="margin: 0; display: flex; flex-direction: column; gap: 14px; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease 0.1s, transform 0.9s ease 0.1s">
+          <div style="overflow: hidden; border-radius: 4px"><img src="images/coffee.jpg" alt="コーヒーなどのドリンク" style="width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; transition: transform 0.7s ease" style-hover="transform: scale(1.04)" /></div>
+          <figcaption style="display: flex; flex-direction: column; gap: 4px">
+            <div style="display: flex; align-items: baseline; gap: 12px"><span style="font-family: 'Shippori Mincho', serif; font-size: 20px; font-weight: 600; letter-spacing: 0.06em">ドリンク</span><span style="font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: 0.24em; color: #8a7c65">DRINK</span></div>
+            <p style="margin: 0; font-size: 13px; line-height: 2; color: #574a3b">コーヒー、紅茶、ラテ、中国茶、ワインまで。一杯にも個性があります。</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div data-reveal="1" style="margin-top: clamp(32px, 5vw, 56px); display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; border-top: 1px solid #cfc4ab; padding-top: 24px; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+        <p style="margin: 0; font-size: 13px; color: #6d5f4d; line-height: 2">ご予算の目安：おひとり ￥1,000〜￥2,000 の報告が多く見られます</p>
+        <p style="margin: 0; font-size: 12px; color: #8a7c65; line-height: 2">※ メニュー内容・提供状況は時期により変わる場合があります</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 店内とテラス -->
+  <section id="space" data-screen-label="店舗の雰囲気" style="background: #241c12; color: #efe8d8; padding: clamp(80px, 12vw, 140px) 0 0; overflow: hidden">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 0 24px">
+      <div data-reveal="1" style="max-width: 640px; margin-bottom: clamp(40px, 7vw, 72px); opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+        <p style="margin: 0 0 14px; display: flex; align-items: center; gap: 12px; color: #a8b89e; font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.34em"><span style="display: block; width: 36px; height: 1px; background: #a8b89e"></span>03 — SPACE &amp; TERRACE</p>
+        <h2 style="margin: 0 0 20px; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: clamp(26px, 5vw, 42px); line-height: 1.7; letter-spacing: 0.04em">鎌倉の散策途中に、<br />ひと息つける場所</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 2.3; opacity: 0.85">ウッド調の落ち着いた店内で、食事やドリンクをゆっくり。屋内席のほか屋外テラスもあり、静かに会話を楽しめます。</p>
+      </div>
+    </div>
+    <div style="max-width: 1120px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; align-items: stretch">
+      <figure data-reveal="1" style="margin: 0; grid-column: 1 / -1; display: flex; flex-direction: column; gap: 10px; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+        <img src="images/interior.jpg" alt="木のぬくもりを感じる店内" style="width: 100%; aspect-ratio: 21 / 9; object-fit: cover; display: block; border-radius: 4px" />
+        <figcaption style="font-size: 13px; opacity: 0.7; line-height: 2">木のぬくもりを感じる店内。ドライフラワーや器の並ぶ棚まで、目に映るものすべてに表情があります。</figcaption>
+      </figure>
+      <figure data-reveal="1" style="margin: 0; display: flex; flex-direction: column; gap: 10px; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+        <img src="images/terrace.jpg" alt="緑に囲まれたテラス席" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; border-radius: 4px" />
+        <figcaption style="font-size: 13px; opacity: 0.7; line-height: 2">緑に囲まれたテラス席。鎌倉散策の途中に、外の空気とともにひと休みできます。</figcaption>
+      </figure>
+      <figure data-reveal="1" style="margin: 0; display: flex; flex-direction: column; gap: 10px; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease 0.1s, transform 0.9s ease 0.1s">
+        <img src="images/dessert.jpg" alt="盛り付けにこだわった一皿" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; border-radius: 4px" />
+        <figcaption style="font-size: 13px; opacity: 0.7; line-height: 2">盛り付けや器まで楽しめる一皿。食事の時間が、そのまま思い出になります。</figcaption>
+      </figure>
+      <figure data-reveal="1" style="margin: 0; display: flex; flex-direction: column; gap: 10px; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease 0.2s, transform 0.9s ease 0.2s">
+        <img src="images/restroom.jpg" alt="細部まで手入れの行き届いた空間" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block; border-radius: 4px" />
+        <figcaption style="font-size: 13px; opacity: 0.7; line-height: 2">お手洗いなどの細部まで、空間全体に好意的な声が寄せられています。</figcaption>
+      </figure>
+    </div>
+    <figure data-reveal="1" style="margin: clamp(40px, 7vw, 72px) 0 0; position: relative; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+      <img src="images/exterior.jpg" alt="常盤エリアに佇む店舗の外観" style="width: 100%; height: clamp(280px, 50vw, 520px); object-fit: cover; display: block" />
+      <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,22,15,0.6), rgba(28,22,15,0) 55%)"></div>
+      <figcaption style="position: absolute; left: 0; right: 0; bottom: 0; max-width: 1120px; margin: 0 auto; padding: 0 24px 28px; font-family: 'Shippori Mincho', serif; font-size: clamp(16px, 3.4vw, 22px); letter-spacing: 0.06em; line-height: 1.9">緑の多い常盤エリアに佇む一軒。<br />散策の途中に、見つけてください。</figcaption>
+    </figure>
+  </section>
+
+  <!-- 04 初めての方へ -->
+  <section id="first" data-screen-label="初めての方へ" style="padding: clamp(80px, 12vw, 140px) 24px">
+    <div style="max-width: 1120px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: clamp(32px, 6vw, 80px)">
+      <div data-reveal="1" style="flex: 1 1 320px; min-width: 280px; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+        <p style="margin: 0 0 14px; display: flex; align-items: center; gap: 12px; color: #66755b; font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.34em"><span style="display: block; width: 36px; height: 1px; background: #66755b"></span>04 — FIRST VISIT</p>
+        <h2 style="margin: 0 0 20px; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: clamp(26px, 5vw, 42px); line-height: 1.7; letter-spacing: 0.04em">初めてでも、<br />肩の力を抜いて<br />過ごせます</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 2.3; color: #574a3b">ご来店前に知っておくと安心なことを、まとめました。</p>
+      </div>
+      <div style="flex: 1 1 480px; min-width: 300px; display: flex; flex-direction: column">
+        <div data-reveal="1" style="display: flex; flex-direction: column; gap: 8px; padding: 24px 0; border-top: 1px solid #d9cfba; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+          <h3 style="margin: 0; display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 700; letter-spacing: 0.04em"><span style="display: block; width: 8px; height: 8px; border-radius: 50%; background: #66755b; flex: none"></span>営業日・休憩時間について</h3>
+          <p style="margin: 0 0 0 20px; font-size: 14px; line-height: 2.2; color: #574a3b">変更される場合があるため、ご来店前にInstagramやお電話での確認がおすすめです。</p>
+        </div>
+        <div data-reveal="1" style="display: flex; flex-direction: column; gap: 8px; padding: 24px 0; border-top: 1px solid #d9cfba; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+          <h3 style="margin: 0; display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 700; letter-spacing: 0.04em"><span style="display: block; width: 8px; height: 8px; border-radius: 50%; background: #66755b; flex: none"></span>ご予約について</h3>
+          <p style="margin: 0 0 0 20px; font-size: 14px; line-height: 2.2; color: #574a3b">お食事でのご利用や混み合う時間帯は、事前のお電話が安心です。</p>
+        </div>
+        <div data-reveal="1" style="display: flex; flex-direction: column; gap: 8px; padding: 24px 0; border-top: 1px solid #d9cfba; border-bottom: 1px solid #d9cfba; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+          <h3 style="margin: 0; display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 700; letter-spacing: 0.04em"><span style="display: block; width: 8px; height: 8px; border-radius: 50%; background: #66755b; flex: none"></span>アクセス・駐車場について</h3>
+          <p style="margin: 0 0 0 20px; font-size: 14px; line-height: 2.2; color: #574a3b">鎌倉駅から少し離れているため、車・バス・散策ルートと合わせてのご来店が便利です。駐車場の場所は分かりにくい場合があるため、事前確認がおすすめです。</p>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 店舗情報 -->
+  <section id="info" data-screen-label="店舗情報" style="background: #ebe4d2; padding: clamp(80px, 12vw, 140px) 24px">
+    <div style="max-width: 1120px; margin: 0 auto">
+      <div data-reveal="1" style="margin-bottom: clamp(36px, 6vw, 56px); opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+        <p style="margin: 0 0 14px; display: flex; align-items: center; gap: 12px; color: #66755b; font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.34em"><span style="display: block; width: 36px; height: 1px; background: #66755b"></span>05 — INFORMATION</p>
+        <h2 style="margin: 0; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: clamp(26px, 5vw, 42px); line-height: 1.7; letter-spacing: 0.04em">ご来店前に<br />ご確認ください</h2>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: clamp(24px, 4vw, 48px)">
+        <div data-reveal="1" style="flex: 1 1 400px; min-width: 300px; display: flex; flex-direction: column; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease">
+          <div style="display: flex; gap: 16px; padding: 16px 0; border-top: 1px solid #cfc4ab; font-size: 14px; line-height: 2"><div style="flex: none; width: 88px; font-weight: 700; color: #8a7c65">店名</div><div>eredge★Cafe</div></div>
+          <div style="display: flex; gap: 16px; padding: 16px 0; border-top: 1px solid #cfc4ab; font-size: 14px; line-height: 2"><div style="flex: none; width: 88px; font-weight: 700; color: #8a7c65">業種</div><div>カフェ・喫茶／カフェレストラン</div></div>
+          <div style="display: flex; gap: 16px; padding: 16px 0; border-top: 1px solid #cfc4ab; font-size: 14px; line-height: 2"><div style="flex: none; width: 88px; font-weight: 700; color: #8a7c65">住所</div><div>神奈川県鎌倉市常盤959-8</div></div>
+          <div style="display: flex; gap: 16px; padding: 16px 0; border-top: 1px solid #cfc4ab; font-size: 14px; line-height: 2"><div style="flex: none; width: 88px; font-weight: 700; color: #8a7c65">営業時間</div><div>営業日・休憩時間は変更される場合があります。ご来店前にInstagramまたはお電話でご確認ください。</div></div>
+          <div style="display: flex; gap: 16px; padding: 16px 0; border-top: 1px solid #cfc4ab; font-size: 14px; line-height: 2"><div style="flex: none; width: 88px; font-weight: 700; color: #8a7c65">電話番号</div><div><a href="tel:0467-55-5270" style="color: #66755b; font-weight: 700">0467-55-5270</a></div></div>
+          <div style="display: flex; gap: 16px; padding: 16px 0; border-top: 1px solid #cfc4ab; font-size: 14px; line-height: 2"><div style="flex: none; width: 88px; font-weight: 700; color: #8a7c65">利用形態</div><div>イートイン／テイクアウト対応の情報があります（宅配には非対応の情報があります）</div></div>
+          <div style="display: flex; gap: 16px; padding: 16px 0; border-top: 1px solid #cfc4ab; border-bottom: 1px solid #cfc4ab; font-size: 14px; line-height: 2"><div style="flex: none; width: 88px; font-weight: 700; color: #8a7c65">価格帯</div><div>おひとり ￥1,000〜￥2,000 の報告が多く見られます</div></div>
+          <a href="https://www.instagram.com/eredge_cafe?igsh=OWNrZnV2NGs3MHE1&amp;utm_source=qr" target="_blank" rel="noopener" style="display: flex; justify-content: center; align-items: center; min-height: 52px; margin-top: 24px; background: #66755b; color: #f6f2e7; text-decoration: none; border-radius: 999px; font-weight: 700; font-size: 15px; letter-spacing: 0.05em" style-hover="background: #57644d; color: #f6f2e7">Instagramで最新情報を見る</a>
+        </div>
+        <div data-reveal="1" style="flex: 1 1 420px; min-width: 300px; display: flex; flex-direction: column; gap: 16px; opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease 0.15s, transform 0.9s ease 0.15s">
+          <div style="border-radius: 4px; overflow: hidden; flex: 1; min-height: 320px">
+            <iframe src="https://www.google.com/maps?q=eredge%E2%98%85Cafe%20%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E9%8E%8C%E5%80%89%E5%B8%82%E5%B8%B8%E7%9B%A4959-8&amp;output=embed" width="100%" height="100%" style="border: 0; display: block; min-height: 320px" loading="lazy" title="Googleマップ"></iframe>
+          </div>
+          <a href="https://www.google.com/maps/place/eredge%E2%98%85Cafe/@35.3222977,139.4958133,14z/data=!4m11!1m3!2m2!1z6Y6M5YCJ44CA44Kr44OV44Kn!6e5!3m6!1s0x6018458140eb0e81:0x5a9dea22972eebcd!8m2!3d35.3222977!4d139.5318622!15sChLpjozlgInjgIDjgqvjg5XjgqdaEiIQ6Y6M5YCJIOOCq-ODleOCp5IBBGNhZmWaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVUjVMVTQzVW1wblJSQULgAQD6AQQIRxAc!16s%2Fg%2F11j8vqd1j_?entry=ttu&amp;g_ep=EgoyMDI2MDcwNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" style="display: flex; justify-content: center; align-items: center; min-height: 52px; background: #f6f2e7; border: 1px solid #b9ac93; color: #372c20; text-decoration: none; border-radius: 999px; font-weight: 700; font-size: 15px; letter-spacing: 0.05em" style-hover="background: #e5ddc9; color: #372c20">Googleマップで見る</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 最後のCTA -->
+  <section data-screen-label="最後のCTA" style="position: relative; overflow: hidden">
+    <img src="images/coffee.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block" />
+    <div style="position: absolute; inset: 0; background: rgba(28,22,15,0.78)"></div>
+    <div style="position: relative; max-width: 720px; margin: 0 auto; padding: clamp(80px, 12vw, 140px) 24px; color: #f6f2e7; display: flex; flex-direction: column; gap: 20px; text-align: center; align-items: center">
+      <p style="margin: 0; font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.4em; opacity: 0.8">TAKE A BREAK</p>
+      <h2 style="margin: 0; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: clamp(24px, 5.4vw, 40px); line-height: 1.8; letter-spacing: 0.05em">鎌倉散策の途中に、<br />ひと休みしませんか</h2>
+      <p style="margin: 0; font-size: 14px; line-height: 2.2; opacity: 0.9">営業日はInstagramで、ご予約・お問い合わせはお電話で。</p>
+      <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 380px; margin-top: 8px">
+        <a href="https://www.instagram.com/eredge_cafe?igsh=OWNrZnV2NGs3MHE1&amp;utm_source=qr" target="_blank" rel="noopener" style="display: flex; justify-content: center; align-items: center; min-height: 54px; background: #f6f2e7; color: #33402c; text-decoration: none; border-radius: 999px; font-weight: 700; font-size: 15px; letter-spacing: 0.05em" style-hover="background: #e5ddc9; color: #33402c">Instagramで営業日を確認する</a>
+        <a href="tel:0467-55-5270" style="display: flex; justify-content: center; align-items: center; min-height: 54px; border: 1px solid rgba(246,242,231,0.65); color: #f6f2e7; text-decoration: none; border-radius: 999px; font-weight: 700; font-size: 15px; letter-spacing: 0.05em" style-hover="background: rgba(246,242,231,0.15); color: #f6f2e7">電話で問い合わせる（0467-55-5270）</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer style="background: #1c160f; color: #a99d87; padding: 40px 24px 96px; text-align: center; display: flex; flex-direction: column; gap: 12px">
+    <div style="font-family: 'Shippori Mincho', serif; font-size: 16px; color: #e0d7c2; letter-spacing: 0.1em">eredge★Cafe</div>
+    <div style="font-family: 'Cormorant Garamond', serif; font-size: 10px; letter-spacing: 0.32em; opacity: 0.7">KAMAKURA — TOKIWA</div>
+    <p style="margin: 8px 0 0; font-size: 11px; line-height: 2">このページは営業提案用の非公式デモです。掲載内容・画像は仮のものです。</p>
+  </footer>
+
+  <!-- スマホ用 追従CTAバー -->
+  <div style="position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 30; display: flex; gap: 10px; max-width: 420px; margin: 0 auto; transition: transform 0.45s ease, opacity 0.45s ease; transform: {{ barTransform }}; opacity: {{ barOpacity }}">
+    <a href="https://www.instagram.com/eredge_cafe?igsh=OWNrZnV2NGs3MHE1&amp;utm_source=qr" target="_blank" rel="noopener" style="flex: 1.4; display: flex; justify-content: center; align-items: center; min-height: 52px; background: #66755b; color: #f6f2e7; text-decoration: none; border-radius: 999px; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; box-shadow: 0 8px 24px rgba(28,22,15,0.35)" style-hover="background: #57644d; color: #f6f2e7">Instagramを見る</a>
+    <a href="tel:0467-55-5270" style="flex: 1; display: flex; justify-content: center; align-items: center; min-height: 52px; background: #f6f2e7; color: #372c20; text-decoration: none; border-radius: 999px; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; box-shadow: 0 8px 24px rgba(28,22,15,0.35)" style-hover="background: #e5ddc9; color: #372c20">電話する</a>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { scrolled: false, past: false, menuOpen: false, heroShift: 0 };
+
+  _scrollY() {
+    return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  }
+
+  _scrollTo(top) {
+    window.scrollTo({ top, behavior: 'smooth' });
+    const bodyScrolls = document.body.scrollHeight > document.documentElement.clientHeight && document.documentElement.scrollHeight <= document.documentElement.clientHeight;
+    if (!bodyScrolls) return;
+    // Element.scrollTo({behavior:'smooth'}) is unreliable on body in some runtimes — animate scrollTop manually
+    if (this._animRaf) cancelAnimationFrame(this._animRaf);
+    const el = document.body;
+    const from = el.scrollTop;
+    const dist = top - from;
+    const dur = Math.min(900, Math.max(350, Math.abs(dist) * 0.25));
+    const t0 = performance.now();
+    const ease = (t) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / dur);
+      el.scrollTop = from + dist * ease(p);
+      if (p < 1) this._animRaf = requestAnimationFrame(step);
+    };
+    this._animRaf = requestAnimationFrame(step);
+  }
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const y = this._scrollY();
+      const scrolled = y > 40;
+      const past = y > window.innerHeight * 0.75;
+      const heroShift = Math.min(y / (window.innerHeight * 4), 0.06);
+      if (scrolled !== this.state.scrolled || past !== this.state.past || Math.abs(heroShift - this.state.heroShift) > 0.004) {
+        this.setState({ scrolled, past, heroShift });
+      }
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    document.addEventListener('scroll', this._onScroll, { passive: true, capture: true });
+
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'none';
+          this._io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+    this._scan = setInterval(() => {
+      document.querySelectorAll('[data-reveal]:not([data-observed])').forEach((el) => {
+        el.setAttribute('data-observed', '1');
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight * 0.9) {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        } else {
+          this._io.observe(el);
+        }
+      });
+    }, 350);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    document.removeEventListener('scroll', this._onScroll, { capture: true });
+    if (this._io) this._io.disconnect();
+    clearInterval(this._scan);
+  }
+
+  renderVals() {
+    const { scrolled, past, menuOpen, heroShift } = this.state;
+    const dark = scrolled && !menuOpen;
+    const scrollTo = (id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + this._scrollY() - 56;
+      this._scrollTo(top);
+    };
+    return {
+      headerBg: menuOpen ? 'transparent' : (scrolled ? 'rgba(243,238,227,0.9)' : 'transparent'),
+      headerShadow: dark ? '0 1px 0 rgba(55,44,32,0.1)' : 'none',
+      headerFg: dark ? '#372c20' : '#f6f2e7',
+      headerLine: dark ? 'rgba(55,44,32,0.35)' : 'rgba(246,242,231,0.55)',
+      bar1: menuOpen ? 'translateY(6.5px) rotate(45deg)' : 'none',
+      bar2op: menuOpen ? '0' : '1',
+      bar3: menuOpen ? 'translateY(-6.5px) rotate(-45deg)' : 'none',
+      menuOpacity: menuOpen ? '1' : '0',
+      menuVisibility: menuOpen ? 'visible' : 'hidden',
+      heroScale: (1 + heroShift).toFixed(3),
+      barTransform: past && !menuOpen ? 'translateY(0)' : 'translateY(130%)',
+      barOpacity: past && !menuOpen ? '1' : '0',
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
+      goTop: (ev) => { ev.preventDefault(); this.setState({ menuOpen: false }); this._scrollTo(0); },
+      nav: (ev) => {
+        ev.preventDefault();
+        const id = ev.currentTarget.getAttribute('data-target');
+        this.setState({ menuOpen: false });
+        setTimeout(() => scrollTo(id), 60);
+      }
+    };
+  }
+}
+</script>
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#3a2e22"/><text x="50" y="58" text-anchor="middle" font-family="serif" font-size="24" fill="#f3eee3">e★C</text></svg>
+</template>
+</body>
+</html>
