@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cafe ミルクホール｜サンプルHP</title>
+<meta name="description" content="鎌倉の路地裏で、珈琲とジャズを。1976年開店のレトロな喫茶店。" />
+<meta property="og:title" content="Cafe ミルクホール｜サンプルHP" />
+<meta property="og:description" content="鎌倉の路地裏で、珈琲とジャズを。1976年開店のレトロな喫茶店。" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/hero-exterior.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #E4D9C6;
+    color: #241C18;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #4A3326; text-decoration: none; }
+  a:hover { color: #C49A52; }
+  img { display: block; max-width: 100%; }
+
+  /* ---- layout wrapper ---- */
+  .page {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #F3EBDD;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ---- header ---- */
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 20px;
+    background: rgba(243, 235, 221, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(74, 51, 38, 0.18);
+  }
+  .header__name { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 16px; letter-spacing: 0.04em; color: #17120F; }
+  .header__tel { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #4A3326; font-weight: 500; }
+  .header__dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #C49A52; }
+
+  /* ---- hero ---- */
+  .hero { position: relative; height: min(86vh, 700px); min-height: 520px; display: flex; align-items: flex-end; overflow: hidden; }
+  .hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: brightness(0.9) saturate(0.95); animation: heroFade 1.6s ease both; }
+  .hero__scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,11,9,0.88) 0%, rgba(15,11,9,0.45) 40%, rgba(15,11,9,0.1) 70%, rgba(15,11,9,0.28) 100%); }
+  .hero__body { position: relative; padding: 0 24px 44px; width: 100%; }
+  .hero__kicker { margin: 0 0 14px; font-size: 11px; letter-spacing: 0.34em; color: #D9BE86; font-weight: 500; }
+  .hero__title { margin: 0 0 16px; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 31px; line-height: 1.5; color: #F6EFE1; letter-spacing: 0.02em; text-shadow: 0 2px 18px rgba(0,0,0,0.4); }
+  .hero__lead { margin: 0 0 26px; font-size: 14px; line-height: 1.95; color: rgba(243,235,221,0.9); max-width: 34ch; }
+
+  /* ---- buttons ---- */
+  .btn {
+    display: flex; align-items: center; justify-content: center;
+    height: 54px; border-radius: 12px;
+    font-size: 15px; font-weight: 500; letter-spacing: 0.04em;
+  }
+  .btn--primary { background: #17120F; border: 1px solid #C49A52; color: #F3EBDD; }
+  .btn--ghost { background: transparent; border: 1px solid rgba(243,235,221,0.55); color: #F3EBDD; }
+
+  /* ---- sections ---- */
+  .section { padding: 60px 24px 20px; }
+  .section--menu { padding: 44px 24px 20px; }
+  .section--first { padding: 44px 24px; }
+  .section--info { padding: 56px 24px 24px; scroll-margin-top: 70px; }
+
+  .eyebrow { margin: 0 0 10px; font-size: 11px; letter-spacing: 0.3em; color: #C49A52; font-weight: 600; }
+  .h2 { margin: 0 0 14px; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 25px; line-height: 1.5; color: #17120F; }
+  .lead { margin: 0 0 32px; font-size: 15px; color: #3B2E24; }
+
+  /* ---- reason cards ---- */
+  .cards { display: flex; flex-direction: column; gap: 16px; }
+  .card { padding: 22px 22px 24px; background: #F7F1E6; border: 1px solid rgba(74,51,38,0.22); border-radius: 12px; }
+  .card__num { display: block; font-family: 'Shippori Mincho', serif; font-size: 22px; color: #C49A52; font-weight: 600; margin-bottom: 8px; }
+  .card__title { margin: 0 0 8px; font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 18px; color: #17120F; }
+  .card__text { margin: 0; font-size: 14px; color: #3B2E24; }
+
+  /* ---- menu ---- */
+  .menu__figure { border-radius: 12px; overflow: hidden; margin-bottom: 26px; border: 1px solid rgba(74,51,38,0.2); }
+  .menu__img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: brightness(0.97); }
+  .menu__p { margin: 0 0 16px; font-size: 15px; color: #3B2E24; }
+  .menu__note { margin: 0; font-size: 13px; color: #6A5847; }
+
+  /* ---- first visit ---- */
+  .panel { background: #F7F1E6; border: 1px solid rgba(74,51,38,0.22); border-radius: 12px; padding: 28px 24px 30px; }
+  .panel .h2 { font-size: 24px; }
+  .panel__lead { margin: 0 0 22px; font-size: 15px; color: #3B2E24; }
+  .checklist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .checklist li { display: flex; gap: 12px; font-size: 14px; color: #3B2E24; }
+  .checklist li::before { content: ""; flex: none; margin-top: 9px; width: 6px; height: 6px; border-radius: 50%; background: #C49A52; }
+
+  /* ---- atmosphere ---- */
+  .atmosphere { background: #17120F; color: #F3EBDD; padding: 56px 24px 60px; }
+  .atmosphere .h2 { font-size: 24px; line-height: 1.55; color: #F6EFE1; }
+  .atmosphere__lead { margin: 0 0 28px; font-size: 15px; color: rgba(243,235,221,0.82); }
+  .atmosphere__figure { border-radius: 12px; overflow: hidden; border: 1px solid rgba(196,154,82,0.28); }
+  .atmosphere__img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; filter: brightness(0.98); }
+
+  /* ---- info ---- */
+  .info__card { background: #F7F1E6; border: 1px solid rgba(74,51,38,0.22); border-radius: 12px; overflow: hidden; }
+  .info__row { display: flex; gap: 14px; padding: 16px 20px; border-bottom: 1px solid rgba(74,51,38,0.14); }
+  .info__row:last-child { border-bottom: none; }
+  .info__label { flex: none; width: 72px; font-size: 12px; color: #8A7357; font-weight: 500; padding-top: 2px; }
+  .info__value { font-size: 14px; color: #241C18; }
+  .info__sub { font-size: 12px; color: #8A7357; }
+  .info__tel { font-size: 14px; color: #4A3326; font-weight: 500; }
+
+  /* ---- final CTA ---- */
+  .cta { background: #4A3326; color: #F3EBDD; padding: 60px 24px; text-align: center; }
+  .cta .h2 { font-size: 24px; line-height: 1.55; color: #F6EFE1; }
+  .cta__lead { margin: 0 auto 30px; font-size: 15px; color: rgba(243,235,221,0.85); max-width: 32ch; }
+  .cta__actions { display: flex; flex-direction: column; gap: 12px; max-width: 340px; margin: 0 auto; }
+
+  /* ---- footer ---- */
+  .footer { padding: 26px 24px 40px; text-align: center; background: #F3EBDD; }
+  .footer__name { margin: 0 0 8px; font-family: 'Shippori Mincho', serif; font-size: 14px; color: #4A3326; letter-spacing: 0.06em; }
+  .footer__note { margin: 0; font-size: 11px; line-height: 1.8; color: #9A8770; }
+
+  /* ---- reveal animation ---- */
+  @keyframes heroFade { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: scale(1); } }
+  @keyframes revealUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  [data-reveal].is-visible { animation: revealUp 0.7s ease both; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__img, [data-reveal] { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- header -->
+  <header class="header">
+    <span class="header__name">Cafe ミルクホール</span>
+    <a class="header__tel" href="tel:0467221179"><span class="header__dot"></span>0467-22-1179</a>
+  </header>
+
+  <!-- 1. First view / Hero -->
+  <section class="hero">
+    <img class="hero__img" src="assets/hero-exterior.png" alt="路地裏の黒い木壁の喫茶店入口と暖色のランプ" />
+    <div class="hero__scrim"></div>
+    <div class="hero__body">
+      <p class="hero__kicker">鎌倉・小町 ／ SINCE 1976</p>
+      <h1 class="hero__title">鎌倉の路地裏で、<br />珈琲とジャズを。</h1>
+      <p class="hero__lead">小町通りから少し入った場所にある、1976年開店の喫茶店。アンティークの趣を感じる空間で、散策の途中に少し時間をゆるめて過ごせます。</p>
+      <a class="btn btn--primary" href="#info">営業状況を確認する</a>
+    </div>
+  </section>
+
+  <!-- 2. Reasons -->
+  <section class="section">
+    <div data-reveal>
+      <p class="eyebrow">WHY MILK HALL</p>
+      <h2 class="h2">ミルクホールで過ごす理由</h2>
+      <p class="lead">鎌倉散策の途中に、静かにひと息つける喫茶店。珈琲、甘いもの、食事、そしてレトロな空間を楽しめます。</p>
+    </div>
+    <div class="cards">
+      <div class="card" data-reveal>
+        <span class="card__num">01</span>
+        <h3 class="card__title">小町通りそばの落ち着いた立地</h3>
+        <p class="card__text">賑やかな通りから少し離れた路地裏にあり、散策の途中で休憩しやすい場所です。</p>
+      </div>
+      <div class="card" data-reveal>
+        <span class="card__num">02</span>
+        <h3 class="card__title">ジャズが流れるレトロな空間</h3>
+        <p class="card__text">アンティークの趣を感じる店内で、喫茶店らしいゆっくりとした時間を過ごせます。</p>
+      </div>
+      <div class="card" data-reveal>
+        <span class="card__num">03</span>
+        <h3 class="card__title">珈琲・甘味・食事を楽しめる</h3>
+        <p class="card__text">コーヒーや甘いものだけでなく、食事利用でも立ち寄られている喫茶店です。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Service / Menu -->
+  <section class="section--menu">
+    <div class="menu__figure" data-reveal>
+      <img class="menu__img" src="assets/pudding-coffee.png" alt="クラシカルなプリンとコーヒー" />
+    </div>
+    <div data-reveal>
+      <p class="eyebrow">COFFEE ・ MEAL ・ SWEETS</p>
+      <h2 class="h2">珈琲・食事・甘味</h2>
+      <p class="menu__p">コーヒー、米料理、和風デザートを楽しめる喫茶店として掲載されています。コーヒーやプリンなどの喫茶店らしい甘味、ランチや軽食を兼ねた食事利用にも対応しています。</p>
+      <p class="menu__p">口コミ上では、プリン、プリンアラモード、ハヤシライス、オムライス、オペラライスなどへの言及があります。</p>
+      <p class="menu__note">最新のメニューや価格は、来店時または公式情報でご確認ください。</p>
+    </div>
+  </section>
+
+  <!-- 4. For first-time visitors -->
+  <section class="section--first">
+    <div class="panel" data-reveal>
+      <p class="eyebrow">FIRST VISIT</p>
+      <h2 class="h2">初めての方へ</h2>
+      <p class="panel__lead">お店は鎌倉市小町の路地裏にあります。小町通り周辺の散策中に、落ち着いて休みたいときに立ち寄りやすい喫茶店です。</p>
+      <ul class="checklist">
+        <li><span>小町通りから少し入った場所にあります。</span></li>
+        <li><span>営業時間は掲載情報に差異があるため、来店前の確認がおすすめです。</span></li>
+        <li><span>混雑時は提供までお時間がかかる場合があります。後の予定に余裕を持ってのご来店がおすすめです。</span></li>
+        <li><span>予約可否、支払い方法、喫煙可能エリアの現在の運用は不明です。</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. Atmosphere -->
+  <section class="atmosphere">
+    <div data-reveal>
+      <p class="eyebrow">ATMOSPHERE</p>
+      <h2 class="h2">レトロな空間で、<br />静かな喫茶時間を。</h2>
+      <p class="atmosphere__lead">暗めの木目、アンティークの家具、暖色の灯りが印象的な店内。ジャズが流れる空間で、珈琲を飲みながら会話や読書、散策の休憩をゆっくり楽しめます。</p>
+    </div>
+    <div class="atmosphere__figure" data-reveal>
+      <img class="atmosphere__img" src="assets/interior.png" alt="古い木製テーブルと暖色ランプに照らされたレトロな店内" />
+    </div>
+  </section>
+
+  <!-- 6. Store info -->
+  <section class="section--info" id="info">
+    <div data-reveal>
+      <p class="eyebrow">INFORMATION</p>
+      <h2 class="h2">店舗情報</h2>
+      <div class="info__card">
+        <div class="info__row"><span class="info__label">店名</span><span class="info__value">Cafe ミルクホール</span></div>
+        <div class="info__row"><span class="info__label">業種</span><span class="info__value">カフェ・喫茶／ジャズラウンジ</span></div>
+        <div class="info__row"><span class="info__label">住所</span><span class="info__value">〒248-0006<br />神奈川県鎌倉市小町2丁目3-8</span></div>
+        <div class="info__row"><span class="info__label">営業時間</span><span class="info__value">水曜定休<br />平日 11:00–18:30（18:00 L.O.）<br />土日祝 11:00–19:00（18:30 L.O.）<br /><span class="info__sub">木曜不定休あり。掲載情報により差異があるため、来店前のご確認がおすすめです。</span></span></div>
+        <div class="info__row"><span class="info__label">電話番号</span><a class="info__tel" href="tel:0467221179">0467-22-1179</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Final CTA -->
+  <section class="cta">
+    <div data-reveal>
+      <h2 class="h2">鎌倉散策の途中に、<br />ひと休みを。</h2>
+      <p class="cta__lead">小町通りの賑わいから少し離れて、珈琲とジャズのある時間を。最新の営業状況を確認のうえ、お立ち寄りください。</p>
+      <div class="cta__actions">
+        <a class="btn btn--primary" href="#info">営業状況を確認する</a>
+        <a class="btn btn--ghost" href="tel:0467221179">電話で問い合わせる</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Demo note / footer -->
+  <footer class="footer">
+    <p class="footer__name">Cafe ミルクホール</p>
+    <p class="footer__note">このページは営業提案用の非公式デモです。<br />掲載内容・画像は仮のものです。</p>
+  </footer>
+
+</div>
+
+<script>
+  // セクションを画面内に入ったタイミングでふわっと表示する
+  (function () {
+    var els = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-visible');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+</body>
+</html>
