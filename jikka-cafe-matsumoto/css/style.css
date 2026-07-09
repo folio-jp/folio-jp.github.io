@@ -1,0 +1,300 @@
+/* 実家カフェ｜サンプルHP  ------------------------------------------------
+   配色トークン（デザイン方針JSON準拠）
+   --brown   深い木目ブラウン
+   --tatami  畳ベージュ
+   --red     昭和レッド
+   --cream   生成りクリーム
+   --ink     墨ブラウン（本文）
+------------------------------------------------------------------------ */
+:root {
+  --brown:  #5B3A24;
+  --tatami: #D8C49A;
+  --tatami-bg: #EFE4CE;
+  --red:    #B94A3A;
+  --cream:  #F6EFE3;
+  --card:   #FBF6EC;
+  --line:   #E0D2B4;
+  --ink:    #2F251E;
+  --ink-2:  #4A3B30;
+  --radius-img: 20px;
+  --radius-card: 20px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "Zen Kaku Gothic New", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.85;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--red); }
+a:hover { color: var(--brown); }
+
+/* ページ全体を1カラム・スマホ幅で中央寄せ */
+.page {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--cream);
+  position: relative;
+}
+
+/* ---- 共通パーツ ---- */
+.kicker {
+  margin: 0 0 10px;
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  color: var(--red);
+  font-weight: 700;
+}
+.kicker--light { color: var(--tatami); }
+
+.heading {
+  margin: 0 0 16px;
+  font-family: "Shippori Mincho", serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.heading--tight { margin-bottom: 24px; }
+.heading--light { color: #F9F3E8; }
+
+.lead {
+  margin: 0 0 30px;
+  font-size: 14.5px;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+.lead--flush { margin-bottom: 0; }
+.lead--light { color: #E7D9C0; }
+
+.link { color: var(--red); text-decoration: none; font-weight: 700; }
+.link:hover { text-decoration: underline; }
+
+.photo {
+  width: 100%;
+  border-radius: var(--radius-img);
+  box-shadow: 0 6px 20px rgba(47, 37, 30, 0.12);
+}
+
+/* ---- ボタン（ピル型・タップしやすい高さ） ---- */
+.btn-stack { display: flex; flex-direction: column; gap: 12px; }
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+}
+.btn--primary {
+  background: var(--brown);
+  color: var(--cream);
+  box-shadow: 0 4px 16px rgba(47, 37, 30, 0.3);
+}
+.btn--primary:hover { background: var(--red); color: var(--cream); }
+
+.btn--outline-light {
+  background: rgba(246, 239, 227, 0.94);
+  color: var(--brown);
+  border: 1.5px solid var(--brown);
+}
+.btn--outline-light:hover { background: var(--cream); color: var(--brown); }
+
+.btn--outline {
+  min-height: 54px;
+  margin-top: 16px;
+  background: rgba(246, 239, 227, 0.6);
+  color: var(--brown);
+  border: 1.5px solid var(--brown);
+  font-size: 15px;
+}
+.btn--outline:hover { background: var(--tatami-bg); color: var(--brown); }
+
+.btn--accent {
+  background: var(--red);
+  color: #F9F3E8;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+.btn--accent:hover { background: #A23E2F; color: #F9F3E8; }
+
+.btn--outline-cta {
+  background: transparent;
+  color: var(--cream);
+  border: 1.5px solid var(--tatami);
+}
+.btn--outline-cta:hover { background: rgba(216, 196, 154, 0.14); color: var(--cream); }
+
+/* ---- 1. ファーストビュー ---- */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-image:
+    linear-gradient(180deg, rgba(47,37,30,0.15) 0%, rgba(47,37,30,0.05) 40%, rgba(47,37,30,0.72) 100%),
+    url("../images/hero-room.png");
+  background-size: cover;
+  background-position: center;
+}
+.hero__inner { padding: 0 26px 44px; }
+.hero__eyebrow {
+  margin: 0 0 14px;
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  color: var(--cream);
+  opacity: 0.9;
+}
+.hero__title {
+  margin: 0 0 18px;
+  font-family: "Shippori Mincho", serif;
+  font-weight: 600;
+  font-size: 31px;
+  line-height: 1.5;
+  color: #F9F3E8;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+.hero__lead {
+  margin: 0 0 26px;
+  font-size: 14.5px;
+  color: #F1E7D6;
+  text-wrap: pretty;
+}
+
+/* ---- セクション共通 ---- */
+.section { padding: 64px 26px 56px; }
+.section--tatami { padding: 56px 0; background: var(--tatami-bg); }
+.section__pad { padding: 0 26px; }
+.section__pad--top { padding-top: 24px; }
+.section__pad--bottom { padding-bottom: 24px; }
+
+/* ---- 2. 選ばれる理由 ---- */
+.reasons { display: flex; flex-direction: column; gap: 14px; }
+.reason {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 22px;
+}
+.reason__head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+.reason__no {
+  font-family: "Shippori Mincho", serif;
+  font-size: 22px;
+  color: var(--red);
+  line-height: 1;
+}
+.reason__title { margin: 0; font-size: 16.5px; font-weight: 700; color: var(--ink); }
+.reason__body { margin: 0; font-size: 14px; color: #544437; }
+
+/* ---- 3. メニュー ---- */
+.menu-card {
+  background: var(--card);
+  border: 1px solid #DFCFA9;
+  border-radius: var(--radius-card);
+  padding: 22px 24px;
+}
+.menu-card__label {
+  margin: 0 0 14px;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: #8A6A4A;
+  font-weight: 700;
+}
+.menu-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.menu-list li { display: flex; gap: 10px; font-size: 15px; color: #3A2E24; }
+.dot { color: var(--red); }
+.menu-card__note {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #E4D6B8;
+}
+.menu-card__note p { margin: 0 0 4px; font-size: 12.5px; color: #6B5949; }
+.menu-card__note p:last-child { margin-bottom: 0; }
+
+/* ---- 4. 初めての方へ ---- */
+.check-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.check-list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 15px 18px;
+  font-size: 14.5px;
+  color: #3A2E24;
+}
+.check { color: var(--red); font-weight: 700; flex-shrink: 0; }
+
+/* ---- 5. 雰囲気ギャラリー ---- */
+.gallery { display: flex; flex-direction: column; gap: 14px; }
+
+/* ---- 6. 店舗情報 ---- */
+.info {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.info__row { padding: 16px 20px; border-bottom: 1px solid #E9DCC0; }
+.info__row:last-child { border-bottom: none; }
+.info dt {
+  margin: 0 0 4px;
+  font-size: 12px;
+  color: #8A6A4A;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.info dd { margin: 0; font-size: 15px; color: var(--ink); }
+.info__sub { font-size: 12.5px; color: #6B5949; }
+
+/* ---- 7. 最終CTA ---- */
+.section--cta { padding: 60px 26px 64px; background: var(--brown); }
+
+/* ---- 8. フッター ---- */
+.footer { padding: 26px 26px 40px; background: #3A2C22; }
+.footer p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #B7A489;
+  text-align: center;
+  text-wrap: pretty;
+}
+
+/* ---- スクロール表示アニメーション（控えめなフェード） ---- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+[data-reveal].is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
