@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@400;500;600&family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#B08A72;--hero-dim:0.42;}
+    html{scroll-behavior:smooth;}
+    body{margin:0;background:#FDFBF8;color:#2A2622;font-family:'Zen Kaku Gothic New','Hiragino Kaku Gothic ProN',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    h1,h2,h3,h4,p,figure,ul,dl,dt,dd{margin:0;}
+    ul{padding:0;list-style:none;}
+    a{color:#8A6F57;}
+    a:hover{color:#B08A72;}
+    button{font-family:inherit;}
+    @keyframes kb-in{from{transform:scale(1.02)}to{transform:scale(1.13)}}
+    @keyframes kb-out{from{transform:scale(1.13)}to{transform:scale(1.02)}}
+    @keyframes hero-in{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+    @keyframes scroll-line{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+  </style>
+</helmet>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="300" fill="#2A2622"></rect>
+    <circle cx="200" cy="128" r="46" fill="none" stroke="#E8DCCB" stroke-width="3"></circle>
+    <text x="200" y="210" fill="#E8DCCB" font-family="serif" font-size="30" letter-spacing="6" text-anchor="middle">BACANCES</text>
+  </svg>
+</template>
+
+<!-- ============ HEADER ============ -->
+<header data-screen-label="HEADER" style="position:fixed;top:0;left:0;right:0;z-index:100;color:#FFFFFF">
+  <div style="position:absolute;inset:0;background:rgba(253,251,248,0.94);backdrop-filter:blur(10px);opacity:{{ hdrBgOp }};transition:opacity 0.35s ease;box-shadow:{{ hdrShadow }}"></div>
+  <div style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1280px;margin:0 auto;padding:12px clamp(16px,3vw,32px);color:{{ hdrFg }};transition:color 0.35s ease">
+    <a href="#home" onClick="{{ closeMenu }}" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit">
+      <span role="img" aria-label="BACANCES ロゴ" style="width:46px;height:46px;border-radius:50%;background-color:#FFFFFF;background-image:url('images/logo.jpg');background-size:247%;background-position:50.4% 36.5%;background-repeat:no-repeat;box-shadow:0 0 0 1px rgba(46,42,38,0.1);flex:none"></span>
+      <span style="display:flex;flex-direction:column;line-height:1.25">
+        <span style="font-family:'Jost',sans-serif;font-weight:500;font-size:19px;letter-spacing:0.24em">BACANCES</span>
+        <span style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:0.32em;opacity:0.75">HACCHOBORI / GINZA AREA</span>
+      </span>
+    </a>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;align-items:center;gap:clamp(14px,1.7vw,26px)">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="8">
+          <a href="{{ n.href }}" style="color:inherit;text-decoration:none;font-family:'Jost',sans-serif;font-size:12.5px;letter-spacing:0.18em;opacity:0.92;transition:opacity 0.25s ease" style-hover="opacity:0.55">{{ n.en }}</a>
+        </sc-for>
+        <a href="{{ hp }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;background:var(--accent);color:#FFFFFF;text-decoration:none;border-radius:999px;padding:12px 26px;font-size:12.5px;letter-spacing:0.12em;font-weight:500;transition:opacity 0.25s ease,transform 0.25s ease" style-hover="opacity:0.85;transform:translateY(-1px)">空席確認・予約する</a>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:8px">
+        <a href="{{ hp }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;background:var(--accent);color:#FFFFFF;text-decoration:none;border-radius:999px;padding:11px 18px;font-size:12px;letter-spacing:0.1em;font-weight:500">予約する</a>
+        <button aria-label="メニューを開閉" onClick="{{ toggleMenu }}" style="width:48px;height:48px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:inherit;padding:0">
+          <span style="display:block;width:26px;height:1.5px;background:currentColor;transition:transform 0.35s ease;transform:{{ bl1 }}"></span>
+          <span style="display:block;width:26px;height:1.5px;background:currentColor;transition:opacity 0.35s ease;opacity:{{ bl2 }}"></span>
+          <span style="display:block;width:26px;height:1.5px;background:currentColor;transition:transform 0.35s ease;transform:{{ bl3 }}"></span>
+        </button>
+      </div>
+    </sc-if>
+  </div>
+</header>
+
+<!-- mobile menu panel -->
+<div data-screen-label="MOBILE MENU" style="position:fixed;inset:0;z-index:90;background:rgba(250,247,241,0.97);backdrop-filter:blur(14px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;opacity:{{ mOp }};pointer-events:{{ mPe }};transition:opacity 0.4s ease;padding:96px 24px 40px">
+  <sc-for list="{{ nav }}" as="n" hint-placeholder-count="0">
+    <a href="{{ n.href }}" onClick="{{ closeMenu }}" style="font-family:'Jost',sans-serif;font-size:18px;letter-spacing:0.28em;color:#2A2622;text-decoration:none;padding:11px 20px">{{ n.en }}</a>
+  </sc-for>
+  <a href="{{ hp }}" target="_blank" rel="noopener" onClick="{{ closeMenu }}" style="margin-top:18px;display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#FFFFFF;text-decoration:none;border-radius:999px;padding:16px 44px;font-size:14px;letter-spacing:0.14em;font-weight:500">空席確認・予約する</a>
+  <a href="{{ ig }}" target="_blank" rel="noopener" onClick="{{ closeMenu }}" style="margin-top:6px;font-size:12.5px;letter-spacing:0.14em;color:#8A6F57;text-decoration:none">Instagram ↗</a>
+</div>
+
+<!-- ============ HOME / HERO ============ -->
+<section id="home" data-screen-label="HOME / ファーストビュー" style="position:relative;height:100vh;min-height:620px;overflow:hidden;background:#1E1A16">
+  <sc-for list="{{ slides }}" as="s" hint-placeholder-count="1">
+    <div style="position:absolute;inset:0;opacity:{{ s.op }};transition:opacity 1.8s ease;pointer-events:none">
+      <img src="{{ s.src }}" alt="{{ s.alt }}" style="width:100%;height:100%;object-fit:cover;animation:{{ s.anim }} 16s ease-in-out infinite alternate">
+    </div>
+  </sc-for>
+  <div style="position:absolute;inset:0;background:#171310;opacity:var(--hero-dim,0.42);pointer-events:none"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,19,16,0.35) 0%,rgba(23,19,16,0) 38%,rgba(23,19,16,0.4) 100%);pointer-events:none"></div>
+  <div style="position:relative;z-index:5;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#FFFFFF;padding:132px 24px 210px;justify-content:flex-start;animation:hero-in 1.5s ease 0.2s both">
+    <p style="font-family:'Jost',sans-serif;font-size:clamp(10px,1.4vw,12px);letter-spacing:0.42em;text-indent:0.42em;opacity:0.85">BACANCES — HACCHOBORI, TOKYO</p>
+    <h1 style="font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(30px,5.4vw,54px);letter-spacing:0.12em;line-height:1.7;margin-top:22px;text-shadow:0 2px 30px rgba(20,16,12,0.35)">大人女性の髪に、<br>艶とまとまりを。</h1>
+    <p style="font-family:'Shippori Mincho',serif;font-size:clamp(15px,2.3vw,20px);letter-spacing:0.14em;line-height:2;margin-top:20px;text-shadow:0 1px 18px rgba(20,16,12,0.4)">八丁堀で叶える、髪質改善・酸性ストレート。</p>
+    <p style="font-size:clamp(12.5px,1.8vw,14px);line-height:2.3;letter-spacing:0.1em;opacity:0.92;margin-top:18px">白髪、くせ、パサつき、広がり。<br>年齢とともに変化する髪を、上質なケアで美しく整えます。</p>
+    <a href="{{ hp }}" target="_blank" rel="noopener" style="margin-top:26px;display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#FFFFFF;text-decoration:none;border-radius:999px;padding:18px 56px;font-size:14.5px;letter-spacing:0.16em;font-weight:500;box-shadow:0 12px 30px rgba(15,11,8,0.35);transition:transform 0.3s ease,opacity 0.3s ease" style-hover="transform:translateY(-2px);opacity:0.9">空席確認・予約する</a>
+  </div>
+  <div style="position:absolute;bottom:52px;left:0;right:0;z-index:6;display:flex;flex-direction:column;align-items:center;gap:20px;pointer-events:none">
+    <div style="display:flex;justify-content:center;gap:10px;pointer-events:auto">
+      <sc-for list="{{ dots }}" as="d" hint-placeholder-count="5">
+        <button aria-label="スライド切り替え" onClick="{{ d.go }}" style="width:9px;height:9px;border-radius:50%;border:1px solid rgba(255,255,255,0.8);background:{{ d.bg }};padding:0;cursor:pointer;transition:background 0.4s ease"></button>
+      </sc-for>
+    </div>
+    <a href="#concept" style="display:flex;flex-direction:column;align-items:center;gap:8px;color:#FFFFFF;text-decoration:none;pointer-events:auto">
+      <span style="font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.38em;text-indent:0.38em;opacity:0.85">SCROLL</span>
+      <span style="display:block;width:1px;height:44px;background:rgba(255,255,255,0.85);animation:scroll-line 2.2s ease-in-out infinite"></span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ CONCEPT ============ -->
+<section id="concept" data-screen-label="CONCEPT" style="background:#FDFBF8;padding:clamp(84px,11vw,144px) 24px;scroll-margin-top:64px">
+  <div style="max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:clamp(40px,6vw,80px);align-items:center">
+    <div data-reveal style="opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.4vw,44px);letter-spacing:0.26em;font-weight:500;line-height:1.1">CONCEPT</p>
+      <div style="width:38px;height:1px;background:var(--accent);margin:20px 0 18px"></div>
+      <h2 style="font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(19px,2.8vw,24px);letter-spacing:0.12em;line-height:1.9;color:#3B342C">髪の変化を感じ始めた<br>大人女性へ。</h2>
+      <p style="font-size:14.5px;line-height:2.4;letter-spacing:0.06em;color:#4B443C;margin-top:26px">BACANCESは、八丁堀にある大人女性のための艶髪・髪質改善サロンです。</p>
+      <p style="font-size:14.5px;line-height:2.4;letter-spacing:0.06em;color:#4B443C;margin-top:18px">年齢とともに感じやすくなる、白髪、くせ、パサつき、広がり、艶不足。そんな髪の悩みに対して、一人ひとりの髪質や状態を見極めながら、酸性ストレート、髪質改善トリートメント、カラー、ヘッドスパを組み合わせてご提案します。</p>
+      <p style="font-size:14.5px;line-height:2.4;letter-spacing:0.06em;color:#4B443C;margin-top:18px">無理に変えるのではなく、今の髪をより扱いやすく、より艶やかに。毎日鏡を見るのが少し楽しみになるような髪へ導きます。</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:34px">
+        <a href="#menu" style="display:inline-flex;align-items:center;justify-content:center;border:1px solid #2A2622;color:#2A2622;background:transparent;text-decoration:none;border-radius:999px;padding:15px 38px;font-size:13.5px;letter-spacing:0.14em;transition:background 0.3s ease,color 0.3s ease" style-hover="background:#2A2622;color:#FFFFFF">メニューを見る</a>
+        <a href="{{ hp }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#FFFFFF;text-decoration:none;border-radius:999px;padding:15px 38px;font-size:13.5px;letter-spacing:0.14em;font-weight:500;box-shadow:0 10px 24px rgba(138,111,87,0.22);transition:transform 0.3s ease,opacity 0.3s ease" style-hover="transform:translateY(-2px);opacity:0.9">空席確認・予約する</a>
+      </div>
+    </div>
+    <div data-reveal style="position:relative;margin-bottom:44px;opacity:0;transform:translateY(26px);transition:opacity 0.9s ease 0.15s,transform 0.9s ease 0.15s">
+      <div style="overflow:hidden">
+        <img src="images/salon-interior.jpg" alt="BACANCES 店内。落ち着いた雰囲気のセット面" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform 1.2s ease" style-hover="transform:scale(1.04)">
+      </div>
+      <img src="images/shampoo-room.jpg" alt="ゆったりと寛げるシャンプースペース" style="position:absolute;width:44%;aspect-ratio:4/3;object-fit:cover;bottom:-44px;left:-10px;border:6px solid #FDFBF8;box-shadow:0 18px 40px rgba(46,42,38,0.16);display:block">
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section id="problem" data-screen-label="PROBLEM / こんなお悩みに" style="background:#FFFFFF;padding:clamp(84px,11vw,144px) 24px;scroll-margin-top:64px">
+  <div style="max-width:1140px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(44px,7vw,68px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <p style="font-family:'Jost',sans-serif;font-size:12px;letter-spacing:0.4em;text-indent:0.4em;color:#B08A72">PROBLEM</p>
+      <h2 style="font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(24px,3.6vw,32px);letter-spacing:0.16em;line-height:1.7;margin-top:16px">こんなお悩みに</h2>
+      <div style="width:36px;height:1px;background:var(--accent);margin:20px auto 16px"></div>
+      <p style="font-size:14px;letter-spacing:0.08em;line-height:2;color:#6E5F51">大人女性の髪悩みを、艶と質感から整えます。</p>
+    </div>
+    <ul style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(270px,100%),1fr));gap:14px">
+      <sc-for list="{{ problems }}" as="p" hint-placeholder-count="8">
+        <li data-reveal style="background:#F6F1E8;border-radius:12px;padding:22px 24px;display:flex;gap:14px;align-items:flex-start;opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--accent);margin-top:10px;flex:none"></span>
+          <span style="font-size:14px;line-height:1.95;letter-spacing:0.04em;color:#3B342C">{{ p.text }}</span>
+        </li>
+      </sc-for>
+    </ul>
+    <p data-reveal style="max-width:760px;margin:clamp(40px,6vw,60px) auto 0;text-align:center;font-family:'Shippori Mincho',serif;font-size:clamp(14.5px,2vw,16.5px);line-height:2.4;letter-spacing:0.1em;color:#3B342C;opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">BACANCESでは、髪質改善・酸性ストレート・高濃度トリートメントを組み合わせ、<br>髪の状態に合わせたケアをご提案します。</p>
+  </div>
+</section>
+
+<!-- ============ SERVICE ============ -->
+<section id="service" data-screen-label="SERVICE / こだわり" style="background:#F7F3EC;padding:clamp(84px,11vw,144px) 24px;scroll-margin-top:64px">
+  <div style="max-width:1140px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(52px,8vw,88px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.4vw,44px);letter-spacing:0.26em;text-indent:0.26em;font-weight:500;line-height:1.1">SERVICE</p>
+      <div style="width:36px;height:1px;background:var(--accent);margin:20px auto 16px"></div>
+      <p style="font-family:'Shippori Mincho',serif;font-size:clamp(15px,2.2vw,18px);letter-spacing:0.12em;line-height:2;color:#5C5245">艶髪専門店だからこそできる、髪質に合わせたケア。</p>
+    </div>
+
+    <!-- 01 -->
+    <div data-reveal style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(30px,5vw,64px);margin:0 auto clamp(64px,9vw,104px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <div style="flex:1 1 min(430px,100%);overflow:hidden">
+        <img src="images/glossy-hair-long-comb.jpg" alt="酸熱シルクトリートメント後の艶髪ロング" style="width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 58%;display:block;transition:transform 1.2s ease" style-hover="transform:scale(1.04)">
+      </div>
+      <div style="flex:1 1 min(380px,100%)">
+        <div style="display:flex;align-items:baseline;gap:16px">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:500;color:var(--accent);line-height:1">01</span>
+          <span style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.32em;color:#8A7A66">ORIGINAL TREATMENT</span>
+        </div>
+        <h3 style="font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(18px,2.6vw,22px);letter-spacing:0.1em;line-height:1.9;margin-top:18px">BACANCESオリジナル<br>酸熱シルクトリートメント</h3>
+        <p style="font-size:14.5px;line-height:2.3;letter-spacing:0.05em;color:#4B443C;margin-top:18px">BACANCESでは、艶やかな質感を目指すオリジナル酸熱シルクトリートメントを導入しています。カラーと同時施術も可能なため、忙しい方でも短時間で髪の質感ケアを取り入れやすいメニューです。</p>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div data-reveal style="display:flex;flex-wrap:wrap;flex-direction:row-reverse;align-items:center;gap:clamp(30px,5vw,64px);margin:0 auto clamp(64px,9vw,104px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <div style="flex:1 1 min(430px,100%);overflow:hidden">
+        <img src="images/glossy-hair-medium.jpg" alt="酸性ストレートによる自然なまとまりのミディアムヘア" style="width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 38%;display:block;transition:transform 1.2s ease" style-hover="transform:scale(1.04)">
+      </div>
+      <div style="flex:1 1 min(380px,100%)">
+        <div style="display:flex;align-items:baseline;gap:16px">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:500;color:var(--accent);line-height:1">02</span>
+          <span style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.32em;color:#8A7A66">ACID STRAIGHT</span>
+        </div>
+        <h3 style="font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(18px,2.6vw,22px);letter-spacing:0.1em;line-height:1.9;margin-top:18px">自然なまとまりを目指す<br>酸性ストレート</h3>
+        <p style="font-size:14.5px;line-height:2.3;letter-spacing:0.05em;color:#4B443C;margin-top:18px">強すぎる縮毛矯正ではなく、髪の状態に合わせて自然なまとまりを目指します。くせや広がりを抑えながら、硬くなりすぎない艶やかな仕上がりへ。</p>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div data-reveal style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(30px,5vw,64px);margin:0 auto clamp(64px,9vw,104px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <div style="flex:1 1 min(430px,100%);overflow:hidden">
+        <img src="images/glossy-hair-triptych.jpg" alt="Aujua・TOKIO・ULTOWAによる艶髪の仕上がり3スタイル" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform 1.2s ease" style-hover="transform:scale(1.04)">
+      </div>
+      <div style="flex:1 1 min(380px,100%)">
+        <div style="display:flex;align-items:baseline;gap:16px">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:500;color:var(--accent);line-height:1">03</span>
+          <span style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.32em;color:#8A7A66">SELECTED CARE</span>
+        </div>
+        <h3 style="font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(18px,2.6vw,22px);letter-spacing:0.1em;line-height:1.9;margin-top:18px">Aujua / TOKIO / ULTOWA などの<br>厳選ケア</h3>
+        <p style="font-size:14.5px;line-height:2.3;letter-spacing:0.05em;color:#4B443C;margin-top:18px">Aujua、TOKIO INKARAMI、ULTOWAなど、髪の状態や悩みに合わせて選べるトリートメントを用意。髪の内部補修、保湿、艶感、まとまりを重視したケアをご提案します。</p>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div data-reveal style="display:flex;flex-wrap:wrap;flex-direction:row-reverse;align-items:center;gap:clamp(30px,5vw,64px);margin:0 auto;opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <div style="flex:1 1 min(430px,100%);overflow:hidden">
+        <img src="images/shampoo-room.jpg" alt="marbbマイクロバブルを備えたシャンプースペース" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform 1.2s ease" style-hover="transform:scale(1.04)">
+      </div>
+      <div style="flex:1 1 min(380px,100%)">
+        <div style="display:flex;align-items:baseline;gap:16px">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:500;color:var(--accent);line-height:1">04</span>
+          <span style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.32em;color:#8A7A66">MARBB / CARE PRO</span>
+        </div>
+        <h3 style="font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(18px,2.6vw,22px);letter-spacing:0.1em;line-height:1.9;margin-top:18px">マイクロバブルと超音波ケアで、<br>仕上がりをさらに高める</h3>
+        <p style="font-size:14.5px;line-height:2.3;letter-spacing:0.05em;color:#4B443C;margin-top:18px">marbbのマイクロバブルで髪と頭皮の汚れにアプローチし、CARE PROの超音波アイロンでトリートメントの浸透をサポート。髪質改善メニューの仕上がりをより高めます。</p>
+      </div>
+    </div>
+
+    <div data-reveal style="text-align:center;margin-top:clamp(56px,8vw,88px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <a href="{{ hp }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#FFFFFF;text-decoration:none;border-radius:999px;padding:18px 52px;font-size:14.5px;letter-spacing:0.14em;font-weight:500;box-shadow:0 12px 28px rgba(138,111,87,0.24);transition:transform 0.3s ease,opacity 0.3s ease" style-hover="transform:translateY(-2px);opacity:0.9">こだわりメニューを見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU ============ -->
+<section id="menu" data-screen-label="MENU / 代表メニュー" style="background:#FFFFFF;padding:clamp(84px,11vw,144px) 24px;scroll-margin-top:64px">
+  <div style="max-width:900px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(36px,5vw,52px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.4vw,44px);letter-spacing:0.26em;text-indent:0.26em;font-weight:500;line-height:1.1">MENU</p>
+      <div style="width:36px;height:1px;background:var(--accent);margin:20px auto 16px"></div>
+      <p style="font-family:'Shippori Mincho',serif;font-size:clamp(15px,2.2vw,18px);letter-spacing:0.14em;line-height:2;color:#5C5245">代表メニュー</p>
+      <p style="font-size:13.5px;line-height:2.3;letter-spacing:0.05em;color:#6E655B;margin-top:20px">BACANCESでは、髪質やお悩みに合わせて多数のメニューをご用意しています。<br>ここでは代表的なメニューのみ掲載しています。<br>最新の料金・空席状況・クーポンはHot Pepperをご確認ください。</p>
+    </div>
+    <div data-reveal style="overflow:hidden;margin-bottom:clamp(32px,5vw,48px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <img src="images/glossy-hair-medium.jpg" alt="髪質改善メニューによる艶やかな仕上がり" style="width:100%;height:clamp(180px,26vw,280px);object-fit:cover;object-position:50% 32%;display:block">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <sc-for list="{{ menus }}" as="m" hint-placeholder-count="5">
+        <div data-reveal style="background:#FDFBF8;border:1px solid #EAE2D6;border-radius:16px;padding:clamp(24px,4vw,34px);display:flex;flex-direction:column;gap:14px;opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease,box-shadow 0.4s ease" style-hover="box-shadow:0 14px 34px rgba(46,42,38,0.08)">
+          <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--accent);line-height:1">{{ m.no }}</span>
+            <h3 style="font-family:'Shippori Mincho',serif;font-weight:500;font-size:clamp(16px,2.4vw,19px);letter-spacing:0.06em;line-height:1.8;flex:1;min-width:min(260px,100%)">{{ m.title }}</h3>
+          </div>
+          <p style="font-size:14px;line-height:2.1;letter-spacing:0.04em;color:#4B443C">{{ m.desc }}</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:4px">
+            <span style="font-size:12.5px;letter-spacing:0.08em;color:#8B8177">詳しい料金はHot Pepperへ</span>
+            <a href="{{ hp }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#FFFFFF;text-decoration:none;border-radius:999px;padding:13px 30px;font-size:13px;letter-spacing:0.12em;font-weight:500;transition:opacity 0.3s ease,transform 0.3s ease" style-hover="opacity:0.88;transform:translateY(-1px)">空席確認・予約する</a>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div data-reveal style="text-align:center;margin-top:clamp(40px,6vw,56px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <a href="{{ hp }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;background:#2A2622;color:#FFFFFF;text-decoration:none;border-radius:999px;padding:18px 48px;font-size:14px;letter-spacing:0.12em;font-weight:500;transition:opacity 0.3s ease,transform 0.3s ease" style-hover="opacity:0.85;transform:translateY(-2px)">その他メニュー・最新クーポンを見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery" data-screen-label="GALLERY" style="background:#FDFBF8;padding:clamp(84px,11vw,144px) 24px;scroll-margin-top:64px">
+  <div style="max-width:1140px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(44px,7vw,68px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.4vw,44px);letter-spacing:0.26em;text-indent:0.26em;font-weight:500;line-height:1.1">GALLERY</p>
+      <div style="width:36px;height:1px;background:var(--accent);margin:20px auto 16px"></div>
+      <p style="font-family:'Shippori Mincho',serif;font-size:clamp(15px,2.2vw,18px);letter-spacing:0.12em;line-height:2;color:#5C5245">艶とまとまりを感じる仕上がり。</p>
+      <p style="font-size:13.5px;line-height:2.3;letter-spacing:0.05em;color:#6E655B;margin-top:18px">髪質改善、酸性ストレート、カラー、トリートメントによって、扱いやすく艶やかな髪へ。<br>自然な仕上がりを大切にしています。</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:clamp(16px,3vw,26px)">
+      <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="7">
+        <figure data-reveal style="grid-column:{{ g.span }};opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+          <div style="overflow:hidden">
+            <img src="{{ g.src }}" alt="{{ g.alt }}" style="width:100%;aspect-ratio:{{ g.ar }};object-fit:cover;object-position:{{ g.pos }};display:block;transition:transform 1.2s ease" style-hover="transform:scale(1.05)">
+          </div>
+          <figcaption style="display:flex;align-items:center;gap:10px;margin-top:12px">
+            <span style="display:block;width:18px;height:1px;background:var(--accent)"></span>
+            <span style="font-size:12.5px;letter-spacing:0.1em;color:#6E655B">{{ g.cap }}</span>
+          </figcaption>
+        </figure>
+      </sc-for>
+    </div>
+    <div data-reveal style="text-align:center;margin-top:clamp(40px,6vw,56px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <a href="{{ ig }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;justify-content:center;border:1px solid #2A2622;color:#2A2622;background:transparent;text-decoration:none;border-radius:999px;padding:15px 44px;font-size:13.5px;letter-spacing:0.14em;transition:background 0.3s ease,color 0.3s ease" style-hover="background:#2A2622;color:#FFFFFF">もっと見る ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTAGRAM ============ -->
+<section id="instagram" data-screen-label="INSTAGRAM" style="background:#F7F3EC;padding:clamp(84px,11vw,144px) 24px;scroll-margin-top:64px">
+  <div style="max-width:960px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(40px,6vw,60px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.4vw,44px);letter-spacing:0.2em;text-indent:0.2em;font-weight:500;line-height:1.1">Instagram</p>
+      <div style="width:36px;height:1px;background:var(--accent);margin:20px auto 16px"></div>
+      <p style="font-family:'Shippori Mincho',serif;font-size:clamp(15px,2.2vw,18px);letter-spacing:0.12em;line-height:2;color:#5C5245">最新のスタイルやサロン情報はこちら。</p>
+      <p style="font-size:13.5px;line-height:2.3;letter-spacing:0.05em;color:#6E655B;margin-top:16px">仕上がり写真や髪質改善メニュー、サロンの雰囲気はInstagramでもご覧いただけます。</p>
+      <a href="{{ ig }}" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;font-family:'Jost',sans-serif;font-size:13px;letter-spacing:0.14em;color:#8A6F57;text-decoration:none">@bacances0314</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,45%),1fr));gap:clamp(10px,2vw,18px)">
+      <sc-for list="{{ insta }}" as="p" hint-placeholder-count="6">
+        <a data-reveal href="{{ ig }}" target="_blank" rel="noopener" aria-label="Instagramを開く" style="display:block;overflow:hidden;position:relative;opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+          <img src="{{ p.src }}" alt="{{ p.alt }}" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;transition:transform 1s ease" style-hover="transform:scale(1.06)">
+        </a>
+      </sc-for>
+    </div>
+    <div data-reveal style="text-align:center;margin-top:clamp(36px,5vw,52px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <a href="{{ ig }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;justify-content:center;border:1px solid #2A2622;color:#2A2622;background:transparent;text-decoration:none;border-radius:999px;padding:15px 44px;font-size:13.5px;letter-spacing:0.14em;transition:background 0.3s ease,color 0.3s ease" style-hover="background:#2A2622;color:#FFFFFF">Instagramを見る ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACCESS ============ -->
+<section id="access" data-screen-label="ACCESS / 店舗情報" style="background:#FFFFFF;padding:clamp(84px,11vw,144px) 24px;scroll-margin-top:64px">
+  <div style="max-width:1140px;margin:0 auto">
+    <div data-reveal style="text-align:center;margin-bottom:clamp(44px,7vw,68px);opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.4vw,44px);letter-spacing:0.26em;text-indent:0.26em;font-weight:500;line-height:1.1">ACCESS</p>
+      <div style="width:36px;height:1px;background:var(--accent);margin:20px auto 16px"></div>
+      <p style="font-family:'Shippori Mincho',serif;font-size:clamp(15px,2.2vw,18px);letter-spacing:0.1em;line-height:2;color:#5C5245">八丁堀駅から徒歩3分。仕事帰りにも通いやすい立地です。</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));gap:clamp(36px,5vw,64px);align-items:start">
+      <div data-reveal style="opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+        <dl style="display:flex;flex-direction:column">
+          <div style="display:flex;gap:20px;padding:16px 4px;border-bottom:1px solid #EAE2D6">
+            <dt style="width:88px;flex:none;font-size:12.5px;letter-spacing:0.12em;color:#8B8177;padding-top:2px">店舗名</dt>
+            <dd style="font-size:14.5px;line-height:1.9;letter-spacing:0.04em">BACANCES（バカンス）</dd>
+          </div>
+          <div style="display:flex;gap:20px;padding:16px 4px;border-bottom:1px solid #EAE2D6">
+            <dt style="width:88px;flex:none;font-size:12.5px;letter-spacing:0.12em;color:#8B8177;padding-top:2px">住所</dt>
+            <dd style="font-size:14.5px;line-height:1.9;letter-spacing:0.04em">東京都中央区八丁堀2-15-1 開成ビル1F</dd>
+          </div>
+          <div style="display:flex;gap:20px;padding:16px 4px;border-bottom:1px solid #EAE2D6">
+            <dt style="width:88px;flex:none;font-size:12.5px;letter-spacing:0.12em;color:#8B8177;padding-top:2px">電話番号</dt>
+            <dd style="font-size:14.5px;line-height:1.9;letter-spacing:0.04em"><a href="tel:0362603965" style="color:inherit;text-decoration:none">03-6260-3965</a></dd>
+          </div>
+          <div style="display:flex;gap:20px;padding:16px 4px;border-bottom:1px solid #EAE2D6">
+            <dt style="width:88px;flex:none;font-size:12.5px;letter-spacing:0.12em;color:#8B8177;padding-top:2px">営業時間</dt>
+            <dd style="font-size:14.5px;line-height:1.9;letter-spacing:0.04em">平日 10:00〜22:00<br>土日祝 10:00〜20:00</dd>
+          </div>
+          <div style="display:flex;gap:20px;padding:16px 4px;border-bottom:1px solid #EAE2D6">
+            <dt style="width:88px;flex:none;font-size:12.5px;letter-spacing:0.12em;color:#8B8177;padding-top:2px">定休日</dt>
+            <dd style="font-size:14.5px;line-height:1.9;letter-spacing:0.04em">詳しくはHot Pepperをご確認ください</dd>
+          </div>
+          <div style="display:flex;gap:20px;padding:16px 4px;border-bottom:1px solid #EAE2D6">
+            <dt style="width:88px;flex:none;font-size:12.5px;letter-spacing:0.12em;color:#8B8177;padding-top:2px">アクセス</dt>
+            <dd style="font-size:14.5px;line-height:2.1;letter-spacing:0.04em">八丁堀駅 徒歩3分<br>茅場町駅 徒歩5分<br>宝町駅 徒歩5分<br>銀座駅 徒歩15分</dd>
+          </div>
+        </dl>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px">
+          <img src="images/salon-exterior.jpg" alt="BACANCES 外観。白壁にロゴが目印" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block">
+          <img src="images/salon-entrance.jpg" alt="BACANCES エントランス" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block">
+        </div>
+      </div>
+      <div data-reveal style="opacity:0;transform:translateY(26px);transition:opacity 0.9s ease 0.15s,transform 0.9s ease 0.15s">
+        <div style="overflow:hidden;border:1px solid #EAE2D6;aspect-ratio:4/3.4">
+          <iframe src="https://maps.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%85%AB%E4%B8%81%E5%A0%802-15-1&z=16&output=embed" title="BACANCES 地図（東京都中央区八丁堀2-15-1）" loading="lazy" style="width:100%;height:100%;border:0;display:block"></iframe>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:22px">
+          <a href="https://www.google.com/maps/place/BACANCES%2F%E5%A4%A7%E4%BA%BA%E5%A5%B3%E6%80%A7%E3%81%AE%E8%89%B6%E9%AB%AA%E3%83%BB%E9%AB%AA%E8%B3%AA%E6%94%B9%E5%96%84%E3%82%B5%E3%83%AD%E3%83%B3%EF%BC%88%E9%8A%80%E5%BA%A7%E3%83%BB%E5%85%AB%E4%B8%81%E5%A0%80%EF%BC%89/@35.6767596,139.7764677,17z/data=!3m1!5s0x6018895936c26ff3:0xec02dc6686e0d012!4m6!3m5!1s0x601889a0ea253e1f:0x300269499094b867!8m2!3d35.6767567!4d139.7764903!16s%2Fg%2F11ss87vcd0?entry=ttu&g_ep=EgoyMDI2MDcwNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;border:1px solid #2A2622;color:#2A2622;background:transparent;text-decoration:none;border-radius:999px;padding:15px 36px;font-size:13.5px;letter-spacing:0.12em;transition:background 0.3s ease,color 0.3s ease" style-hover="background:#2A2622;color:#FFFFFF">Google Mapで見る</a>
+          <a href="{{ hp }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#FFFFFF;text-decoration:none;border-radius:999px;padding:15px 36px;font-size:13.5px;letter-spacing:0.12em;font-weight:500;box-shadow:0 10px 24px rgba(138,111,87,0.22);transition:transform 0.3s ease,opacity 0.3s ease" style-hover="transform:translateY(-2px);opacity:0.9">空席確認・予約する</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESERVE ============ -->
+<section id="contact" data-screen-label="RESERVE / 予約" style="background:#2A2622;padding:clamp(84px,11vw,140px) 24px;scroll-margin-top:64px">
+  <div data-reveal style="max-width:720px;margin:0 auto;text-align:center;color:#F5F0E8;opacity:0;transform:translateY(26px);transition:opacity 0.9s ease,transform 0.9s ease">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.4vw,44px);letter-spacing:0.3em;text-indent:0.3em;font-weight:500;line-height:1.1;color:#E8DCCB">RESERVE</p>
+    <div style="width:36px;height:1px;background:var(--accent);margin:20px auto 18px"></div>
+    <p style="font-family:'Shippori Mincho',serif;font-size:clamp(16px,2.4vw,20px);letter-spacing:0.12em;line-height:2">ご予約はHot Pepperから受け付けています。</p>
+    <p style="font-size:13.5px;line-height:2.4;letter-spacing:0.06em;opacity:0.82;margin-top:20px">髪質改善、酸性ストレート、カラー、トリートメントなど、メニューの詳細や空席状況はHot Pepperからご確認いただけます。<br>髪のお悩みに合わせて、最適なメニューをお選びください。</p>
+    <a href="{{ hp }}" target="_blank" rel="noopener" style="margin-top:36px;display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#FFFFFF;text-decoration:none;border-radius:999px;padding:20px 64px;font-size:15px;letter-spacing:0.16em;font-weight:500;box-shadow:0 14px 34px rgba(0,0,0,0.35);transition:transform 0.3s ease,opacity 0.3s ease" style-hover="transform:translateY(-2px);opacity:0.9">空席確認・予約する</a>
+    <p style="font-size:12px;line-height:2.2;letter-spacing:0.06em;opacity:0.6;margin-top:22px">メニューに迷う場合は、Hot Pepperのクーポン一覧からご希望に近いメニューをお選びください。</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer data-screen-label="FOOTER" style="background:#F7F3EC;padding:clamp(64px,8vw,96px) 24px 36px">
+  <div style="max-width:960px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center">
+    <span role="img" aria-label="BACANCES ロゴ" style="width:78px;height:78px;border-radius:50%;background-color:#FFFFFF;background-image:url('images/logo.jpg');background-size:247%;background-position:50.4% 36.5%;background-repeat:no-repeat;box-shadow:0 0 0 1px rgba(46,42,38,0.12)"></span>
+    <p style="font-family:'Jost',sans-serif;font-weight:500;font-size:20px;letter-spacing:0.32em;text-indent:0.32em;margin-top:16px">BACANCES</p>
+    <p style="font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.28em;text-indent:0.28em;color:#8B8177;margin-top:6px">HAIR SALON — HACCHOBORI, TOKYO</p>
+    <nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-top:30px">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="8">
+        <a href="{{ n.href }}" style="font-family:'Jost',sans-serif;font-size:11.5px;letter-spacing:0.18em;color:#5C5245;text-decoration:none;padding:6px 2px;transition:color 0.25s ease" style-hover="color:#B08A72">{{ n.en }}</a>
+      </sc-for>
+    </nav>
+    <a href="{{ hp }}" target="_blank" rel="noopener" style="margin-top:28px;display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#FFFFFF;text-decoration:none;border-radius:999px;padding:15px 44px;font-size:13.5px;letter-spacing:0.14em;font-weight:500;transition:transform 0.3s ease,opacity 0.3s ease" style-hover="transform:translateY(-2px);opacity:0.9">空席確認・予約する</a>
+    <p style="font-size:13px;line-height:2.2;letter-spacing:0.05em;color:#5C5245;margin-top:26px">東京都中央区八丁堀2-15-1 開成ビル1F<br><a href="tel:0362603965" style="color:inherit;text-decoration:none">TEL 03-6260-3965</a></p>
+    <a href="{{ ig }}" target="_blank" rel="noopener" style="margin-top:12px;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:0.16em;color:#8A6F57;text-decoration:none">Instagramを見る ↗</a>
+    <p style="font-size:11px;letter-spacing:0.1em;color:#9A9086;margin-top:36px">Copyright © BACANCES All Rights Reserved.</p>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#B08A72&quot;, &quot;options&quot;: [&quot;#B08A72&quot;, &quot;#C39C8B&quot;, &quot;#8A6F57&quot;, &quot;#3E3832&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;テーマ&quot; },
+  &quot;heroDim&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.42, &quot;min&quot;: 0.15, &quot;max&quot;: 0.65, &quot;step&quot;: 0.05, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;ファーストビュー&quot; },
+  &quot;heroInterval&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 5, &quot;min&quot;: 3, &quot;max&quot;: 9, &quot;step&quot;: 1, &quot;unit&quot;: &quot;s&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;ファーストビュー&quot; }
+}">
+class Component extends DCLogic {
+  state = {
+    slide: 0,
+    scrolled: false,
+    menuOpen: false,
+    isMobile: (typeof window !== 'undefined' && window.innerWidth < 960)
+  };
+
+  componentDidMount() {
+    this.applyVars();
+    this._onScroll = () => {
+      const sc = window.scrollY > 50;
+      if (sc !== this.state.scrolled) this.setState({ scrolled: sc });
+    };
+    this._onResize = () => {
+      const m = window.innerWidth < 960;
+      if (m !== this.state.isMobile) this.setState({ isMobile: m, menuOpen: m ? this.state.menuOpen : false });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    window.addEventListener('resize', this._onResize);
+    this._onScroll();
+    this.queueSlide();
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'none';
+          this._io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('[data-reveal]').forEach((el) => this._io.observe(el));
+  }
+
+  componentDidUpdate() {
+    this.applyVars();
+    document.body.style.overflow = this.state.menuOpen ? 'hidden' : '';
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this._t);
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('resize', this._onResize);
+    if (this._io) this._io.disconnect();
+    document.body.style.overflow = '';
+  }
+
+  applyVars() {
+    const r = document.documentElement.style;
+    r.setProperty('--accent', this.props.accent ?? '#B08A72');
+    r.setProperty('--hero-dim', String(this.props.heroDim ?? 0.42));
+  }
+
+  queueSlide() {
+    clearTimeout(this._t);
+    const iv = (this.props.heroInterval ?? 5) * 1000;
+    this._t = setTimeout(() => {
+      this.setState((s) => ({ slide: (s.slide + 1) % 5 }));
+      this.queueSlide();
+    }, iv);
+  }
+
+  goSlide(i) {
+    this.setState({ slide: i });
+    this.queueSlide();
+  }
+
+  renderVals() {
+    const hp = 'https://beauty.hotpepper.jp/slnH000637797/coupon/CT00/';
+    const ig = 'https://www.instagram.com/bacances0314/';
+    const { slide, scrolled, menuOpen, isMobile } = this.state;
+
+    const nav = [
+      { en: 'HOME', href: '#home' },
+      { en: 'CONCEPT', href: '#concept' },
+      { en: 'SERVICE', href: '#service' },
+      { en: 'MENU', href: '#menu' },
+      { en: 'GALLERY', href: '#gallery' },
+      { en: 'INSTAGRAM', href: '#instagram' },
+      { en: 'ACCESS', href: '#access' },
+      { en: 'RESERVE', href: '#contact' }
+    ];
+
+    const slidesData = [
+      { src: 'images/glossy-hair-long-comb.jpg', alt: '髪質改善トリートメントによる艶髪ロング' },
+      { src: 'images/glossy-hair-triptych.jpg', alt: '酸性ストレート・艶カラーの仕上がり3スタイル' },
+      { src: 'images/glossy-hair-medium.jpg', alt: 'まとまりのある艶髪ミディアム' },
+      { src: 'images/salon-interior.jpg', alt: 'BACANCES 店内。落ち着いたサロン空間' },
+      { src: 'images/salon-exterior.jpg', alt: 'BACANCES 外観' }
+    ];
+    const slides = slidesData.map((s, i) => ({
+      ...s,
+      op: i === slide ? 1 : 0,
+      anim: i % 2 === 0 ? 'kb-in' : 'kb-out'
+    }));
+    const dots = slidesData.map((s, i) => ({
+      bg: i === slide ? '#FFFFFF' : 'rgba(255,255,255,0.25)',
+      go: () => this.goSlide(i)
+    }));
+
+    const problems = [
+      { text: '髪がまとまりにくくなってきた' },
+      { text: '昔より艶がなくなった' },
+      { text: 'くせや広がりが気になる' },
+      { text: '白髪やグレイカラーを自然に整えたい' },
+      { text: 'パサつきで疲れて見える' },
+      { text: '縮毛矯正をしたいけれど、硬い仕上がりは避けたい' },
+      { text: 'トリートメントをしても効果が長続きしない' },
+      { text: '忙しくてもきれいな髪を保ちたい' }
+    ];
+
+    const menus = [
+      { no: '01', title: 'カット＋酸性ストレート＋シルクトリートメント', desc: 'くせや広がりを抑えながら、自然なまとまりと艶を目指す人気メニュー。縮毛矯正の硬さが苦手な方にもおすすめです。' },
+      { no: '02', title: 'カット＋縮毛矯正＋髪質改善シルクカラー', desc: '縮毛矯正、カラー、髪質改善をまとめて整えたい方へ。忙しい大人女性にもおすすめの高満足メニューです。' },
+      { no: '03', title: 'カット＋カラー＋選べる髪質改善トリートメント', desc: 'カラーを楽しみながら、艶とまとまりを整える定番メニュー。白髪やパサつきが気になる方にもおすすめです。' },
+      { no: '04', title: 'カラー＋髪質改善シルクカラー＆マイクロバブル', desc: 'カラーと同時に髪質改善ケアをしたい方へ。marbbのマイクロバブルで頭皮と髪を整え、軽やかな仕上がりへ導きます。' },
+      { no: '05', title: 'カット＋超音波入り選べる髪質改善Tr＋マイクロバブル', desc: 'まずは髪質改善を試したい方におすすめ。カット、トリートメント、マイクロバブルで、扱いやすい髪へ整えます。' }
+    ];
+
+    const gallery = [
+      { src: 'images/glossy-hair-long-comb.jpg', alt: '髪質改善トリートメントの艶髪', cap: '髪質改善トリートメント', span: 'auto', ar: '4/5', pos: '50% 45%' },
+      { src: 'images/glossy-hair-medium.jpg', alt: '酸性ストレートの自然なまとまり', cap: '酸性ストレート', span: 'auto', ar: '4/5', pos: '50% 35%' },
+      { src: 'images/glossy-hair-triptych.jpg', alt: '艶カラーの仕上がり3スタイル', cap: '艶カラー', span: 'auto', ar: '4/5', pos: '50% 50%' },
+      { src: 'images/shampoo-room.jpg', alt: '落ち着いたシャンプースペース', cap: '落ち着いたシャンプースペース', span: 'auto', ar: '4/5', pos: '50% 50%' },
+      { src: 'images/salon-interior.jpg', alt: '八丁堀の落ち着いたサロン空間', cap: '八丁堀の落ち着いたサロン空間', span: 'auto', ar: '4/5', pos: '50% 50%' },
+      { src: 'images/salon-entrance.jpg', alt: 'お客様をお迎えするエントランス', cap: 'お客様をお迎えするエントランス', span: 'auto', ar: '4/5', pos: '50% 50%' },
+      { src: 'images/salon-exterior.jpg', alt: '大人女性のための艶髪サロン BACANCES 外観', cap: '大人女性のための艶髪サロン・BACANCES', span: '1 / -1', ar: '16/7', pos: '50% 55%' }
+    ];
+
+    const insta = [
+      { src: 'images/glossy-hair-long-comb.jpg', alt: 'Instagram投稿：艶髪ロングの仕上がり' },
+      { src: 'images/salon-interior.jpg', alt: 'Instagram投稿：店内の雰囲気' },
+      { src: 'images/glossy-hair-medium.jpg', alt: 'Instagram投稿：ミディアムの艶髪' },
+      { src: 'images/salon-exterior.jpg', alt: 'Instagram投稿：BACANCES外観' },
+      { src: 'images/glossy-hair-triptych.jpg', alt: 'Instagram投稿：スタイル3種の仕上がり' },
+      { src: 'images/logo.jpg', alt: 'Instagram投稿：BACANCESロゴ' }
+    ];
+
+    return {
+      hp, ig, nav, slides, dots, problems, menus, gallery, insta,
+      isMobile,
+      isDesktop: !isMobile,
+      hdrFg: (scrolled || menuOpen) ? '#2A2622' : '#FFFFFF',
+      hdrBgOp: scrolled ? 1 : 0,
+      hdrShadow: scrolled ? '0 1px 22px rgba(46,42,38,0.08)' : 'none',
+      mOp: menuOpen ? 1 : 0,
+      mPe: menuOpen ? 'auto' : 'none',
+      bl1: menuOpen ? 'translateY(7.5px) rotate(45deg)' : 'none',
+      bl2: menuOpen ? 0 : 1,
+      bl3: menuOpen ? 'translateY(-7.5px) rotate(-45deg)' : 'none',
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false })
+    };
+  }
+}
+</script>
+</body>
+</html>
