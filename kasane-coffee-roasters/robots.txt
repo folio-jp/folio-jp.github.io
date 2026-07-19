@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://folio-jp.github.io/kasane-coffee-roasters/sitemap.xml
