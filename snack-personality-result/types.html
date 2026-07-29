@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="好きなお菓子から見つかる12タイプとキャラクターの一覧です。" />
+    <meta name="theme-color" content="#fffaf4" />
+    <title>全12タイプ一覧｜好きなお菓子からわかる12タイプ診断</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="browse.css" />
+    <script src="types.js" defer></script>
+    <script src="types-page.js" defer></script>
+  </head>
+  <body class="browse-page">
+    <a class="skip-link" href="#types-grid">全タイプ一覧へ移動</a>
+    <header class="site-header">
+      <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">✦</span><span>お菓子12タイプ診断</span></a>
+      <a class="header-link" href="./">診断結果へ</a>
+    </header>
+    <main>
+      <section class="types-hero" aria-labelledby="types-title">
+        <div class="types-hero-copy">
+          <p class="page-eyebrow">ALL SNACK PERSONALITY TYPES</p>
+          <h1 id="types-title">好きなお菓子から見つかる、<br />12の個性</h1>
+          <p class="types-lead">味、食感、選び方、食べる理由から生まれた12タイプ。それぞれのキャラクターと特徴を見比べてみましょう。</p>
+          <p class="entertainment-note"><span aria-hidden="true">i</span> この診断は性格を断定するものではなく、お菓子の好みから傾向を楽しむエンターテインメントです。</p>
+        </div>
+        <div class="types-ensemble" aria-hidden="true">
+          <img src="assets/T01_シェアリ.png" alt="" />
+          <img src="assets/T04_スナッピ.png" alt="" />
+          <img src="assets/T07_サクポン.png" alt="" />
+          <img src="assets/T11_ヒラメキィ.png" alt="" />
+          <img src="assets/T12_マロネ.png" alt="" />
+        </div>
+      </section>
+
+      <section class="types-directory" aria-labelledby="directory-title">
+        <div class="directory-heading">
+          <div><p class="page-eyebrow">CHARACTER DIRECTORY</p><h2 id="directory-title">全12タイプ</h2></div>
+          <p>気になる特徴から、あなたらしい精霊を探してみてください。</p>
+        </div>
+        <div class="filter-bar" role="group" aria-label="タイプの絞り込み">
+          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">すべて</button>
+          <button class="filter-button" type="button" data-filter="lively" aria-pressed="false">にぎやか・共有</button>
+          <button class="filter-button" type="button" data-filter="calm" aria-pressed="false">安心・マイペース</button>
+          <button class="filter-button" type="button" data-filter="precise" aria-pressed="false">こだわり・自己管理</button>
+          <button class="filter-button" type="button" data-filter="curious" aria-pressed="false">好奇心・刺激</button>
+        </div>
+        <p class="filter-note">※探しやすくするための補助分類です。ひとつのタイプが複数の傾向に含まれます。</p>
+        <div class="types-grid" id="types-grid" aria-live="polite"></div>
+        <noscript>
+          <div class="noscript-types">
+            <p>JavaScriptを有効にすると説明や絞り込みを利用できます。各タイプの詳細ページ：</p>
+            <a href="type.html?id=T01">T01 ときめきシェアラー／シェアリ</a>
+            <a href="type.html?id=T02">T02 ほっとひと息クラシック派／クラノ</a>
+            <a href="type.html?id=T03">T03 こだわりカカオ派／カカリオ</a>
+            <a href="type.html?id=T04">T04 冒険スナッカー／スナッピ</a>
+            <a href="type.html?id=T05">T05 刺激ハンター／ビリッツ</a>
+            <a href="type.html?id=T06">T06 ごほうびリッチ派／リッチェ</a>
+            <a href="type.html?id=T07">T07 さくさくムードメーカー／サクポン</a>
+            <a href="type.html?id=T08">T08 じっくりマイペース派／モグリィ</a>
+            <a href="type.html?id=T09">T09 きっちりヘルシー派／トトノ</a>
+            <a href="type.html?id=T10">T10 ノスタルジーコレクター／オモイネ</a>
+            <a href="type.html?id=T11">T11 ひらめきフレーバー派／ヒラメキィ</a>
+            <a href="type.html?id=T12">T12 まろやか癒し派／マロネ</a>
+          </div>
+        </noscript>
+      </section>
+    </main>
+    <footer><span aria-hidden="true">✦</span><p>好きなお菓子からわかる12タイプ診断</p></footer>
+  </body>
+</html>

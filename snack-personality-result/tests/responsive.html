@@ -16,20 +16,29 @@
     <main id="frames"></main>
     <script>
       const widths = [375, 390, 430, 768, 1440];
-      const query =
-        "?m=T11&s=T04&t=T03&a=97,53,82,22,68&p=52,30,18&snack=%E7%99%BE%E5%91%B3%E3%83%93%E3%83%BC%E3%83%B3%E3%82%BA";
+      const pages = [
+        {
+          label: "result",
+          src: "../?m=T11&s=T04&t=T03&a=97,53,82,22,68&p=52,30,18&snack=%E7%99%BE%E5%91%B3%E3%83%93%E3%83%BC%E3%83%B3%E3%82%BA",
+        },
+        { label: "types", src: "../types.html" },
+        { label: "detail", src: "../type.html?id=T11" },
+      ];
       const target = document.getElementById("frames");
-      widths.forEach((width) => {
-        const section = document.createElement("section");
-        section.dataset.width = String(width);
-        const heading = document.createElement("h2");
-        heading.textContent = `${width}px`;
-        const frame = document.createElement("iframe");
-        frame.title = `${width}px レスポンシブ確認`;
-        frame.width = String(width);
-        frame.src = `../${query}`;
-        section.append(heading, frame);
-        target.append(section);
+      pages.forEach((page) => {
+        widths.forEach((width) => {
+          const section = document.createElement("section");
+          section.dataset.width = String(width);
+          section.dataset.page = page.label;
+          const heading = document.createElement("h2");
+          heading.textContent = `${page.label} · ${width}px`;
+          const frame = document.createElement("iframe");
+          frame.title = `${page.label} ${width}px レスポンシブ確認`;
+          frame.width = String(width);
+          frame.src = page.src;
+          section.append(heading, frame);
+          target.append(section);
+        });
       });
     </script>
   </body>

@@ -6,10 +6,14 @@ import vm from "node:vm";
 import { parseHTML } from "linkedom";
 
 const root = new URL("../", import.meta.url).pathname;
-const [html, typesCode, appCode] = await Promise.all([
+const [html, typesCode, appCode, typesHtml, typesPageCode, typeHtml, typePageCode] = await Promise.all([
   readFile(join(root, "index.html"), "utf8"),
   readFile(join(root, "types.js"), "utf8"),
   readFile(join(root, "app.js"), "utf8"),
+  readFile(join(root, "types.html"), "utf8"),
+  readFile(join(root, "types-page.js"), "utf8"),
+  readFile(join(root, "type.html"), "utf8"),
+  readFile(join(root, "type-page.js"), "utf8"),
 ]);
 
 const EXPECTED = {
@@ -59,6 +63,29 @@ const boot = (query = "") => {
   });
   vm.runInContext(typesCode, context, { filename: "types.js" });
   vm.runInContext(appCode, context, { filename: "app.js" });
+  return { window, document, types: window.SNACK_TYPES };
+};
+
+const bootBrowse = (page, query = "") => {
+  const source = page === "types" ? typesHtml : typeHtml;
+  const pageCode = page === "types" ? typesPageCode : typePageCode;
+  const { window, document } = parseHTML(source);
+  const location = new URL(`https://example.test/${page}.html${query}`);
+  Object.defineProperty(window, "location", { value: location, configurable: true });
+  Object.defineProperty(window, "history", {
+    value: { length: 1, back: () => {} },
+    configurable: true,
+  });
+  window.URLSearchParams = URLSearchParams;
+  const context = vm.createContext({
+    window,
+    document,
+    URL,
+    URLSearchParams,
+    console,
+  });
+  vm.runInContext(typesCode, context, { filename: "types.js" });
+  vm.runInContext(pageCode, context, { filename: `${page}-page.js` });
   return { window, document, types: window.SNACK_TYPES };
 };
 
@@ -184,4 +211,69 @@ test("アクセシビリティと印刷に必要な構造が存在する", () =>
   assert.ok(document.getElementById("print-result"));
   assert.ok(document.getElementById("copy-text"));
   assert.ok(document.getElementById("copy-url"));
+});
+
+test("診断結果の相性直後に全タイプCTAがある", () => {
+  const { document } = boot();
+  const cta = document.querySelector(".all-types-cta");
+  assert.ok(cta);
+  assert.equal(cta.previousElementSibling.id, "");
+  assert.equal(cta.previousElementSibling.querySelector("h2").textContent, "タイプ相性");
+  assert.equal(cta.querySelector("a").getAttribute("href"), "types.html");
+  assert.equal(cta.querySelectorAll("img").length, 4);
+});
+
+test("全12タイプ一覧をT01〜T12順で描画し、複数カテゴリーで絞り込める", () => {
+  const { document, types } = bootBrowse("types");
+  const cards = [...document.querySelectorAll(".type-card")];
+  assert.equal(cards.length, 12);
+  assert.deepEqual(
+    cards.map((card) => card.querySelector(".type-card-id").textContent),
+    Object.keys(EXPECTED),
+  );
+  cards.forEach((card, index) => {
+    const id = Object.keys(EXPECTED)[index];
+    assert.equal(card.querySelector("img").getAttribute("src"), types[id].image);
+    assert.equal(card.querySelectorAll(".tag-row span").length, 3);
+    assert.equal(card.querySelector("a").getAttribute("href"), `type.html?id=${id}`);
+    assert.ok(card.querySelector(".type-card-description").textContent.length > 50);
+  });
+  const calm = document.querySelector("[data-filter='calm']");
+  calm.dispatchEvent(new document.defaultView.Event("click"));
+  const visible = cards.filter((card) => !card.hidden);
+  assert.ok(visible.length >= 4);
+  assert.ok(visible.every((card) => card.dataset.categories.includes("calm")));
+  assert.equal(calm.getAttribute("aria-pressed"), "true");
+});
+
+test("T01〜T12の詳細ページが共有データから完全に描画される", () => {
+  for (const id of Object.keys(EXPECTED)) {
+    const { document, types } = bootBrowse("type", `?id=${id}`);
+    const type = types[id];
+    assert.equal(document.getElementById("type-view").hidden, false);
+    assert.equal(document.getElementById("invalid-type").hidden, true);
+    assert.equal(document.getElementById("detail-id").textContent, id);
+    assert.equal(document.getElementById("detail-title").textContent, type.name);
+    assert.equal(document.getElementById("detail-character").textContent, type.character);
+    assert.equal(document.getElementById("detail-image").getAttribute("src"), type.image);
+    assert.equal(document.querySelectorAll(".basic-detail-card").length, 3);
+    assert.equal(document.querySelectorAll(".detail-strength-card").length, 3);
+    assert.equal(document.querySelectorAll(".detail-caution-card").length, 2);
+    assert.equal(document.querySelectorAll(".snack-style-card").length, 5);
+    assert.equal(document.querySelectorAll("#similar-types .relation-detail-card").length, 2);
+    assert.equal(document.querySelectorAll("#detail-relations .relation-detail-card").length, 2);
+    assert.equal(document.querySelectorAll(".relation-detail-card img").length, 4);
+    assert.match(document.getElementById("prev-type").getAttribute("href"), /^type\.html\?id=T\d{2}$/);
+    assert.match(document.getElementById("next-type").getAttribute("href"), /^type\.html\?id=T\d{2}$/);
+  }
+});
+
+test("無効な詳細IDはT01に偽装せず専用エラーを表示する", () => {
+  for (const query of ["", "?id=T99", "?id=%3Cscript%3Ealert(1)%3C/script%3E"]) {
+    const { document, window } = bootBrowse("type", query);
+    assert.equal(document.getElementById("invalid-type").hidden, false);
+    assert.equal(document.getElementById("type-view").hidden, true);
+    assert.equal(document.getElementById("detail-title").textContent, "");
+    assert.equal(window.PWNED, undefined);
+  }
 });

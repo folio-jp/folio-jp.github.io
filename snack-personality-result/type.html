@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="好きなお菓子からわかる12タイプ診断のタイプ詳細ページです。" />
+    <meta name="theme-color" content="#fffaf4" />
+    <title>タイプ詳細｜好きなお菓子からわかる12タイプ診断</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="browse.css" />
+    <script src="types.js" defer></script>
+    <script src="type-page.js" defer></script>
+  </head>
+  <body class="browse-page detail-page">
+    <a class="skip-link" href="#detail-content">タイプ詳細へ移動</a>
+    <header class="site-header">
+      <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">✦</span><span>お菓子12タイプ診断</span></a>
+      <a class="header-link" href="types.html">全12タイプ</a>
+    </header>
+    <main id="detail-content">
+      <section class="invalid-type" id="invalid-type" hidden>
+        <span aria-hidden="true">?</span>
+        <p class="page-eyebrow">TYPE NOT FOUND</p>
+        <h1>タイプが見つかりませんでした</h1>
+        <p>URLのタイプIDを確認するか、全タイプ一覧から気になるタイプを選んでください。</p>
+        <a class="primary-link-button" href="types.html">全タイプ一覧へ戻る</a>
+      </section>
+
+      <div id="type-view" hidden>
+        <section class="detail-hero" aria-labelledby="detail-title">
+          <div class="detail-hero-copy">
+            <a class="back-link" href="types.html">← 全タイプ一覧へ戻る</a>
+            <span class="detail-id" id="detail-id"></span>
+            <h1 id="detail-title"></h1>
+            <p class="detail-character">キャラクター <strong id="detail-character"></strong></p>
+            <p class="detail-copy" id="detail-copy"></p>
+            <div class="tag-row" id="detail-tags"></div>
+          </div>
+          <div class="detail-character-stage"><div class="detail-glow" aria-hidden="true"></div><img id="detail-image" src="" alt="" width="1024" height="1024" /></div>
+        </section>
+
+        <div class="detail-shell">
+          <section class="detail-intro detail-card" aria-labelledby="intro-title">
+            <p class="page-eyebrow">IN A NUTSHELL</p>
+            <h2 id="intro-title">このタイプをひと言で表すと</h2>
+            <p id="detail-overview"></p>
+          </section>
+
+          <section class="detail-section" aria-labelledby="basics-title">
+            <div class="detail-heading"><p class="page-eyebrow">CORE TRAITS</p><h2 id="basics-title">基本的な特徴</h2></div>
+            <div class="basic-detail-grid" id="detail-basics"></div>
+          </section>
+
+          <section class="detail-section" aria-labelledby="detail-strengths-title">
+            <div class="detail-heading"><p class="page-eyebrow">STRENGTHS</p><h2 id="detail-strengths-title">強み</h2></div>
+            <div class="detail-strength-grid" id="detail-strengths"></div>
+          </section>
+
+          <section class="detail-section" aria-labelledby="detail-cautions-title">
+            <div class="detail-heading"><p class="page-eyebrow">GROWTH HINTS</p><h2 id="detail-cautions-title">注意したいところ</h2></div>
+            <p class="section-support">強みが大きく働いた時に、少しだけ意識しておきたい傾向です。</p>
+            <div class="detail-caution-grid" id="detail-cautions"></div>
+          </section>
+
+          <section class="detail-section two-column-detail" aria-label="人との関わり方と仕事・行動傾向">
+            <article class="detail-card"><span class="detail-icon" aria-hidden="true">♡</span><p class="page-eyebrow">RELATIONSHIPS</p><h2>人との関わり方</h2><p id="detail-relationship"></p></article>
+            <article class="detail-card"><span class="detail-icon" aria-hidden="true">↗</span><p class="page-eyebrow">WORK &amp; ACTION</p><h2>仕事・行動傾向</h2><p id="detail-work"></p></article>
+          </section>
+
+          <section class="detail-section" aria-labelledby="snack-style-title">
+            <div class="detail-heading"><p class="page-eyebrow">SNACK STYLE</p><h2 id="snack-style-title">お菓子の選び方</h2></div>
+            <div class="snack-style-grid" id="detail-snack-style"></div>
+          </section>
+
+          <section class="detail-section" aria-labelledby="similar-title">
+            <div class="detail-heading"><p class="page-eyebrow">SIMILAR TYPES</p><h2 id="similar-title">似ているタイプ</h2></div>
+            <div class="relation-detail-grid" id="similar-types"></div>
+          </section>
+
+          <section class="detail-section" aria-labelledby="chemistry-title">
+            <div class="detail-heading"><p class="page-eyebrow">TYPE CHEMISTRY</p><h2 id="chemistry-title">タイプ相性</h2></div>
+            <div class="relation-detail-grid" id="detail-relations"></div>
+          </section>
+
+          <nav class="type-navigation" aria-label="他タイプへの導線">
+            <a id="prev-type" href=""></a>
+            <a class="all-types-nav" href="types.html">全12タイプを見る</a>
+            <a id="next-type" href=""></a>
+            <button id="result-back" type="button">診断結果へ戻る</button>
+          </nav>
+        </div>
+      </div>
+      <noscript><p class="noscript-message">タイプ詳細の表示にはJavaScriptが必要です。<a href="types.html">全タイプ一覧へ戻る</a></p></noscript>
+    </main>
+    <footer><span aria-hidden="true">✦</span><p>好きなお菓子からわかる12タイプ診断</p></footer>
+  </body>
+</html>
