@@ -10,7 +10,6 @@
     <meta name="theme-color" content="#fffaf4" />
     <title>好きなお菓子からわかる12タイプ診断｜診断結果</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="config.js?v=20260729-1" defer></script>
     <script src="types.js" defer></script>
     <script src="app.js" defer></script>
   </head>
@@ -38,12 +37,11 @@
           <p class="landing-eyebrow">SNACK PERSONALITY TEST</p>
           <h1 id="landing-title">好きなお菓子から、<br />あなたの12タイプを見つけよう</h1>
           <p class="landing-lead">好きなお菓子と10問の回答から、あなたのメインタイプ、サブタイプ、5つの特徴を診断します。</p>
-          <p class="landing-note"><span aria-hidden="true">✦</span> 診断結果は、専用のカスタムGPTで回答後に表示されます。</p>
+          <p class="landing-note"><span aria-hidden="true">✦</span> 回答と採点はこのサイト内だけで完了し、入力内容を外部サーバーへ送信しません。</p>
           <div class="landing-actions">
-            <a class="landing-button landing-primary" id="start-diagnosis" href="" aria-label="カスタムGPTで診断を始める">診断を始める <span aria-hidden="true">→</span></a>
+            <a class="landing-button landing-primary" id="start-diagnosis" href="quiz.html" aria-label="サイト内で診断を始める">診断を始める <span aria-hidden="true">→</span></a>
             <a class="landing-button landing-secondary" href="types.html">全12タイプを見る</a>
           </div>
-          <p class="gpt-config-note" id="gpt-config-note" hidden>カスタムGPT公開URLの設定後に利用できます。</p>
           <p class="landing-error" id="landing-error" role="status" hidden></p>
         </div>
         <div class="landing-characters" aria-label="12タイプのキャラクターたち">
@@ -336,6 +334,18 @@
             </div>
           </article>
         </section>
+
+        <nav class="result-quiz-actions" aria-label="診断をやり直す">
+          <div>
+            <p class="section-kicker">TRY AGAIN</p>
+            <h2>回答を変えて、もう一度見てみる</h2>
+            <p>回答を確認し直すか、すべて削除して新しく診断できます。</p>
+          </div>
+          <div class="result-quiz-buttons">
+            <button class="action-button" id="review-answers" type="button">回答を見直す</button>
+            <button class="action-button primary-action" id="restart-quiz" type="button">もう一度診断する</button>
+          </div>
+        </nav>
 
         <aside class="disclaimer">
           <span aria-hidden="true">i</span>
