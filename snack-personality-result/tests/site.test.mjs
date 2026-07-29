@@ -198,8 +198,12 @@ test("パラメータなしではサンプルを出さず診断案内を表示�
     "好きなお菓子から、あなたの12タイプを見つけよう",
   );
   assert.equal(document.querySelector('a[href="types.html"]').textContent.trim(), "全12タイプを見る");
-  assert.equal(document.getElementById("start-diagnosis").getAttribute("aria-disabled"), "true");
-  assert.equal(document.getElementById("gpt-config-note").hidden, false);
+  assert.equal(document.getElementById("start-diagnosis").getAttribute("aria-disabled"), null);
+  assert.equal(
+    document.getElementById("start-diagnosis").getAttribute("href"),
+    "https://chatgpt.com/g/g-6a69900e27e0819186b2d9fabf803279-oguo-zi-xing-ge-zhen-duan-hao-kinaoguo-zi-tewakaru12taihu",
+  );
+  assert.equal(document.getElementById("gpt-config-note").hidden, true);
 });
 
 test("明示的なdemo=1でのみデモ結果を表示する", () => {
