@@ -1,0 +1,13 @@
+{
+  "name": "snack-personality-result",
+  "version": "1.0.0",
+  "private": true,
+  "description": "好きなお菓子からわかる12タイプ診断の結果表示ページ",
+  "scripts": {
+    "build:data": "node scripts/build-data.mjs",
+    "test": "node --test tests/site.test.mjs"
+  },
+  "devDependencies": {
+    "linkedom": "0.18.13"
+  }
+}
