@@ -6,15 +6,17 @@ import vm from "node:vm";
 import { parseHTML } from "linkedom";
 
 const root = new URL("../", import.meta.url).pathname;
-const [html, configCode, typesCode, appCode, typesHtml, typesPageCode, typeHtml, typePageCode] = await Promise.all([
+const [html, typesCode, appCode, typesHtml, typesPageCode, typeHtml, typePageCode, quizHtml, quizDataCode, quizCode] = await Promise.all([
   readFile(join(root, "index.html"), "utf8"),
-  readFile(join(root, "config.js"), "utf8"),
   readFile(join(root, "types.js"), "utf8"),
   readFile(join(root, "app.js"), "utf8"),
   readFile(join(root, "types.html"), "utf8"),
   readFile(join(root, "types-page.js"), "utf8"),
   readFile(join(root, "type.html"), "utf8"),
   readFile(join(root, "type-page.js"), "utf8"),
+  readFile(join(root, "quiz.html"), "utf8"),
+  readFile(join(root, "quiz-data.js"), "utf8"),
+  readFile(join(root, "quiz.js"), "utf8"),
 ]);
 
 const EXPECTED = {
@@ -62,10 +64,16 @@ const boot = (query = "") => {
     clearTimeout,
     console,
   });
-  vm.runInContext(configCode, context, { filename: "config.js" });
   vm.runInContext(typesCode, context, { filename: "types.js" });
   vm.runInContext(appCode, context, { filename: "app.js" });
   return { window, document, types: window.SNACK_TYPES };
+};
+
+const loadQuizData = () => {
+  const window = {};
+  const context = vm.createContext({ window, URL });
+  vm.runInContext(quizDataCode, context, { filename: "quiz-data.js" });
+  return window.SNACK_QUIZ;
 };
 
 const bootBrowse = (page, query = "") => {
@@ -201,9 +209,9 @@ test("パラメータなしではサンプルを出さず診断案内を表示�
   assert.equal(document.getElementById("start-diagnosis").getAttribute("aria-disabled"), null);
   assert.equal(
     document.getElementById("start-diagnosis").getAttribute("href"),
-    "https://chatgpt.com/g/g-6a69900e27e0819186b2d9fabf803279-oguo-zi-xing-ge-zhen-duan-hao-kinaoguo-zi-tewakaru12taihu",
+    "quiz.html",
   );
-  assert.equal(document.getElementById("gpt-config-note").hidden, true);
+  assert.doesNotMatch(document.getElementById("landing-view").textContent, /カスタムGPT/);
 });
 
 test("明示的なdemo=1でのみデモ結果を表示する", () => {
@@ -311,4 +319,205 @@ test("無効な詳細IDはT01に偽装せず専用エラーを表示する", () 
     assert.equal(document.getElementById("detail-title").textContent, "");
     assert.equal(window.PWNED, undefined);
   }
+});
+
+test("Q1〜Q10の設問・選択肢が指定内容と完全一致する", () => {
+  const quiz = loadQuizData();
+  assert.equal(
+    quiz.QUESTION_ONE.text,
+    "一番好きなお菓子を、商品名や味まで教えてください。",
+  );
+  assert.equal(
+    quiz.QUESTION_ONE.help,
+    "味や食感が分かりにくい商品の場合は、特徴も一緒に教えてください。",
+  );
+
+  const expected = [
+    [2, "一番惹かれる味は？", ["やさしい甘さ", "濃厚な甘さ", "塩味・うま味", "苦味・甘さ控えめ", "辛味・酸味", "複雑な味"]],
+    [3, "一番好きな食感は？", ["サクサク・パリパリ", "ザクザク・硬め", "もちもち・噛み応え", "ふわふわ・しっとり", "なめらか・口溶け", "複数食感"]],
+    [4, "お菓子に一番求めるものは？", ["軽く何度もつまめる", "一口でも濃厚", "甘さ控えめの余韻", "目が覚めるインパクト", "心がほどけるやさしさ", "栄養・機能性"]],
+    [5, "一番食べたくなるのは？", ["一人でゆっくり休憩", "仕事・勉強を頑張った後", "疲れた時・落ち込んだ時", "暇・気分転換", "友達・家族と一緒", "毎日ほぼ同じ時間"]],
+    [6, "食べる理由は？", ["安心・癒し", "新しい発見・ワクワク", "強い刺激で気分を上げる", "誰かと楽しさを共有", "自分へのごほうび", "集中力・調子を整える"]],
+    [7, "食後どんな気分になりたい？", ["落ち着く", "元気になる", "贅沢な満足", "つながりを感じる", "自分を整えた感覚", "驚き・ひらめき"]],
+    [8, "選び方は？", ["ほぼ毎回定番", "基本定番、時々新作", "定番と新作半々", "新作・限定を積極的に試す", "海外・変わった味を優先"]],
+    [9, "一番好きな楽しみ方は？", ["みんなで分ける", "親しい人と二人", "一人で静かに味わう", "動画・作業をしながら一人", "気分や商品で変わる", "時間と量を決めて一人"]],
+    [10, "食べるペースは？", ["量を先に決める", "少しずつゆっくり", "開けたら一気に食べ切る", "誰かと分ける・少し残す", "気分で量が変わる", "複数の味を食べ比べる"]],
+  ];
+  assert.equal(
+    JSON.stringify(
+      quiz.QUESTIONS.map((question) => [
+        question.id,
+        question.text,
+        question.options.map((option) => option.label),
+      ]),
+    ),
+    JSON.stringify(expected),
+  );
+});
+
+test("全選択肢の配点合計が設問点と一致し、Q1〜Q10が100点になる", () => {
+  const quiz = loadQuizData();
+  for (const question of quiz.QUESTIONS) {
+    for (const option of question.options) {
+      assert.equal(
+        Object.values(option.scores).reduce((sum, value) => sum + value, 0),
+        question.points,
+        `Q${question.id}${option.key}`,
+      );
+    }
+  }
+  const q1 = quiz.classifySnack("じゃがりこ サラダ味");
+  assert.equal(Object.values(q1.scores).reduce((sum, value) => sum + value, 0), 30);
+  assert.equal(
+    quiz.QUESTION_ONE.points +
+      quiz.QUESTIONS.reduce((sum, question) => sum + question.points, 0),
+    100,
+  );
+});
+
+test("Q1辞書が商品名・表記揺れ・修飾語を分類し、未知商品は追加確認する", () => {
+  const quiz = loadQuizData();
+  const cases = [
+    ["じゃがりこ サラダ味", "T07"],
+    ["ＰＲＥＴＺ 塩味", "T07"],
+    ["ポッキー", "T01"],
+    ["堅あげポテト", "T08"],
+    ["堅揚げポテト", "T08"],
+    ["濃厚な生チョコ", "T06"],
+    ["すっぱいグミ", "T05"],
+    ["マシュマロ", "T12"],
+    ["栗饅頭", "T02"],
+    ["百味ビーンズ", "T11"],
+    ["低糖質プロテインバー", "T09"],
+    ["期間限定じゃがりこ", "T04"],
+  ];
+  for (const [snack, expectedTop] of cases) {
+    const result = quiz.classifySnack(snack);
+    assert.equal(result.needsFollowUp, false, snack);
+    const top = Object.entries(result.scores).sort((a, b) => b[1] - a[1])[0][0];
+    assert.equal(top, expectedTop, snack);
+    assert.equal(Object.values(result.scores).reduce((sum, value) => sum + value, 0), 30);
+  }
+
+  const unknown = quiz.classifySnack("宇宙雲菓子");
+  assert.equal(unknown.needsFollowUp, true);
+  assert.equal(unknown.scores, null);
+  const completed = quiz.classifySnack("宇宙雲菓子", {
+    taste: "F",
+    texture: "A",
+  });
+  assert.equal(completed.needsFollowUp, false);
+  assert.equal(Object.values(completed.scores).reduce((sum, value) => sum + value, 0), 30);
+});
+
+const answersFavoring = (quiz, id) =>
+  Object.fromEntries(
+    quiz.QUESTIONS.map((question) => {
+      const selected = [...question.options].sort(
+        (a, b) => (b.scores[id] ?? 0) - (a.scores[id] ?? 0),
+      )[0];
+      return [String(question.id), selected.key];
+    }),
+  );
+
+test("プリッツ・百味ビーンズ・マシュマロ・定番重視の回帰ケースが一致する", () => {
+  const quiz = loadQuizData();
+  const cases = [
+    ["プリッツ", "T07"],
+    ["百味ビーンズ", "T11"],
+    ["マシュマロ", "T12"],
+    ["せんべい", "T02"],
+  ];
+  for (const [snack, expected] of cases) {
+    const result = quiz.scoreQuiz({
+      snack,
+      supplemental: {},
+      answers: answersFavoring(quiz, expected),
+    });
+    assert.equal(result.main, expected, snack);
+    assert.equal(Object.values(result.totals).reduce((sum, value) => sum + value, 0), 100);
+    assert.equal(result.proportions.reduce((sum, value) => sum + value, 0), 100);
+    assert.equal(result.axes.length, 5);
+    assert.ok(result.axes.every((value) => Number.isInteger(value) && value >= 0 && value <= 100));
+  }
+});
+
+test("T01〜T12がすべてメインタイプとして出現可能である", () => {
+  const quiz = loadQuizData();
+  const snacks = {
+    T01: "ポッキー",
+    T02: "せんべい",
+    T03: "ビターチョコ",
+    T04: "期間限定じゃがりこ",
+    T05: "激辛カラムーチョ",
+    T06: "濃厚な生チョコ",
+    T07: "プリッツ",
+    T08: "グミ",
+    T09: "プロテインバー",
+    T10: "思い出のうまい棒",
+    T11: "百味ビーンズ",
+    T12: "マシュマロ",
+  };
+  const t10Answers = {
+    2: "D",
+    3: "F",
+    4: "E",
+    5: "A",
+    6: "A",
+    7: "F",
+    8: "B",
+    9: "B",
+    10: "D",
+  };
+  for (const id of quiz.TYPE_IDS) {
+    const result = quiz.scoreQuiz({
+      snack: snacks[id],
+      supplemental: {},
+      answers: id === "T10" ? t10Answers : answersFavoring(quiz, id),
+    });
+    assert.equal(result.main, id, `${id}が出現しません`);
+  }
+});
+
+test("結果URLは生得点を含まず、共有先で再現できる値だけを持つ", () => {
+  const quiz = loadQuizData();
+  const result = quiz.scoreQuiz({
+    snack: "プリッツ",
+    supplemental: {},
+    answers: answersFavoring(quiz, "T07"),
+  });
+  const url = new URL(
+    quiz.resultUrl(result, "https://example.test/snack-personality-result/index.html"),
+  );
+  assert.equal(url.searchParams.get("m"), result.main);
+  assert.equal(url.searchParams.get("s"), result.sub);
+  assert.equal(url.searchParams.get("t"), result.third);
+  assert.equal(url.searchParams.get("a"), result.axes.join(","));
+  assert.equal(url.searchParams.get("p"), result.proportions.join(","));
+  assert.equal(url.searchParams.get("snack"), "プリッツ");
+  assert.equal(url.searchParams.has("scores"), false);
+  assert.equal(url.searchParams.has("totals"), false);
+});
+
+test("診断画面は1問表示・進捗・戻る・再開・リセット用の構造を持つ", () => {
+  const { document } = parseHTML(quizHtml);
+  assert.ok(document.getElementById("progress-track"));
+  assert.ok(document.getElementById("answer-area"));
+  assert.ok(document.getElementById("previous-question"));
+  assert.ok(document.getElementById("next-question"));
+  assert.ok(document.getElementById("reset-quiz"));
+  assert.ok(document.getElementById("reset-dialog"));
+  assert.match(quizCode, /localStorage\.setItem/);
+  assert.match(quizCode, /popstate/);
+  assert.match(quizCode, /sessionStorage\.setItem/);
+});
+
+test("Q1入力はHTMLとして解釈せず、制御文字と長すぎる入力を制限する", () => {
+  const quiz = loadQuizData();
+  const payload = "<script>alert(1)</script>".repeat(20);
+  const sanitized = quiz.sanitizeSnackInput(`${payload}\u0000`);
+  assert.ok(Array.from(sanitized).length <= 80);
+  assert.doesNotMatch(sanitized, /\u0000/);
+  const classified = quiz.classifySnack(sanitized, { taste: "F", texture: "F" });
+  assert.equal(classified.needsFollowUp, false);
 });
