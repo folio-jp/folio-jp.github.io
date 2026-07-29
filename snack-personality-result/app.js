@@ -608,8 +608,12 @@
       window.location.href = "quiz.html?review=1";
     });
     $("restart-quiz").addEventListener("click", () => {
-      localStorage.removeItem("snack-personality-quiz-v1");
-      sessionStorage.removeItem("snack-personality-completed-v1");
+      try {
+        localStorage.removeItem("snack-personality-quiz-v1");
+        sessionStorage.removeItem("snack-personality-completed-v1");
+      } catch {
+        // Restricted in-app browsers may disable Web Storage.
+      }
       window.location.href = "quiz.html?q=1";
     });
   };
