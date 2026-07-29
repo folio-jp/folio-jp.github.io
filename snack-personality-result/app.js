@@ -5,7 +5,6 @@
   const TYPE_IDS = Object.freeze(Object.keys(TYPES));
   const AXES = Object.freeze(["好奇心", "社交性", "こだわり", "安心志向", "刺激欲求"]);
   const REQUIRED_PARAMS = Object.freeze(["m", "s", "t", "a", "p"]);
-  const CUSTOM_GPT_URL = window.SNACK_CONFIG?.CUSTOM_GPT_URL?.trim() ?? "";
   const DEFAULTS = Object.freeze({
     main: "T07",
     sub: "T05",
@@ -123,7 +122,7 @@
       return {
         mode: "landing",
         error: attemptedResult
-          ? `診断結果URLに必要な情報が不足しています（${missing.join("、")}）。カスタムGPTから発行されたURLを開き直してください。`
+          ? `診断結果URLに必要な情報が不足しています（${missing.join("、")}）。サイト内で診断をやり直してください。`
           : "",
       };
     }
@@ -148,7 +147,7 @@
     if (invalidParts.length > 0) {
       return {
         mode: "landing",
-        error: `診断結果URLに無効な情報が含まれています（${invalidParts.join("、")}）。カスタムGPTから発行されたURLを開き直してください。`,
+        error: `診断結果URLに無効な情報が含まれています（${invalidParts.join("、")}）。サイト内で診断をやり直してください。`,
       };
     }
 
@@ -591,7 +590,7 @@
       try {
         await navigator.share({
           title: `${TYPES[state.main].name}｜お菓子12タイプ診断`,
-          text: TYPES[state.main].share,
+          text: `${TYPES[state.main].name}\n${TYPES[state.main].copy}`,
           url,
         });
       } catch (error) {
@@ -604,6 +603,15 @@
       $("native-share").hidden = false;
       $("native-share").addEventListener("click", share);
     }
+
+    $("review-answers").addEventListener("click", () => {
+      window.location.href = "quiz.html?review=1";
+    });
+    $("restart-quiz").addEventListener("click", () => {
+      localStorage.removeItem("snack-personality-quiz-v1");
+      sessionStorage.removeItem("snack-personality-completed-v1");
+      window.location.href = "quiz.html?q=1";
+    });
   };
 
   if (!TYPES || TYPE_IDS.length !== 12) {
@@ -617,15 +625,6 @@
     document.body.classList.add("is-landing");
     $("landing-view").hidden = false;
     document.title = "好きなお菓子からわかる12タイプ診断";
-    const startButton = $("start-diagnosis");
-    if (CUSTOM_GPT_URL) {
-      startButton.href = CUSTOM_GPT_URL;
-    } else {
-      startButton.removeAttribute("href");
-      startButton.setAttribute("aria-disabled", "true");
-      startButton.classList.add("is-disabled");
-      $("gpt-config-note").hidden = false;
-    }
     if (state.error) {
       setText("landing-error", state.error);
       $("landing-error").hidden = false;
