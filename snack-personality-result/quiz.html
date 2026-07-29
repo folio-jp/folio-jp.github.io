@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="好きなお菓子と10問の回答から、あなたの12タイプを診断します。"
+    />
+    <meta name="theme-color" content="#fffaf4" />
+    <title>診断する｜好きなお菓子からわかる12タイプ診断</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="quiz.css" />
+    <script src="quiz-data.js" defer></script>
+    <script src="quiz.js" defer></script>
+  </head>
+  <body class="quiz-body">
+    <a class="skip-link" href="#quiz-main">診断本文へ移動</a>
+
+    <header class="site-header quiz-header" aria-label="サイトヘッダー">
+      <a class="brand" href="./" aria-label="診断トップへ戻る">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span>お菓子12タイプ診断</span>
+      </a>
+      <button class="quiz-reset-link" id="reset-quiz" type="button">最初からやり直す</button>
+    </header>
+
+    <main id="quiz-main" class="quiz-main">
+      <section class="quiz-shell" aria-labelledby="quiz-question">
+        <div class="quiz-decoration quiz-decoration-one" aria-hidden="true"></div>
+        <div class="quiz-decoration quiz-decoration-two" aria-hidden="true"></div>
+
+        <header class="quiz-progress" aria-label="診断の進捗">
+          <div class="quiz-progress-copy">
+            <span id="progress-question">Q1 / 10</span>
+            <strong id="progress-percent">10%</strong>
+          </div>
+          <div
+            class="quiz-progress-track"
+            role="progressbar"
+            aria-label="診断の進捗"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="10"
+            id="progress-track"
+          >
+            <span id="progress-fill"></span>
+          </div>
+        </header>
+
+        <div class="quiz-card" id="question-card">
+          <p class="quiz-kicker">SNACK PERSONALITY QUESTION</p>
+          <p class="quiz-number" id="question-number">QUESTION 01</p>
+          <h1 id="quiz-question" tabindex="-1"></h1>
+          <p class="quiz-help" id="quiz-help" hidden></p>
+          <div id="answer-area"></div>
+          <p class="quiz-error" id="quiz-error" role="alert" hidden></p>
+        </div>
+
+        <nav class="quiz-navigation" aria-label="質問の移動">
+          <button class="quiz-nav-button quiz-back" id="previous-question" type="button">
+            <span aria-hidden="true">←</span> 前の質問へ
+          </button>
+          <button class="quiz-nav-button quiz-next" id="next-question" type="button">
+            次へ <span aria-hidden="true">→</span>
+          </button>
+        </nav>
+      </section>
+
+      <aside class="quiz-character-rail" aria-hidden="true">
+        <img src="assets/T01_シェアリ.png" alt="" width="1024" height="1024" />
+        <img src="assets/T07_サクポン.png" alt="" width="1024" height="1024" />
+        <img src="assets/T12_マロネ.png" alt="" width="1024" height="1024" />
+      </aside>
+    </main>
+
+    <dialog class="reset-dialog" id="reset-dialog">
+      <form method="dialog">
+        <p class="quiz-kicker">START OVER</p>
+        <h2>診断を最初からやり直しますか？</h2>
+        <p>入力したお菓子と回答済みの選択肢がすべて削除されます。</p>
+        <div class="dialog-actions">
+          <button value="cancel" class="quiz-nav-button quiz-back">キャンセル</button>
+          <button value="confirm" class="quiz-nav-button quiz-next">やり直す</button>
+        </div>
+      </form>
+    </dialog>
+
+    <noscript>この診断にはJavaScriptが必要です。</noscript>
+  </body>
+</html>
