@@ -502,6 +502,12 @@
   }
 }
 
+@media (max-width: 1199px) {
+  .quiz-decoration {
+    display: none;
+  }
+}
+
 @media (max-width: 480px) {
   .quiz-header {
     width: calc(100% - 24px);
