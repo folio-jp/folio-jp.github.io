@@ -41,7 +41,20 @@
 
   const save = () => {
     state.updatedAt = Date.now();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch {
+      // Storage may be unavailable in a restricted in-app browser.
+    }
+  };
+
+  const clearStoredState = () => {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      sessionStorage.removeItem(COMPLETED_KEY);
+    } catch {
+      // Continue with the in-memory reset when storage is unavailable.
+    }
   };
 
   const questionFromUrl = () => {
@@ -291,10 +304,14 @@
       const result = QUIZ.scoreQuiz(state);
       const resultBase = new URL("index.html", window.location.href);
       const url = QUIZ.resultUrl(result, resultBase);
-      sessionStorage.setItem(
-        COMPLETED_KEY,
-        JSON.stringify({ completedAt: Date.now(), url }),
-      );
+      try {
+        sessionStorage.setItem(
+          COMPLETED_KEY,
+          JSON.stringify({ completedAt: Date.now(), url }),
+        );
+      } catch {
+        // Result navigation does not depend on session storage.
+      }
       window.location.assign(url);
     } catch (error) {
       completing = false;
@@ -321,8 +338,7 @@
     if (typeof dialog.showModal === "function") {
       dialog.showModal();
     } else if (window.confirm("入力した回答を削除して最初からやり直しますか？")) {
-      localStorage.removeItem(STORAGE_KEY);
-      sessionStorage.removeItem(COMPLETED_KEY);
+      clearStoredState();
       state = freshState();
       goTo(1, { replace: true });
     }
@@ -330,8 +346,7 @@
 
   $("reset-dialog").addEventListener("close", () => {
     if ($("reset-dialog").returnValue !== "confirm") return;
-    localStorage.removeItem(STORAGE_KEY);
-    sessionStorage.removeItem(COMPLETED_KEY);
+    clearStoredState();
     state = freshState();
     goTo(1, { replace: true });
   });
