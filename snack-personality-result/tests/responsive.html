@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Responsive QA｜お菓子12タイプ診断</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 24px; background: #222; color: #fff; font-family: system-ui, sans-serif; }
+      section { margin: 0 0 32px; }
+      h2 { margin: 0 0 8px; font-size: 14px; }
+      iframe { display: block; height: 900px; max-width: none; border: 2px solid #fff; background: #fff; }
+    </style>
+  </head>
+  <body>
+    <main id="frames"></main>
+    <script>
+      const widths = [375, 390, 430, 768, 1440];
+      const query =
+        "?m=T11&s=T04&t=T03&a=97,53,82,22,68&p=52,30,18&snack=%E7%99%BE%E5%91%B3%E3%83%93%E3%83%BC%E3%83%B3%E3%82%BA";
+      const target = document.getElementById("frames");
+      widths.forEach((width) => {
+        const section = document.createElement("section");
+        section.dataset.width = String(width);
+        const heading = document.createElement("h2");
+        heading.textContent = `${width}px`;
+        const frame = document.createElement("iframe");
+        frame.title = `${width}px レスポンシブ確認`;
+        frame.width = String(width);
+        frame.src = `../${query}`;
+        section.append(heading, frame);
+        target.append(section);
+      });
+    </script>
+  </body>
+</html>
