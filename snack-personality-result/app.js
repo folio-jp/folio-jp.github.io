@@ -4,6 +4,8 @@
   const TYPES = window.SNACK_TYPES;
   const TYPE_IDS = Object.freeze(Object.keys(TYPES));
   const AXES = Object.freeze(["好奇心", "社交性", "こだわり", "安心志向", "刺激欲求"]);
+  const REQUIRED_PARAMS = Object.freeze(["m", "s", "t", "a", "p"]);
+  const CUSTOM_GPT_URL = window.SNACK_CONFIG?.CUSTOM_GPT_URL?.trim() ?? "";
   const DEFAULTS = Object.freeze({
     main: "T07",
     sub: "T05",
@@ -98,39 +100,78 @@
 
   const readParams = () => {
     const params = new URLSearchParams(window.location.search);
-    const hasParams = [...params.keys()].length > 0;
     const corrections = [];
+    const demo = params.get("demo") === "1";
 
-    const readType = (key, fallback) => {
-      const raw = params.get(key);
-      if (isType(raw)) return raw;
-      if (raw !== null) corrections.push(`${key}を既定値に補正`);
-      return fallback;
-    };
+    if (demo) {
+      return {
+        mode: "demo",
+        main: DEFAULTS.main,
+        sub: DEFAULTS.sub,
+        third: DEFAULTS.third,
+        axes: [...DEFAULTS.axes],
+        proportions: [...DEFAULTS.proportions],
+        snack: DEFAULTS.snack,
+        hasSnack: true,
+        corrections,
+      };
+    }
+
+    const attemptedResult = REQUIRED_PARAMS.some((key) => params.has(key));
+    const missing = REQUIRED_PARAMS.filter((key) => !params.has(key));
+    if (missing.length > 0) {
+      return {
+        mode: "landing",
+        error: attemptedResult
+          ? `診断結果URLに必要な情報が不足しています（${missing.join("、")}）。カスタムGPTから発行されたURLを開き直してください。`
+          : "",
+      };
+    }
+
+    const main = params.get("m");
+    const sub = params.get("s");
+    const third = params.get("t");
+    const invalidTypes = [
+      ["m", main],
+      ["s", sub],
+      ["t", third],
+    ].filter(([, value]) => !isType(value));
 
     const axes = parseList(params.get("a"), 5, DEFAULTS.axes);
-    if (axes.corrected && params.has("a")) corrections.push("特徴スコアを既定値に補正");
-
     const rawProportions = parseList(params.get("p"), 3, DEFAULTS.proportions);
-    if (rawProportions.corrected && params.has("p")) {
-      corrections.push("タイプ構成を既定値に補正");
+    const proportionTotal = rawProportions.value.reduce((sum, value) => sum + value, 0);
+    const invalidParts = [
+      ...invalidTypes.map(([key]) => key),
+      ...(axes.corrected ? ["a"] : []),
+      ...(rawProportions.corrected || proportionTotal <= 0 ? ["p"] : []),
+    ];
+    if (invalidParts.length > 0) {
+      return {
+        mode: "landing",
+        error: `診断結果URLに無効な情報が含まれています（${invalidParts.join("、")}）。カスタムGPTから発行されたURLを開き直してください。`,
+      };
     }
+
     const proportions = normalizeProportions(rawProportions.value);
-    if (proportions.normalized && !rawProportions.corrected) {
+    if (proportions.normalized) {
       corrections.push("タイプ構成の合計を100%に再調整");
     }
 
-    const snack = sanitizeSnack(params.get("snack"));
-    if (snack.corrected && params.has("snack")) corrections.push("お菓子名を安全な長さに補正");
+    const hasSnack = params.has("snack") && params.get("snack").trim() !== "";
+    const snack = hasSnack
+      ? sanitizeSnack(params.get("snack"))
+      : { value: "未指定", corrected: false };
+    if (snack.corrected) corrections.push("お菓子名を安全な長さに補正");
 
     return {
-      hasParams,
-      main: readType("m", DEFAULTS.main),
-      sub: readType("s", DEFAULTS.sub),
-      third: readType("t", DEFAULTS.third),
+      mode: "result",
+      main,
+      sub,
+      third,
       axes: axes.value,
       proportions: proportions.value,
       snack: snack.value,
+      hasSnack,
       corrections,
     };
   };
@@ -138,12 +179,16 @@
   const canonicalUrl = (state) => {
     const url = new URL(window.location.href);
     url.search = "";
+    if (state.mode === "demo") {
+      url.searchParams.set("demo", "1");
+      return url.toString();
+    }
     url.searchParams.set("m", state.main);
     url.searchParams.set("s", state.sub);
     url.searchParams.set("t", state.third);
     url.searchParams.set("a", state.axes.join(","));
     url.searchParams.set("p", state.proportions.join(","));
-    url.searchParams.set("snack", state.snack);
+    if (state.hasSnack) url.searchParams.set("snack", state.snack);
     return url.toString();
   };
 
@@ -439,10 +484,10 @@
 
   const showNotice = (state) => {
     const notice = $("status-notice");
-    if (!state.hasParams) {
+    if (state.mode === "demo") {
       setText(
         "status-message",
-        "このページはカスタムGPTの診断結果URLを表示する専用ページです。現在はサンプル結果を表示しています。",
+        "これは機能確認用のデモ結果です。実際の診断結果ではありません。",
       );
       notice.hidden = false;
       return;
@@ -476,7 +521,9 @@
     renderBlend(state);
     setText(
       "summary-lead",
-      `「${state.snack}」を選ぶあなたには、${type.name}らしい魅力が表れています。`,
+      state.hasSnack
+        ? `「${state.snack}」を選ぶあなたには、${type.name}らしい魅力が表れています。`
+        : `好きなお菓子への回答には、${type.name}らしい魅力が表れています。`,
     );
     setText("summary-body", type.overall);
     renderTraits(type);
@@ -521,7 +568,7 @@
 
   const bindActions = (state) => {
     const url = canonicalUrl(state);
-    if (state.hasParams && state.corrections.length > 0) {
+    if (state.mode === "result" && state.corrections.length > 0) {
       window.history.replaceState(null, "", url);
     }
 
@@ -565,6 +612,28 @@
   }
 
   const state = readParams();
+  document.body.classList.remove("is-loading");
+  if (state.mode === "landing") {
+    document.body.classList.add("is-landing");
+    $("landing-view").hidden = false;
+    document.title = "好きなお菓子からわかる12タイプ診断";
+    const startButton = $("start-diagnosis");
+    if (CUSTOM_GPT_URL) {
+      startButton.href = CUSTOM_GPT_URL;
+    } else {
+      startButton.removeAttribute("href");
+      startButton.setAttribute("aria-disabled", "true");
+      startButton.classList.add("is-disabled");
+      $("gpt-config-note").hidden = false;
+    }
+    if (state.error) {
+      setText("landing-error", state.error);
+      $("landing-error").hidden = false;
+    }
+    return;
+  }
+
+  document.body.classList.add("is-result");
   render(state);
   bindActions(state);
 })();

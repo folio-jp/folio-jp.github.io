@@ -6,8 +6,9 @@ import vm from "node:vm";
 import { parseHTML } from "linkedom";
 
 const root = new URL("../", import.meta.url).pathname;
-const [html, typesCode, appCode, typesHtml, typesPageCode, typeHtml, typePageCode] = await Promise.all([
+const [html, configCode, typesCode, appCode, typesHtml, typesPageCode, typeHtml, typePageCode] = await Promise.all([
   readFile(join(root, "index.html"), "utf8"),
+  readFile(join(root, "config.js"), "utf8"),
   readFile(join(root, "types.js"), "utf8"),
   readFile(join(root, "app.js"), "utf8"),
   readFile(join(root, "types.html"), "utf8"),
@@ -61,6 +62,7 @@ const boot = (query = "") => {
     clearTimeout,
     console,
   });
+  vm.runInContext(configCode, context, { filename: "config.js" });
   vm.runInContext(typesCode, context, { filename: "types.js" });
   vm.runInContext(appCode, context, { filename: "app.js" });
   return { window, document, types: window.SNACK_TYPES };
@@ -162,27 +164,19 @@ test("指定4サンプルURLの値を正しく描画する", () => {
   }
 });
 
-test("異常値を安全に補正し、任意HTMLを実行可能なDOMにしない", () => {
-  const longSnack = "あ".repeat(100);
-  const { document } = boot(
-    `?m=T99&s=&t=T88&a=文字列&p=1,1,1&snack=${encodeURIComponent(longSnack)}`,
-  );
-  assert.equal(document.getElementById("hero-type-id").textContent, "T07");
-  assert.deepEqual(
-    [...document.querySelectorAll(".axis-number")].map((node) =>
-      Number.parseInt(node.textContent, 10),
-    ),
-    [66, 74, 54, 43, 74],
-  );
-  assert.equal(
-    [...document.querySelectorAll(".blend-percent")].reduce(
-      (sum, node) => sum + Number.parseInt(node.textContent, 10),
-      0,
-    ),
-    100,
-  );
-  assert.equal(Array.from(document.getElementById("hero-snack").textContent).length, 40);
-  assert.equal(document.getElementById("status-notice").hidden, false);
+test("異常な必須値は結果へ補正せず案内画面へ戻し、任意HTMLを実行しない", () => {
+  for (const query of [
+    "?m=T99&s=T02&t=T03&a=1,2,3,4,5&p=50,30,20",
+    "?m=T01&s=T02&t=T03&a=文字列&p=50,30,20",
+    "?m=T01&s=T02&t=T03&a=1,2,3,4,5",
+    "?m=T01&s=T02&t=T03&a=1,2,3,4,5&p=0,0,0",
+  ]) {
+    const { document } = boot(query);
+    assert.equal(document.body.classList.contains("is-landing"), true);
+    assert.equal(document.getElementById("landing-view").hidden, false);
+    assert.equal(document.getElementById("hero-type-id").textContent, "");
+    assert.equal(document.getElementById("landing-error").hidden, false);
+  }
 
   const scriptPayload = "<script>globalThis.PWNED=true</script><img src=x onerror=alert(1)>";
   const attack = boot(
@@ -193,11 +187,46 @@ test("異常値を安全に補正し、任意HTMLを実行可能なDOMにしな�
   assert.match(attack.document.getElementById("hero-snack").textContent, /<script>/);
 });
 
-test("パラメータなしでは説明付きサンプルを表示する", () => {
+test("パラメータなしではサンプルを出さず診断案内を表示する", () => {
   const { document } = boot();
+  assert.equal(document.body.classList.contains("is-landing"), true);
+  assert.equal(document.getElementById("landing-view").hidden, false);
+  assert.equal(document.getElementById("hero-type-id").textContent, "");
+  assert.equal(document.getElementById("status-notice").hidden, true);
+  assert.equal(
+    document.getElementById("landing-title").textContent.replace(/\s+/g, ""),
+    "好きなお菓子から、あなたの12タイプを見つけよう",
+  );
+  assert.equal(document.querySelector('a[href="types.html"]').textContent.trim(), "全12タイプを見る");
+  assert.equal(document.getElementById("start-diagnosis").getAttribute("aria-disabled"), "true");
+  assert.equal(document.getElementById("gpt-config-note").hidden, false);
+});
+
+test("明示的なdemo=1でのみデモ結果を表示する", () => {
+  const { document } = boot("?demo=1");
+  assert.equal(document.body.classList.contains("is-result"), true);
   assert.equal(document.getElementById("hero-type-id").textContent, "T07");
   assert.equal(document.getElementById("status-notice").hidden, false);
-  assert.match(document.getElementById("status-message").textContent, /サンプル結果/);
+  assert.match(document.getElementById("status-message").textContent, /デモ結果/);
+});
+
+test("正常な本番パラメータでは案内を出さず実際の結果だけを表示する", () => {
+  const { document } = boot(
+    "?m=T07&s=T05&t=T04&a=66,74,54,43,74&p=48,31,21&snack=プリッツ",
+  );
+  assert.equal(document.body.classList.contains("is-result"), true);
+  assert.equal(document.getElementById("landing-view").hidden, true);
+  assert.equal(document.getElementById("status-notice").hidden, true);
+  assert.equal(document.getElementById("hero-type-id").textContent, "T07");
+  assert.equal(document.getElementById("hero-snack").textContent, "プリッツ");
+});
+
+test("snack省略時も正常な結果として表示する", () => {
+  const { document } = boot("?m=T12&s=T10&t=T02&a=30,50,40,100,15&p=55,25,20");
+  assert.equal(document.body.classList.contains("is-result"), true);
+  assert.equal(document.getElementById("hero-type-id").textContent, "T12");
+  assert.equal(document.getElementById("hero-snack").textContent, "未指定");
+  assert.match(document.getElementById("summary-lead").textContent, /好きなお菓子への回答/);
 });
 
 test("アクセシビリティと印刷に必要な構造が存在する", () => {
@@ -214,7 +243,9 @@ test("アクセシビリティと印刷に必要な構造が存在する", () =>
 });
 
 test("診断結果の相性直後に全タイプCTAがある", () => {
-  const { document } = boot();
+  const { document } = boot(
+    "?m=T07&s=T05&t=T04&a=66,74,54,43,74&p=48,31,21&snack=プリッツ",
+  );
   const cta = document.querySelector(".all-types-cta");
   assert.ok(cta);
   assert.equal(cta.previousElementSibling.id, "");

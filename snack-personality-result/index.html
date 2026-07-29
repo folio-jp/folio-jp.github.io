@@ -10,10 +10,11 @@
     <meta name="theme-color" content="#fffaf4" />
     <title>好きなお菓子からわかる12タイプ診断｜診断結果</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="config.js" defer></script>
     <script src="types.js" defer></script>
     <script src="app.js" defer></script>
   </head>
-  <body>
+  <body class="is-loading">
     <a class="skip-link" href="#main-content">結果本文へ移動</a>
 
     <header class="site-header" aria-label="サイトヘッダー">
@@ -30,6 +31,33 @@
     </header>
 
     <main id="main-content">
+      <section class="landing-view" id="landing-view" aria-labelledby="landing-title" hidden>
+        <div class="landing-orb landing-orb-one" aria-hidden="true"></div>
+        <div class="landing-orb landing-orb-two" aria-hidden="true"></div>
+        <div class="landing-copy">
+          <p class="landing-eyebrow">SNACK PERSONALITY TEST</p>
+          <h1 id="landing-title">好きなお菓子から、<br />あなたの12タイプを見つけよう</h1>
+          <p class="landing-lead">好きなお菓子と10問の回答から、あなたのメインタイプ、サブタイプ、5つの特徴を診断します。</p>
+          <p class="landing-note"><span aria-hidden="true">✦</span> 診断結果は、専用のカスタムGPTで回答後に表示されます。</p>
+          <div class="landing-actions">
+            <a class="landing-button landing-primary" id="start-diagnosis" href="" aria-label="カスタムGPTで診断を始める">診断を始める <span aria-hidden="true">→</span></a>
+            <a class="landing-button landing-secondary" href="types.html">全12タイプを見る</a>
+          </div>
+          <p class="gpt-config-note" id="gpt-config-note" hidden>カスタムGPT公開URLの設定後に利用できます。</p>
+          <p class="landing-error" id="landing-error" role="status" hidden></p>
+        </div>
+        <div class="landing-characters" aria-label="12タイプのキャラクターたち">
+          <div class="landing-stage" aria-hidden="true">
+            <img src="assets/T01_シェアリ.png" alt="" width="1024" height="1024" />
+            <img src="assets/T04_スナッピ.png" alt="" width="1024" height="1024" />
+            <img src="assets/T07_サクポン.png" alt="" width="1024" height="1024" />
+            <img src="assets/T11_ヒラメキィ.png" alt="" width="1024" height="1024" />
+            <img src="assets/T12_マロネ.png" alt="" width="1024" height="1024" />
+          </div>
+          <div class="landing-count"><strong>12</strong><span>SNACK TYPES</span></div>
+        </div>
+      </section>
+
       <aside class="status-notice" id="status-notice" hidden>
         <span class="status-icon" aria-hidden="true">i</span>
         <p id="status-message"></p>
