@@ -19,10 +19,55 @@
   }
 
   [class*='HomeSpace_item-windowChair__'] {
-    grid-column: 5 / span 4;
+    grid-column: 8 / span 4;
     grid-row: 2;
     width: 100%;
+    justify-self: end;
     margin-top: clamp(-40px, -2.5vw, -24px);
+  }
+
+  [class*='BuildingSection_head__'] {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gap-desktop);
+    align-items: start;
+  }
+
+  [class*='BuildingSection_title__'] {
+    grid-column: 1 / span 6;
+    grid-row: 2;
+  }
+
+  [class*='BuildingSection_body__'] {
+    grid-column: 1 / span 6;
+    grid-row: 3;
+    max-width: 42em;
+    margin-top: var(--space-6);
+  }
+
+  [class*='BuildingSection_gallery__'] {
+    margin-top: var(--space-9);
+  }
+
+  [class*='RenovationTimeline_head__'] {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gap-desktop);
+    align-items: start;
+  }
+
+  [class*='RenovationTimeline_title__'] {
+    grid-column: 1 / span 6;
+    grid-row: 2;
+  }
+
+  [class*='RenovationTimeline_body__'] {
+    grid-column: 1 / span 6;
+    grid-row: 3;
+    max-width: 40em;
+    margin-top: var(--space-6);
+  }
+
+  [class*='RenovationTimeline_list__'] {
+    margin-top: var(--space-9);
   }
 
   [class*='HomeSignatureMenu_title__'] {
