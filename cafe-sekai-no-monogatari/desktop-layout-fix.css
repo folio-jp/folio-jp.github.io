@@ -1,29 +1,68 @@
 @media (min-width: 1024px) {
   [class*='HomeSpace_gallery__'] {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--grid-gap-desktop);
-    row-gap: clamp(56px, 6.5vw, 104px);
-    align-items: start;
+    position: relative;
+    display: block;
     margin-top: 0;
   }
 
   [class*='HomeSpace_item-beams__'] {
-    grid-column: 1 / span 7;
-    grid-row: 1;
+    width: 58.333%;
   }
 
   [class*='HomeSpace_item-chairs__'] {
-    grid-column: 9 / span 4;
-    grid-row: 1;
-    margin-top: clamp(48px, 6vw, 88px);
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 33.333%;
+    margin-top: 0;
   }
 
   [class*='HomeSpace_item-windowChair__'] {
-    grid-column: 8 / span 4;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 33.333%;
+    margin-top: 0;
+  }
+
+  [class*='HomeSpace_item-windowChair__'] [class*='HomeSpace_media__'] {
+    aspect-ratio: 1 / 1;
+  }
+
+  #drinks [class*='MenuCategorySection_media__'] {
+    display: none;
+  }
+
+  [class*='Wordmark_wordmark__'][data-variant='footer'] {
+    display: grid;
+    grid-template-columns: var(--logo-size) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: 0.62em;
+    row-gap: 0.4em;
+    align-items: center;
+  }
+
+  [class*='Wordmark_wordmark__'][data-variant='footer'] [class*='Wordmark_brandRow__'] {
+    display: contents;
+  }
+
+  [class*='Wordmark_wordmark__'][data-variant='footer'] [class*='Wordmark_logoDisc__'] {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  [class*='Wordmark_wordmark__'][data-variant='footer'] [class*='Wordmark_nameLockup__'] {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+  }
+
+  [class*='Wordmark_wordmark__'][data-variant='footer'] [class*='Wordmark_descriptor__'] {
+    grid-column: 2;
     grid-row: 2;
-    width: 100%;
-    justify-self: end;
-    margin-top: clamp(-40px, -2.5vw, -24px);
+    align-self: start;
+    margin-top: 0;
+    font-size: 0.625rem;
   }
 
   [class*='BuildingSection_head__'] {
