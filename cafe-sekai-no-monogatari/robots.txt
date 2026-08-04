@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://folio-jp.github.io/cafe-sekai-no-monogatari
+Sitemap: https://folio-jp.github.io/cafe-sekai-no-monogatari/sitemap.xml
