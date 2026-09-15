@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%23FFFFFF'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='sans-serif' font-size='36' font-weight='300' fill='%231E1B18'%3EA%3C/text%3E%3C/svg%3E">
+<script src="./support.js"></script>
+<title>ABOUT｜Hair salon Anemone 沖縄市知花</title>
+<link rel="canonical" href="https://folio-jp.github.io/anemone-demo/about.html">
+<meta property="og:url" content="https://folio-jp.github.io/anemone-demo/about.html">
+<meta name="description" content="沖縄市知花のHair salon Anemoneのサロン紹介。丁寧なカウンセリングを大切にし、髪質や生活に合わせた施術をご提案します。代表・小沼巧和のプロフィール、店内と施術のご案内。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hair salon Anemone">
+<meta property="og:title" content="ABOUT｜Hair salon Anemone 沖縄市知花">
+<meta property="og:description" content="沖縄市知花のHair salon Anemoneのサロン紹介。丁寧なカウンセリングを大切にし、髪質や生活に合わせた施術をご提案します。代表・小沼巧和のプロフィール、店内と施術のご案内。">
+<meta property="og:image" content="https://folio-jp.github.io/anemone-demo/uploads/hpb_interior_01.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@400;500&family=Shippori+Mincho+B1:wght@400&display=swap" rel="stylesheet" />
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  :root {
+    --font-en: 'Source Sans 3', sans-serif;
+    --font-ja: 'Zen Kaku Gothic New', sans-serif;
+    --font-ja-serif: 'Shippori Mincho B1', serif;
+    --text-primary: #1C1917;
+    --text-body: #2B2724;
+    --text-secondary: #6F6A66;
+    --text-meta: #746E69;
+    --border-soft: #DDD7D3;
+    --anemone-pink: #F6EBE9;
+    --ease-out: cubic-bezier(.22,1,.36,1);
+    --ease-inout: cubic-bezier(.65,0,.35,1);
+  }
+  html { font-kerning: normal; }
+  body { font-synthesis: none; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #FFFFFF; color: #1E1B18;
+         font-family: var(--font-ja); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: #1E1B18; text-decoration: none; }
+  a:hover { color: #8C7F71; }
+  :focus-visible { outline: 1px solid #1E1B18; outline-offset: 5px; }
+  @keyframes rdUp { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
+  @keyframes rdFade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes rdNavIn { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  @keyframes rdNavOut { from { transform: translateY(0); } to { transform: translateY(100%); } }
+  @keyframes rdNavItem { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @keyframes rdNavPhoto { from { opacity: 0; clip-path: inset(12% 0 0 0); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
+  /* スマホのみ：主要リンク・ボタンのタップ領域を確保（見た目・配置は変えない） */
+  @media (max-width: 767px) {
+    header button { padding: 16px 8px !important; margin: -16px -8px !important; }
+    footer nav a, footer a[href^="tel:"], a[href^="tel:"] { padding: 15px 0 !important; margin: -15px 0 !important; display: inline-block; }
+    footer div > a[target="_blank"], a[href*="google.com/maps"] { padding: 15px 0 !important; margin: -15px 0 !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  }
+</style>
+</helmet>
+
+<div style="{{ rdOverlayStyle }}"></div>
+<div style="{{ rdContentStyle }}">
+
+  <header style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:clamp(18px,2.4vw,34px) clamp(18px,4vw,54px);background:linear-gradient(180deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.55) 46%,rgba(255,255,255,0) 100%);pointer-events:none">
+    <a href="{{ topPage }}" aria-label="Hair salon Anemone ホーム" style="pointer-events:auto;display:grid;gap:5px;line-height:1">
+      <span style="font-family:var(--font-en);font-weight:400;font-size:clamp(19px,2.1vw,27px);letter-spacing:.06em;text-transform:uppercase">anemone</span>
+      <span style="font-family:var(--font-en);font-weight:400;font-size:clamp(8px,.85vw,10px);letter-spacing:.12em;text-transform:uppercase;color:#6F6A66">Hair salon</span>
+    </a>
+    <sc-if value="{{ isWide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="メインナビゲーション" style="pointer-events:auto;display:flex;align-items:center;gap:clamp(20px,2.6vw,44px);padding-top:4px;font-family:var(--font-en);font-size:clamp(10px,1vw,12.5px);letter-spacing:.09em;text-transform:uppercase">
+        <a href="#about-top" style="padding:4px 0;border-bottom:1px solid rgba(30,27,24,.5);transition:border-color .45s ease,opacity .35s ease" style-hover="border-color:rgba(30,27,24,0);opacity:.7">about</a>
+        <a href="{{ menuPage }}" style="padding:4px 0;border-bottom:1px solid rgba(30,27,24,0);transition:border-color .45s ease,opacity .35s ease" style-hover="border-color:rgba(30,27,24,.5);opacity:.7">menu</a>
+        <a href="{{ galleryPage }}" style="padding:4px 0;border-bottom:1px solid rgba(30,27,24,0);transition:border-color .45s ease,opacity .35s ease" style-hover="border-color:rgba(30,27,24,.5);opacity:.7">gallery</a>
+        <a href="{{ accessPage }}" style="padding:4px 0;border-bottom:1px solid rgba(30,27,24,0);transition:border-color .45s ease,opacity .35s ease" style-hover="border-color:rgba(30,27,24,.5);opacity:.7">access</a>
+        <a href="{{ hpReserve }}" target="_blank" rel="noopener noreferrer" style="padding:4px 0;border-bottom:1px solid rgba(30,27,24,0);transition:border-color .45s ease,opacity .35s ease" style-hover="border-color:rgba(30,27,24,.5);opacity:.7">reservation</a>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ isNarrow }}" hint-placeholder-val="{{ false }}">
+      <button type="button" onClick="{{ toggleNav }}" aria-label="メニューを開く" aria-expanded="{{ navOpen }}" style="pointer-events:auto;display:inline-flex;align-items:center;gap:12px;background:none;border:0;padding:6px 2px;cursor:pointer;color:#1E1B18;font-family:var(--font-en);font-weight:400;font-size:clamp(10px,1vw,12px);letter-spacing:.12em;text-transform:uppercase" style-hover="color:#6F6A66">
+        <span>menu</span>
+        <span aria-hidden="true" style="display:grid;gap:4px;width:22px">
+          <span style="display:block;height:1px;background:#1E1B18"></span>
+          <span style="display:block;height:1px;background:#1E1B18"></span>
+        </span>
+      </button>
+    </sc-if>
+  </header>
+
+  <sc-if value="{{ navVisible }}" hint-placeholder-val="{{ false }}">
+    <div role="dialog" aria-modal="true" aria-label="ナビゲーション" style="position:fixed;inset:0;height:100dvh;z-index:80;background:#FFFFFF;animation:{{ navOverlayAnimation }};overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:0 clamp(20px,5vw,30px) calc(28px + env(safe-area-inset-bottom))">
+      <div style="width:100%;max-width:640px;margin:0 auto">
+        <div style="position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;min-height:72px;padding-top:env(safe-area-inset-top);background:#FFFFFF;border-bottom:1px solid var(--border-soft)">
+          <span style="font-family:var(--font-en);font-weight:400;font-size:20px;letter-spacing:.06em;text-transform:uppercase">anemone</span>
+          <button type="button" onClick="{{ closeNav }}" aria-label="メニューを閉じる" style="min-width:44px;min-height:44px;background:none;border:0;padding:0;cursor:pointer;color:#1E1B18;font-family:var(--font-en);font-weight:400;font-size:11px;letter-spacing:.12em;text-transform:uppercase">close ×</button>
+        </div>
+        <nav aria-label="モバイルナビゲーション">
+          <a href="#about-top" onClick="{{ closeNav }}" style="min-height:82px;display:grid;grid-template-columns:28px 1fr auto;grid-template-rows:auto auto;align-content:center;column-gap:10px;border-bottom:1px solid var(--border-soft);animation:rdNavItem .55s var(--ease-out) .12s both">
+            <span style="grid-row:1/3;align-self:center;font-family:var(--font-en);font-size:9.5px;letter-spacing:.08em;color:#8C8681">01</span><span style="font-family:var(--font-en);font-weight:300;font-size:clamp(29px,8vw,36px);line-height:1;letter-spacing:.045em;text-transform:uppercase">about</span><span style="font-family:var(--font-ja);font-size:11.5px;letter-spacing:.045em;color:#6F6A66">サロンについて</span>
+          </a>
+          <a href="{{ menuPage }}" onClick="{{ closeNav }}" style="min-height:82px;display:grid;grid-template-columns:28px 1fr auto;grid-template-rows:auto auto;align-content:center;column-gap:10px;border-bottom:1px solid var(--border-soft);animation:rdNavItem .55s var(--ease-out) .18s both">
+            <span style="grid-row:1/3;align-self:center;font-family:var(--font-en);font-size:9.5px;letter-spacing:.08em;color:#8C8681">02</span><span style="font-family:var(--font-en);font-weight:300;font-size:clamp(29px,8vw,36px);line-height:1;letter-spacing:.045em;text-transform:uppercase">menu</span><span style="font-family:var(--font-ja);font-size:11.5px;letter-spacing:.045em;color:#6F6A66">メニュー・料金</span>
+          </a>
+          <a href="{{ galleryPage }}" onClick="{{ closeNav }}" style="min-height:82px;display:grid;grid-template-columns:28px 1fr auto;grid-template-rows:auto auto;align-content:center;column-gap:10px;border-bottom:1px solid var(--border-soft);animation:rdNavItem .55s var(--ease-out) .24s both">
+            <span style="grid-row:1/3;align-self:center;font-family:var(--font-en);font-size:9.5px;letter-spacing:.08em;color:#8C8681">03</span><span style="font-family:var(--font-en);font-weight:300;font-size:clamp(29px,8vw,36px);line-height:1;letter-spacing:.045em;text-transform:uppercase">gallery</span><span style="font-family:var(--font-ja);font-size:11.5px;letter-spacing:.045em;color:#6F6A66">ヘアスタイル</span>
+          </a>
+          <a href="{{ accessPage }}" onClick="{{ closeNav }}" style="min-height:82px;display:grid;grid-template-columns:28px 1fr auto;grid-template-rows:auto auto;align-content:center;column-gap:10px;border-bottom:1px solid var(--border-soft);animation:rdNavItem .55s var(--ease-out) .3s both">
+            <span style="grid-row:1/3;align-self:center;font-family:var(--font-en);font-size:9.5px;letter-spacing:.08em;color:#8C8681">04</span><span style="font-family:var(--font-en);font-weight:300;font-size:clamp(29px,8vw,36px);line-height:1;letter-spacing:.045em;text-transform:uppercase">access</span><span style="font-family:var(--font-ja);font-size:11.5px;letter-spacing:.045em;color:#6F6A66">店舗・アクセス</span>
+          </a>
+        </nav>
+        <div style="height:clamp(148px,22dvh,198px);margin-top:22px;overflow:hidden;background:#FBFAF8;animation:rdNavPhoto .65s var(--ease-out) .36s both"><img src="uploads/hpb_interior_02.jpg" alt="Hair salon Anemoneの店内" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:50% 50%"></div>
+        <a href="{{ hpReserve }}" target="_blank" rel="noopener noreferrer" onClick="{{ closeNav }}" style="min-height:76px;margin-top:18px;display:grid;grid-template-columns:1fr auto;align-content:center;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);animation:rdNavItem .55s var(--ease-out) .42s both">
+          <span style="font-family:var(--font-en);font-weight:300;font-size:26px;line-height:1;letter-spacing:.06em;text-transform:uppercase">reservation</span><span style="margin-top:5px;font-family:var(--font-ja);font-size:11px;letter-spacing:.045em;color:#6F6A66">予約する</span>
+        </a>
+        <div style="display:flex;flex-wrap:wrap;gap:10px 24px;padding:25px 0 18px;animation:rdNavItem .55s var(--ease-out) .48s both">
+          <a href="{{ instagram }}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;min-height:44px;font-family:var(--font-en);font-size:11px;letter-spacing:.08em;text-transform:uppercase">Instagram</a><a href="{{ hpSalon }}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;min-height:44px;font-family:var(--font-en);font-size:11px;letter-spacing:.08em">Hot Pepper Beauty</a>
+        </div>
+        <p style="margin:0;padding-top:18px;border-top:1px solid var(--border-soft);font-family:var(--font-en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#8C8681">Hair salon Anemone / okinawa / chibana</p>
+      </div>
+    </div>
+  </sc-if>
+
+  <section id="about-top" aria-label="ABOUT メインビジュアル" style="position:relative;width:100%;padding-top:clamp(96px,11vw,150px);background:#FFFFFF">
+    <div style="width:100%;aspect-ratio:16/9;max-height:min(78svh,860px);overflow:hidden;background:#FFFFFF">
+      <img src="uploads/hpb_interior_01.jpg" alt="Hair salon Anemoneの店内" width="1672" height="941" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:50% 50%" />
+    </div>
+    <div style="max-width:1360px;margin:0 auto;padding:clamp(26px,3.4vw,46px) clamp(20px,5vw,72px) 0;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px">
+      <h1 style="margin:0;font-family:var(--font-en);font-weight:300;font-size:clamp(40px,6.4vw,96px);line-height:1;letter-spacing:.045em;text-transform:uppercase">about</h1>
+      <span style="font-family:var(--font-ja);font-size:clamp(11px,1vw,13px);letter-spacing:.09em;color:#6F6A66">／ サロンについて</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="concept-heading" style="background:#FFFFFF;padding:clamp(72px,11vw,168px) clamp(20px,5vw,72px) clamp(60px,8vw,120px)">
+    <div style="max-width:1360px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-start;gap:clamp(40px,6vw,110px)">
+      <div data-reveal style="flex:1 1 420px;min-width:min(100%,300px);opacity:0;transform:translateY(10px);transition:opacity 1.1s cubic-bezier(.22,1,.36,1),transform 1.1s cubic-bezier(.22,1,.36,1)">
+        <p style="margin:0 0 clamp(18px,2.4vw,32px);font-family:var(--font-en);font-size:clamp(10px,1vw,12px);letter-spacing:.09em;text-transform:uppercase;color:#6F6A66">concept</p>
+        <h2 id="concept-heading" style="margin:0 0 clamp(28px,3.4vw,52px);font-family:var(--font-ja-serif);font-weight:400;font-size:clamp(26px,2.9vw,40px);line-height:1.75;letter-spacing:.035em;text-wrap:pretty">髪の状態と、<br>普段の手入れから。</h2>
+        <div style="display:grid;gap:clamp(16px,1.8vw,24px);max-width:38em">
+          <p style="margin:0;font-family:var(--font-ja);font-size:clamp(13.5px,1.05vw,15.5px);line-height:1.95;letter-spacing:.025em;color:#2B2724;text-wrap:pretty">髪の状態や普段のお手入れについて伺い、施術をご提案します。</p>
+          <p style="margin:0;font-family:var(--font-ja);font-size:clamp(13.5px,1.05vw,15.5px);line-height:1.95;letter-spacing:.025em;color:#2B2724;text-wrap:pretty">Hair salon Anemoneでは、丁寧なカウンセリングを大切にしています。髪質や生活に合わせた提案、髪質改善・白髪ぼかし・ナチュラルカラーのご相談を承ります。</p>
+          <p style="margin:0;font-family:var(--font-ja);font-size:clamp(13.5px,1.05vw,15.5px);line-height:1.95;letter-spacing:.025em;color:#2B2724;text-wrap:pretty">カット、カラー、トリートメント、ストレート、ヘッドスパ。初めての方も、髪や頭皮のお悩みをご相談ください。</p>
+        </div>
+      </div>
+      <div data-reveal style="flex:1 1 340px;min-width:min(100%,280px);opacity:0;transform:translateY(10px);transition:opacity 1.1s cubic-bezier(.22,1,.36,1) .12s,transform 1.1s cubic-bezier(.22,1,.36,1) .12s">
+        <div style="width:100%;aspect-ratio:4/5;overflow:hidden;background:#FFFFFF">
+          <img src="uploads/hpb_treatment_02.jpg" alt="カット施術のイメージ" loading="lazy" decoding="async" width="1130" height="1450" style="width:100%;height:100%;object-fit:cover;object-position:50% 50%" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="craft-heading" style="background:#FFFFFF;padding:clamp(30px,5vw,70px) clamp(20px,5vw,72px) clamp(64px,9vw,140px)">
+    <div style="max-width:1360px;margin:0 auto">
+      <div data-reveal style="margin-bottom:clamp(40px,6vw,96px);opacity:0;transform:translateY(8px);transition:opacity 1s var(--ease-out),transform 1s var(--ease-out)">
+        <p style="margin:0 0 clamp(12px,1.4vw,18px);font-family:var(--font-en);font-size:clamp(10px,1vw,12px);letter-spacing:.09em;text-transform:uppercase;color:#6F6A66">strength</p>
+        <h2 id="craft-heading" style="margin:0;font-family:var(--font-ja);font-weight:500;font-size:clamp(21px,2.5vw,34px);line-height:1.65;letter-spacing:.035em">施術のこだわり</h2>
+      </div>
+      <div style="display:grid;gap:clamp(72px,11vw,180px)">
+        <sc-for list="{{ crafts }}" as="item" hint-placeholder-count="3">
+          <article style="display:flex;flex-wrap:wrap;flex-direction:{{ item.dir }};align-items:center;gap:clamp(24px,4vw,72px)">
+            <div data-reveal data-reveal-clip style="flex:{{ item.imgFlex }};min-width:min(100%,280px);opacity:0;clip-path:inset(0 0 16% 0);transition:opacity 1.2s var(--ease-out),clip-path 1.3s var(--ease-out)">
+              <div style="width:100%;aspect-ratio:{{ item.ratio }};overflow:hidden;background:#FFFFFF">
+                <img sc-camel-src="{{ item.img }}" alt="{{ item.alt }}" loading="lazy" decoding="async" width="1200" height="1500" style="width:100%;height:100%;object-fit:cover;object-position:50% 50%" />
+              </div>
+            </div>
+            <div data-reveal style="flex:{{ item.txtFlex }};min-width:min(100%,260px);opacity:0;transform:translateY(10px);transition:opacity 1.1s var(--ease-out) .12s,transform 1.1s var(--ease-out) .12s">
+              <p style="margin:0 0 clamp(10px,1.2vw,16px);font-family:var(--font-en);font-size:clamp(44px,5.6vw,84px);line-height:.9;letter-spacing:.02em;color:#DDD7D3">{{ item.no }}</p>
+              <p style="margin:0 0 clamp(14px,1.8vw,22px);font-family:var(--font-en);font-size:clamp(11px,1.05vw,13px);letter-spacing:.1em;text-transform:uppercase;color:#6F6A66">{{ item.label }}</p>
+              <h3 style="margin:0 0 clamp(14px,1.6vw,20px);font-family:var(--font-ja);font-weight:500;font-size:clamp(18px,1.9vw,26px);line-height:1.65;letter-spacing:.035em;text-wrap:pretty">{{ item.title }}</h3>
+              <p style="margin:0;max-width:26em;font-family:var(--font-ja);font-size:clamp(13px,1.05vw,15.5px);line-height:1.9;letter-spacing:.025em;color:#2B2724;text-wrap:pretty">{{ item.body }}</p>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="strength-heading" style="background:#FFFFFF;padding:clamp(58px,8vw,120px) clamp(20px,5vw,72px)">
+    <div style="max-width:1360px;margin:0 auto">
+      <div data-reveal style="margin-bottom:clamp(34px,5vw,72px);opacity:0;transform:translateY(8px);transition:opacity 1s var(--ease-out),transform 1s var(--ease-out)">
+        <p style="margin:0 0 clamp(12px,1.4vw,18px);font-family:var(--font-en);font-size:clamp(10px,1vw,12px);letter-spacing:.09em;text-transform:uppercase;color:#6F6A66">strength</p>
+        <h2 id="strength-heading" style="margin:0;font-family:var(--font-ja);font-weight:500;font-size:clamp(21px,2.5vw,34px);line-height:1.65;letter-spacing:.035em">Anemoneのご案内。</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:{{ strengthCols }};gap:clamp(30px,4vw,64px)">
+        <sc-for list="{{ strengths }}" as="s" hint-placeholder-count="3">
+          <div data-reveal style="opacity:0;transform:translateY(8px);transition:opacity 1.05s var(--ease-out),transform 1.05s var(--ease-out);padding-top:clamp(18px,2.2vw,28px);border-top:1px solid rgba(30,27,24,.18)">
+            <p style="margin:0 0 clamp(14px,1.8vw,24px);font-family:var(--font-en);font-size:clamp(13px,1.1vw,15px);letter-spacing:.06em;color:#746E69">{{ s.no }}</p>
+            <h3 style="margin:0 0 clamp(12px,1.5vw,18px);font-family:var(--font-ja);font-weight:500;font-size:clamp(17px,1.7vw,22px);line-height:1.65;letter-spacing:.035em;text-wrap:pretty">{{ s.title }}</h3>
+            <p style="margin:0;font-family:var(--font-ja);font-size:clamp(13px,1.05vw,15px);line-height:1.9;letter-spacing:.025em;color:#2B2724;text-wrap:pretty">{{ s.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="owner-heading" style="background:#FFFFFF;padding:clamp(72px,11vw,170px) clamp(20px,5vw,72px) clamp(60px,9vw,140px)">
+    <div style="max-width:1360px;margin:0 auto">
+      <div data-reveal style="margin-bottom:clamp(34px,5vw,72px);opacity:0;transform:translateY(8px);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1)">
+        <h2 id="owner-heading" style="margin:0;font-family:var(--font-en);font-weight:300;font-size:clamp(38px,5.6vw,84px);line-height:1;letter-spacing:.045em;text-transform:uppercase">stylist</h2>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:clamp(40px,6vw,110px)">
+        <div data-reveal style="flex:1 1 380px;min-width:min(100%,280px);opacity:0;transform:translateY(10px);transition:opacity 1.1s cubic-bezier(.22,1,.36,1),transform 1.1s cubic-bezier(.22,1,.36,1)">
+          <div style="width:100%;aspect-ratio:4/5;overflow:hidden;background:#FFFFFF">
+            <img src="uploads/hpb_staff_onuma_01.jpg" alt="代表・小沼巧和" loading="lazy" decoding="async" width="1130" height="1400" style="width:100%;height:100%;object-fit:cover;object-position:50% 50%" />
+          </div>
+        </div>
+        <div data-reveal style="flex:1 1 400px;min-width:min(100%,280px);opacity:0;transform:translateY(10px);transition:opacity 1.1s cubic-bezier(.22,1,.36,1) .12s,transform 1.1s cubic-bezier(.22,1,.36,1) .12s">
+          <p style="margin:0 0 clamp(12px,1.4vw,18px);font-family:var(--font-en);font-size:clamp(10px,1vw,12px);letter-spacing:.12em;text-transform:uppercase;color:#6F6A66">representative / stylist</p>
+          <p style="margin:0 0 clamp(28px,3.6vw,52px);font-family:var(--font-en);font-size:clamp(32px,4.4vw,58px);line-height:1;letter-spacing:.05em">小沼 巧和</p>
+          <div style="display:grid;gap:clamp(15px,1.7vw,22px);max-width:38em;margin-bottom:clamp(36px,4.6vw,68px)">
+            <p style="margin:0;font-family:var(--font-ja);font-size:clamp(13.5px,1.05vw,15.5px);line-height:2.3;letter-spacing:.07em;text-wrap:pretty">髪質や生活に合わせた提案を大切にし、カット・縮毛矯正を中心に担当しています。</p>
+            <p style="margin:0;font-family:var(--font-ja);font-size:clamp(13.5px,1.05vw,15.5px);line-height:2.3;letter-spacing:.07em;text-wrap:pretty">髪質改善、白髪ぼかし、ナチュラルカラーについてもご相談ください。</p>
+          </div>
+          <dl style="margin:0;display:grid;gap:clamp(18px,2vw,26px)">
+            <div style="display:flex;flex-wrap:wrap;gap:8px 28px;padding-bottom:clamp(16px,1.8vw,22px);border-bottom:1px solid rgba(30,27,24,.12)">
+              <dt style="flex:0 0 clamp(92px,10vw,130px);font-family:var(--font-en);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#6F6A66;padding-top:4px">profile</dt>
+              <dd style="margin:0;flex:1 1 200px;font-family:var(--font-ja);font-size:clamp(13px,1.05vw,15px);line-height:2.1;letter-spacing:.045em">代表／スタイリスト<br />スタイリスト歴 20年以上</dd>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px 28px;padding-bottom:clamp(16px,1.8vw,22px);border-bottom:1px solid rgba(30,27,24,.12)">
+              <dt style="flex:0 0 clamp(92px,10vw,130px);font-family:var(--font-en);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#6F6A66;padding-top:4px">specialty</dt>
+              <dd style="margin:0;flex:1 1 200px;font-family:var(--font-ja);font-size:clamp(13px,1.05vw,15px);line-height:2.1;letter-spacing:.045em">縮毛矯正 / 髪質改善 / ドライカット</dd>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px 28px;padding-bottom:clamp(16px,1.8vw,22px);border-bottom:1px solid rgba(30,27,24,.12)">
+              <dt style="flex:0 0 clamp(92px,10vw,130px);font-family:var(--font-en);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#6F6A66;padding-top:4px">approach</dt>
+              <dd style="margin:0;flex:1 1 200px;font-family:var(--font-ja);font-size:clamp(13px,1.05vw,15px);line-height:2.1;letter-spacing:.045em">髪の状態や普段の手入れを確認<br />髪質や生活に合わせた提案<br />カット・カラー・縮毛矯正の相談</dd>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px 28px">
+              <dt style="flex:0 0 clamp(92px,10vw,130px);font-family:var(--font-en);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#6F6A66;padding-top:4px">instagram</dt>
+              <dd style="margin:0;flex:1 1 200px">
+                <a href="{{ instagram }}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:2px 0;font-family:var(--font-en);font-size:clamp(13px,1.05vw,15px);letter-spacing:.1em;border-bottom:1px solid rgba(30,27,24,.28);transition:border-color .45s ease,opacity .35s ease" style-hover="border-color:#1E1B18;opacity:.7">@anemone_chibana</a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="position:relative;z-index:1;background:#FFFFFF;padding:clamp(64px,9vw,120px) clamp(20px,5vw,72px) clamp(30px,4vw,48px)">
+    <div style="max-width:1360px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(40px,6vw,90px)">
+        <div style="flex:1 1 260px;display:grid;gap:clamp(20px,2.4vw,30px);align-content:start">
+          <a href="{{ topPage }}" style="display:grid;gap:6px;line-height:1">
+            <span style="font-family:var(--font-en);font-size:clamp(24px,3vw,36px);letter-spacing:.06em;text-transform:uppercase">anemone</span>
+            <span style="font-family:var(--font-en);font-weight:400;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6F6A66">Hair salon</span>
+          </a>
+          <div style="display:grid;gap:8px;font-family:var(--font-ja);font-size:12.5px;line-height:2.05;letter-spacing:.045em;color:#6F6A66">
+            <p style="margin:0">〒904-2143<br />沖縄県沖縄市知花6丁目10-1 イオンタウン知花</p>
+            <p style="margin:0">10：00～18：00 ／ 定休日：木曜日</p>
+            <p style="margin:0">TEL <a href="tel:0989389537" style="border-bottom:1px solid var(--border-soft)">098-938-9537</a><br>ご予約・ご相談はお電話でも承ります</p>
+          </div>
+        </div>
+        <nav aria-label="フッターナビゲーション" style="flex:1 1 180px;display:grid;gap:14px;align-content:start;font-family:var(--font-en);font-size:11px;letter-spacing:.11em;text-transform:uppercase">
+          <a href="#about-top" style="transition:opacity .35s ease" style-hover="color:#6F6A66">about</a>
+          <a href="{{ menuPage }}" style="transition:opacity .35s ease" style-hover="color:#6F6A66">menu</a>
+          <a href="{{ galleryPage }}" style="transition:opacity .35s ease" style-hover="color:#6F6A66">gallery</a>
+          <a href="{{ accessPage }}" style="transition:opacity .35s ease" style-hover="color:#6F6A66">access</a>
+          <a href="{{ reservationPage }}" style="transition:opacity .35s ease" style-hover="color:#6F6A66">reservation</a>
+        </nav>
+        <div style="flex:1 1 220px;display:grid;gap:14px;align-content:start;font-family:var(--font-en);font-size:11px;letter-spacing:.11em;text-transform:uppercase">
+          <a href="{{ instagram }}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:10px;transition:gap .5s cubic-bezier(.22,1,.36,1)" style-hover="gap:20px"><span>instagram</span></a>
+          <a href="{{ hpSalon }}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:10px;transition:gap .5s cubic-bezier(.22,1,.36,1)" style-hover="gap:20px"><span>hot pepper beauty</span></a>
+        </div>
+      </div>
+      <p style="margin:clamp(48px,7vw,96px) 0 0;padding-top:clamp(18px,2vw,26px);border-top:1px solid rgba(30,27,24,.1);font-family:var(--font-en);font-size:10px;letter-spacing:.045em;color:#6F6A66">© Hair salon Anemone</p>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  static rdInitialCovering() {
+    try { return typeof sessionStorage !== 'undefined' && sessionStorage.getItem('rd-page-transitioning') === '1'; } catch (e) { return false; }
+  }
+
+  state = {
+    navOpen: false,
+    navClosing: false,
+    narrow: typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches,
+    // 1100px以下は「施術のこだわり」を縦積みへ（横並びが収まらない幅で重なりmarginが飛び出すのを防ぐ）
+    stackCraft: typeof window !== 'undefined' && window.matchMedia('(max-width: 1100px)').matches,
+    tablet: typeof window !== 'undefined' && window.matchMedia('(max-width: 1280px)').matches,
+    rdCovering: Component.rdInitialCovering(),
+    rdReduced: typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    rdOrigin: 'bottom',
+    rdPointer: Component.rdInitialCovering() ? 'auto' : 'none',
+    rdDurationMs: 720,
+    rdContentReady: !Component.rdInitialCovering()
+  };
+
+  static TOP = 'index.html';
+
+  static LINKS = {
+    topPage: Component.TOP,
+    menuPage: 'menu.html',
+    galleryPage: 'gallery.html',
+    accessPage: Component.TOP + '#access',
+    reservationPage: Component.TOP + '#reservation',
+    hpReserve: 'https://beauty.hotpepper.jp/slnH000598336/',
+    hpSalon: 'https://beauty.hotpepper.jp/slnH000598336/',
+    instagram: 'https://www.instagram.com/anemone_chibana/'
+  };
+
+  rdInitTransition() {
+    import('./page-transition.js').then((mod) => {
+      this._rdMod = mod;
+      this._rdDetach = mod.rdAttachLinkInterceptor((navigate) => this.rdCoverAndNavigate(navigate, mod));
+      // bfcache／戻る・進むでカーテンが残らないようにする
+      this._rdOnShow = () => { mod.rdClearFlag(); this.rdReveal(mod); };
+      window.addEventListener('pageshow', this._rdOnShow);
+      if (this.state.rdCovering) {
+        mod.rdClearFlag();
+        requestAnimationFrame(() => requestAnimationFrame(() => this.rdReveal(mod)));
+      }
+    });
+  }
+
+  rdReveal(mod) {
+    this.setState({ rdOrigin: 'top', rdCovering: false, rdPointer: 'none', rdDurationMs: mod ? mod.RD_MS_IN : 820, rdContentReady: true });
+  }
+
+  rdCoverAndNavigate(navigate, mod) {
+    const reduced = this.state.rdReduced;
+    this.setState({ rdOrigin: 'bottom', rdCovering: true, rdPointer: 'auto', rdDurationMs: mod ? mod.RD_MS_OUT : 720 });
+    setTimeout(navigate, reduced ? 180 : (mod ? mod.RD_MS_OUT : 720));
+  }
+
+  componentDidMount() {
+    this.rdInitTransition();
+    this._mqN = window.matchMedia('(max-width: 767px)');
+    this._mqS = window.matchMedia('(max-width: 1100px)');
+    this._mqT = window.matchMedia('(max-width: 1280px)');
+    this._onMq = () => this.setState({ narrow: this._mqN.matches, stackCraft: this._mqS.matches, tablet: this._mqT.matches });
+    this._mqN.addEventListener('change', this._onMq);
+    this._mqS.addEventListener('change', this._onMq);
+    this._mqT.addEventListener('change', this._onMq);
+    this.reveal();
+  }
+
+  componentDidUpdate() {
+    document.body.style.overflow = (this.state.navOpen || this.state.navClosing) ? 'hidden' : '';
+    this.reveal();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this._navCloseTimer);
+    if (this._rdDetach) this._rdDetach();
+    if (this._rdOnShow) window.removeEventListener('pageshow', this._rdOnShow);
+    if (this._io) this._io.disconnect();
+    if (this._mqN) this._mqN.removeEventListener('change', this._onMq);
+    if (this._mqS) this._mqS.removeEventListener('change', this._onMq);
+    if (this._mqT) this._mqT.removeEventListener('change', this._onMq);
+    document.body.style.overflow = '';
+  }
+
+  reveal() {
+    const nodes = Array.from(document.querySelectorAll('[data-reveal]')).filter((n) => !n.dataset.rdObserved);
+    if (!nodes.length && this._io) return;
+    const show = (el) => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      if (el.hasAttribute('data-reveal-clip')) el.style.clipPath = 'inset(0 0 0 0)';
+    };
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      nodes.forEach(show);
+      return;
+    }
+    if (!this._io) this._io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((e) => { if (e.isIntersecting) { show(e.target); obs.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
+    nodes.forEach((n) => { n.dataset.rdObserved = '1'; this._io.observe(n); });
+    clearTimeout(this._rdSafety);
+    this._rdSafety = setTimeout(() => {
+      Array.from(document.querySelectorAll('[data-reveal]')).forEach((n) => { if (n.style.opacity !== '1') show(n); });
+    }, 2600);
+  }
+
+  closeMobileNav() {
+    if (!this.state.navOpen || this.state.navClosing) return;
+    clearTimeout(this._navCloseTimer);
+    if (this.state.rdReduced) {
+      this.setState({ navOpen: false, navClosing: false });
+      return;
+    }
+    this.setState({ navClosing: true });
+    this._navCloseTimer = setTimeout(() => this.setState({ navOpen: false, navClosing: false }), 420);
+  }
+
+  renderVals() {
+    const stack = this.state.narrow;
+
+    const crafts = [
+      {
+        no: '01', label: 'color',
+        title: '髪質と生活に合わせたカラー',
+        body: 'ナチュラルカラーや白髪ぼかしのご相談を承ります。髪質や生活に合わせた提案を大切にしています。',
+        img: 'uploads/hpb_style_h01_01.jpg',
+        alt: '大人女性の艶髪ロング×髪質改善カラーの掲載スタイル',
+        dir: 'row', imgFlex: '1 1 44%', txtFlex: '1 1 46%', ratio: stack ? '4/3' : '4/5'
+      },
+      {
+        no: '02', label: 'straight',
+        title: '髪の状態を見て選ぶストレート',
+        body: '髪質改善ストレートやキラ髪縮毛矯正をご用意しています。髪の状態に合わせて施術をご相談ください。',
+        img: 'uploads/hpb_style_h05_01.jpg',
+        alt: '髪質改善ストレートロングの掲載スタイル',
+        dir: 'row-reverse', imgFlex: '1 1 54%', txtFlex: '1 1 36%', ratio: stack ? '4/3' : '16/11'
+      },
+      {
+        no: '03', label: 'head spa',
+        title: '髪と頭皮のためのケア',
+        body: 'トリートメントやヘッドスパを掲載しています。髪や頭皮の状態、普段のお手入れを伺います。',
+        img: 'uploads/hpb_treatment_01.jpg',
+        alt: 'シャンプー施術のイメージ',
+        dir: 'row', imgFlex: '1 1 44%', txtFlex: '1 1 46%', ratio: stack ? '4/3' : '4/5'
+      }
+    ];
+
+    const strengths = [
+      {
+        no: '01',
+        title: 'カットから、髪と頭皮の相談まで',
+        body: 'カット、カラー、パーマ、縮毛矯正、トリートメント、ヘッドスパを掲載しています。髪の状態や普段のお手入れを伺い、施術をご提案します。'
+      },
+      {
+        no: '02',
+        title: 'イオンタウン知花内の美容室',
+        body: '沖縄市知花6丁目10-1、イオンタウン知花内にあります。マックスバリュと共用の駐車場をご利用いただけます。'
+      },
+      {
+        no: '03',
+        title: '店内で過ごす時間に',
+        body: 'セット面は6席。フリーWi-Fiと、雑誌やYouTubeをご覧いただけるタブレットをご用意しています。'
+      }
+    ];
+
+    return {
+      navOpen: this.state.navOpen,
+      navVisible: this.state.navOpen || this.state.navClosing,
+      navOverlayAnimation: this.state.navClosing
+        ? 'rdNavOut .42s cubic-bezier(.65,0,.35,1) both'
+        : 'rdNavIn .62s cubic-bezier(.22,1,.36,1) both',
+      rdOverlayStyle: this.state.rdReduced ? {
+        position:'fixed', inset:0, width:'100%', height:'100dvh', zIndex:99999,
+        pointerEvents:this.state.rdPointer, background:'#FFFBF6',
+        opacity:this.state.rdCovering?1:0, transition:'opacity 180ms linear'
+      } : {
+        position:'fixed', inset:0, width:'100%', height:'100dvh', zIndex:99999,
+        pointerEvents:this.state.rdPointer, background:'#FFFBF6',
+        transform:'scaleY(' + (this.state.rdCovering?1:0) + ')', transformOrigin:this.state.rdOrigin,
+        transition:'transform ' + this.state.rdDurationMs + 'ms cubic-bezier(0.65,0,0.35,1)', willChange:'transform'
+      },
+      rdContentStyle: this.state.rdReduced ? {
+        position:'relative', width:'100%', overflowX:'clip', background:'#FFFFFF',
+        opacity:this.state.rdContentReady?1:0.98, transition:'opacity 160ms linear'
+      } : {
+        position:'relative', width:'100%', overflowX:'clip', background:'#FFFFFF',
+        opacity:this.state.rdContentReady?1:0.96, transform:this.state.rdContentReady?'none':'translateY(8px)',
+        transition:'opacity 640ms cubic-bezier(0.33,1,0.68,1), transform 640ms cubic-bezier(0.33,1,0.68,1)'
+      },
+      isNarrow: this.state.narrow,
+      isWide: !this.state.narrow,
+      toggleNav: () => {
+        if (this.state.navOpen) this.closeMobileNav();
+        else {
+          clearTimeout(this._navCloseTimer);
+          this.setState({ navOpen: true, navClosing: false });
+        }
+      },
+      closeNav: () => this.closeMobileNav(),
+      crafts,
+      strengths,
+      strengthCols: this.state.narrow ? '1fr' : 'repeat(3,1fr)',
+      ...Component.LINKS
+    };
+  }
+}
+</script>
+</body>
+</html>
