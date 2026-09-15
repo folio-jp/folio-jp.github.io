@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-noir text-amber min-h-screen;
+  background-image: radial-gradient(circle at top, rgba(201, 162, 39, 0.12), transparent 35%);
+}
+
+.panel {
+  @apply rounded-2xl border border-gold/30 bg-obsidian/80 p-6 shadow-luxe backdrop-blur;
+}
+
+.btn-primary {
+  @apply rounded-xl border border-gold bg-gold px-4 py-2 font-semibold text-noir transition hover:bg-amber;
+}
+
+.btn-secondary {
+  @apply rounded-xl border border-gold/50 px-4 py-2 text-amber transition hover:bg-gold/10;
+}
+
+.input {
+  @apply w-full rounded-xl border border-gold/40 bg-black/40 p-3 text-amber placeholder:text-amber/50 focus:border-gold focus:outline-none;
+}
